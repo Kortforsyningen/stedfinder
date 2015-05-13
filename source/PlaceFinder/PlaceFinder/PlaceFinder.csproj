@@ -114,8 +114,13 @@
     </Compile>
     <Compile Include="GeoSearch\GeoSearchAddress.cs" />
     <Compile Include="GeoSearch\GeoSearchAddressData.cs" />
-    <Compile Include="PlaceFindeController.cs" />
+    <Compile Include="IPlaceFinderController.cs" />
+    <Compile Include="IPlaceFinderDockableWindow.cs" />
+    <Compile Include="IGeosearchService.cs" />
+    <Compile Include="PlaceFinderController.cs" />
+    <Compile Include="PlaceFinderException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GeosearchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AddInContent Include="Config.esriaddinx">

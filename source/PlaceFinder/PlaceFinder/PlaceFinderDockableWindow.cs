@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Threading;
 using System.Windows.Forms;
-using PlaceFinder.GeoSearch;
 
 namespace PlaceFinder
 {
@@ -10,14 +9,14 @@ namespace PlaceFinder
     /// Designer class of the dockable window add-in. It contains user interfaces that
     /// make up the dockable window.
     /// </summary>
-    public partial class PlaceFinderDockableWindow : UserControl
+    public partial class PlaceFinderDockableWindow : UserControl, IPlaceFinderDockableWindow
     {
-        public PlaceFindeController PlaceFindeController { get; private set; }
+        public IPlaceFinderController PlaceFinderController { get; private set; }
 
         public PlaceFinderDockableWindow(object hook)
         {
             InitializeComponent();
-            PlaceFindeController = new PlaceFindeController(this, ArcMap.Document);
+            PlaceFinderController = new PlaceFinderController(this, ArcMap.Document, new GeosearchService());
             this.Hook = hook;
         }
 
@@ -40,11 +39,24 @@ namespace PlaceFinder
 
             public AddinImpl()
             {
+                Application.ThreadException += MYThreadHandler;
+            }
+
+            private void MYThreadHandler(object sender, ThreadExceptionEventArgs e)
+            {
+                if (e.Exception is PlaceFinderException)
+                {
+                    MessageBox.Show("Error: " + e.Exception.Message);
+                }
+                else
+                {
+                    MessageBox.Show("Unhandled error in thread: " + Environment.NewLine + e.Exception);
+                }
             }
 
             protected override IntPtr OnCreateChild()
             {
-                m_windowUI = new PlaceFinderDockableWindow(this.Hook);
+                m_windowUI = new PlaceFinderDockableWindow(Hook);
                 return m_windowUI.Handle;
             }
 
@@ -60,16 +72,17 @@ namespace PlaceFinder
 
         private void onZoomTo_Click(object sender, EventArgs e)
         {
-            PlaceFindeController.ZoomTo(searchTextBox.SelectedText);
+            PlaceFinderController.ZoomTo(searchTextBox.SelectedText);
         }
 
         private void onSearchTextChanged(object sender, EventArgs e)
         {
-            PlaceFindeController.SearchTextChange(searchTextBox.Text);
+            PlaceFinderController.SearchTextChange(searchTextBox.Text);
         }
 
         private void onSearchTextKeyDown(object sender, KeyEventArgs e)
         {
+            //TODO fix handling of dropdown
             switch (e.KeyCode)
             {
                 case Keys.Down:

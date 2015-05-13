@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using ESRI.ArcGIS.esriSystem;
+﻿using ESRI.ArcGIS.esriSystem;
 
+//TODO Change namespace
 namespace PlaceFinder
 {
     public class PlaceFinderButton : ESRI.ArcGIS.Desktop.AddIns.Button

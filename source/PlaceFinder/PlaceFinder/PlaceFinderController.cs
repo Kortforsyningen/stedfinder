@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -14,17 +13,19 @@ using PlaceFinder.GeoSearch;
 
 namespace PlaceFinder
 {
-    public class PlaceFindeController
+    public class PlaceFinderController : IPlaceFinderController
     {
-        private readonly PlaceFinderDockableWindow _placeFinderDockableWindow;
+        private readonly IPlaceFinderDockableWindow _placeFinderDockableWindow;
         private readonly IMxDocument _document;
+        private readonly IGeosearchService _geosearchService;
         private List<GeoSearchAddress> currentSearch;
         private List<GeoSearchAddress> lastSearch;
 
-        public PlaceFindeController(PlaceFinderDockableWindow placeFinderDockableWindow, IMxDocument document)
+        public PlaceFinderController(IPlaceFinderDockableWindow placeFinderDockableWindow, IMxDocument document, IGeosearchService geosearchService)
         {
             _placeFinderDockableWindow = placeFinderDockableWindow;
             _document = document;
+            _geosearchService = geosearchService;
         }
 
         public void SearchTextChange(string searchString)
@@ -42,6 +43,7 @@ namespace PlaceFinder
 
             if (!String.IsNullOrEmpty(inputParamSearch))
             {
+                //TODO create configuration for search parameter
                 //var inputParamResources = "Adresser,Veje,Husnumre,Kommuner,Matrikelnumre,Stednavne,Opstillingskredse,Politikredse,Postdistrikter,Regioner,Retskredse";
                 var inputParamResources = "Adresser,Stednavne";
                 var inputParamLimit = "20";
@@ -49,21 +51,8 @@ namespace PlaceFinder
                 var inputParamPassword = "PlaceFinder!1";
                 var inputParamCRS = "epsg:4326";
 
-                var url =
-                    String.Format(
-                        "https://kortforsyningen.kms.dk/Geosearch?type=json&search={0}&resources={1}&limit={2}&login={3}&password={4}&crs={5}",
-                        inputParamSearch, inputParamResources, inputParamLimit, inputParamLogin, inputParamPassword,
-                        inputParamCRS);
+                var response = _geosearchService.Request(inputParamSearch, inputParamResources, inputParamLimit, inputParamLogin, inputParamPassword, inputParamCRS);
 
-                var webClient = new WebClient { Encoding = Encoding.UTF8 };
-                var jsonContent = webClient.DownloadString(url);
-                var serializer = new DataContractJsonSerializer(typeof(GeoSearchAddressData));
-
-                GeoSearchAddressData response;
-                using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonContent)))
-                {
-                    response = (GeoSearchAddressData)serializer.ReadObject(ms);
-                }
                 if (response != null && response.data != null)
                 {
                     return response.data;
@@ -73,25 +62,29 @@ namespace PlaceFinder
             return retValue;
         }
 
+
         public void ZoomTo(string selectedAddress)
         {
+            if (string.IsNullOrWhiteSpace(selectedAddress)) 
+                throw new PlaceFinderException("Der er ikke udfyldt et sted");
+
             var geoSearchAddress = lastSearch.FirstOrDefault(x => x.presentationString.Equals(selectedAddress));
-            if (geoSearchAddress == null) return;
+            if (geoSearchAddress == null)
+            {
+                throw new PlaceFinderException("Stedet blev ikke fundet");
+            }
             var geometry = CreatePolyFromAddress(geoSearchAddress);
             var extent = geometry.Envelope;
             var activeView = ((IActiveView)_document.FocusMap);
-            Debug.Print("sp befor:" + extent.SpatialReference.FactoryCode);
+            if (activeView.FocusMap.SpatialReference == null || activeView.FocusMap.SpatialReference.FactoryCode == 0)
+                //TODO move resource to file
+                throw new PlaceFinderException("Spatial reference of map is not set");
             extent.Project(activeView.FocusMap.SpatialReference);
-            Debug.Print("sp on map:" + activeView.FocusMap.SpatialReference.FactoryCode);
-            Debug.Print("sp after:" + extent.SpatialReference.FactoryCode);
-            Debug.Print("xmax:" + extent.XMax);
-            Debug.Print("xMin:" + extent.XMin);
-            Debug.Print("ymax:" + extent.YMax);
-            Debug.Print("yMin:" + extent.YMin);
             activeView.Extent = extent;
             activeView.Refresh();
         }
-        public IGeometry CreatePolyFromAddress(GeoSearchAddress geoAddress)
+
+        private IGeometry CreatePolyFromAddress(GeoSearchAddress geoAddress)
         {
             if (geoAddress == null)
                 return null;
@@ -99,25 +92,25 @@ namespace PlaceFinder
             var spatialReferenceFactory = (ISpatialReferenceFactory3) Activator.CreateInstance(Type.GetTypeFromProgID("esriGeometry.SpatialReferenceEnvironment"));
             var spatialReference = spatialReferenceFactory.CreateSpatialReference((int)coordinateSystem);
 
-            IGeometry convertWktToGeometry = ConvertWKTToGeometry(geoAddress.geometryWkt);
+            var convertWktToGeometry = ConvertWKTToGeometry(geoAddress.geometryWkt);
             convertWktToGeometry.SpatialReference = spatialReference;
             return convertWktToGeometry;
         }
 
-        public static IGeometry ConvertWKTToGeometry(string wkt)
+        private static IGeometry ConvertWKTToGeometry(string wkt)
         {
             byte[] wkb = ConvertWKTToWKB(wkt);
             return ConvertWKBToGeometry(wkb);
         }
 
-        public static byte[] ConvertWKTToWKB(string wkt)
+        private static byte[] ConvertWKTToWKB(string wkt)
         {
             var writer = new WKBWriter();
             var reader = new WKTReader();
             return writer.Write(reader.Read(wkt));
         }
 
-        public static IGeometry ConvertWKBToGeometry(byte[] wkb)
+        private static IGeometry ConvertWKBToGeometry(byte[] wkb)
         {
             IGeometry geom;
             int countin = wkb.GetLength(0);
