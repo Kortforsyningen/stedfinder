@@ -1,40 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Runtime.Serialization.Json;
-using System.Text;
-using ESRI.ArcGIS.ArcMapUI;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Geometry;
 using NetTopologySuite.IO;
-using PlaceFinder.GeoSearch;
+using PlaceFinder.Interface;
 
 namespace PlaceFinder
 {
     public class PlaceFinderController : IPlaceFinderController
     {
-        private readonly IPlaceFinderDockableWindow _placeFinderDockableWindow;
-        private readonly IMxDocument _document;
-        private readonly IGeosearchService _geosearchService;
+        private readonly IFactory _factory;
         private List<GeoSearchAddress> currentSearch;
         private List<GeoSearchAddress> lastSearch;
 
-        public PlaceFinderController(IPlaceFinderDockableWindow placeFinderDockableWindow, IMxDocument document, IGeosearchService geosearchService)
+        public PlaceFinderController(IFactory factory)
         {
-            _placeFinderDockableWindow = placeFinderDockableWindow;
-            _document = document;
-            _geosearchService = geosearchService;
+            _factory = factory;
         }
 
         public void SearchTextChange(string searchString)
         {
             var geoSearchAddresses = GetAddressData(searchString);
-            lastSearch = currentSearch;
+            lastSearch = currentSearch ?? geoSearchAddresses;
             currentSearch = geoSearchAddresses;
             var list = geoSearchAddresses.Select(geoSearchAddress => geoSearchAddress.presentationString).ToList();
-            _placeFinderDockableWindow.AddSearchResult(list);
+            _factory.PlaceFinderDockableWindow.AddSearchResult(list);
         }
 
         private List<GeoSearchAddress> GetAddressData(string inputParamSearch)
@@ -51,7 +42,7 @@ namespace PlaceFinder
                 var inputParamPassword = "PlaceFinder!1";
                 var inputParamCRS = "epsg:4326";
 
-                var response = _geosearchService.Request(inputParamSearch, inputParamResources, inputParamLimit, inputParamLogin, inputParamPassword, inputParamCRS);
+                var response = _factory.GeosearchService.Request(inputParamSearch, inputParamResources, inputParamLimit, inputParamLogin, inputParamPassword, inputParamCRS);
 
                 if (response != null && response.data != null)
                 {
@@ -75,7 +66,7 @@ namespace PlaceFinder
             }
             var geometry = CreatePolyFromAddress(geoSearchAddress);
             var extent = geometry.Envelope;
-            var activeView = ((IActiveView)_document.FocusMap);
+            var activeView = ((IActiveView)_factory.MxDocument.FocusMap);
             if (activeView.FocusMap.SpatialReference == null || activeView.FocusMap.SpatialReference.FactoryCode == 0)
                 //TODO move resource to file
                 throw new PlaceFinderException("Spatial reference of map is not set");
@@ -89,34 +80,13 @@ namespace PlaceFinder
             if (geoAddress == null)
                 return null;
             var coordinateSystem = esriSRGeoCSType.esriSRGeoCS_WGS1984;
-            var spatialReferenceFactory = (ISpatialReferenceFactory3) Activator.CreateInstance(Type.GetTypeFromProgID("esriGeometry.SpatialReferenceEnvironment"));
+            var spatialReferenceFactory = _factory.SpatialReferenceFactory;
             var spatialReference = spatialReferenceFactory.CreateSpatialReference((int)coordinateSystem);
 
-            var convertWktToGeometry = ConvertWKTToGeometry(geoAddress.geometryWkt);
+            var convertWktToGeometry = _factory.ConvertWKTToGeometry(geoAddress.geometryWkt);
             convertWktToGeometry.SpatialReference = spatialReference;
             return convertWktToGeometry;
         }
 
-        private static IGeometry ConvertWKTToGeometry(string wkt)
-        {
-            byte[] wkb = ConvertWKTToWKB(wkt);
-            return ConvertWKBToGeometry(wkb);
-        }
-
-        private static byte[] ConvertWKTToWKB(string wkt)
-        {
-            var writer = new WKBWriter();
-            var reader = new WKTReader();
-            return writer.Write(reader.Read(wkt));
-        }
-
-        private static IGeometry ConvertWKBToGeometry(byte[] wkb)
-        {
-            IGeometry geom;
-            int countin = wkb.GetLength(0);
-            var factory = (IGeometryFactory3)new GeometryEnvironment();
-            factory.CreateGeometryFromWkbVariant(wkb, out geom, out countin);
-            return geom;
-        }
     }
 }

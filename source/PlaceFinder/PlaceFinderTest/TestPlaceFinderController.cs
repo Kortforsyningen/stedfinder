@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
-using ESRI.ArcGIS.ArcMapUI;
-using Moq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using PlaceFinder;
+using PlaceFinder.Interface;
 using PlaceFinderTest.Builder;
+using PlaceFinderTest.Validater;
 
 namespace PlaceFinderTest
 {
@@ -16,12 +14,11 @@ namespace PlaceFinderTest
         {
             //Arrange
             var place = "SomePlace";
-            var doc = Make.Esri.MxDocument.Build;
-            var placeFinderWindow = Make.PlaceFinderDockableWindow.Build;
-            var geosearchService = Make.GeosearchService.Build;
-            var placeFinderController = new PlaceFinderController(placeFinderWindow, doc, geosearchService);
+            IFactory factory = Make.Factory.Build;
+            var placeFinderController = new PlaceFinderController(factory);
 
             //Act
+            placeFinderController.SearchTextChange(place);
             placeFinderController.ZoomTo(place);
 
             //Assert
@@ -31,17 +28,15 @@ namespace PlaceFinderTest
         public void TestSearchTextChange()
         {
             //Arrange
-            var doc = Make.Esri.MxDocument.Build;
-            var placeFinderWindow = Make.PlaceFinderDockableWindow.Build;
-            var geosearchService = Make.GeosearchService.Build;
-            var placeFinderController = new PlaceFinderController(placeFinderWindow, doc, geosearchService);
+            var place = "SomePlace";
+            IFactory factory = Make.Factory.Build;
+            var placeFinderController = new PlaceFinderController(factory);
 
             //Act
-            var place = "SomePlace";
             placeFinderController.SearchTextChange(place);
 
             //Assert
-            Validator.PlaceFinderWindow(placeFinderWindow).SearchResultAdded.Validate();
+            Validator.PlaceFinderWindow(factory.PlaceFinderDockableWindow).SearchResultAdded.Validate();
         }
 
     }

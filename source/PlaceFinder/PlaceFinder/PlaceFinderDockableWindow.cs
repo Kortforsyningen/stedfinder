@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
+using PlaceFinder.Interface;
 
 namespace PlaceFinder
 {
@@ -16,7 +17,9 @@ namespace PlaceFinder
         public PlaceFinderDockableWindow(object hook)
         {
             InitializeComponent();
-            PlaceFinderController = new PlaceFinderController(this, ArcMap.Document, new GeosearchService());
+            var factory = new Factory();
+            factory.PlaceFinderDockableWindow = this;
+            PlaceFinderController = new PlaceFinderController(factory);
             this.Hook = hook;
         }
 

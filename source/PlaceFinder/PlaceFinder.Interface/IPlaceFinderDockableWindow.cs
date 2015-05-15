@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PlaceFinder
+namespace PlaceFinder.Interface
 {
     public interface IPlaceFinderDockableWindow
     {

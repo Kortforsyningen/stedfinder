@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using PlaceFinder.GeoSearch;
+using PlaceFinder.Interface;
 
 namespace PlaceFinder
 {

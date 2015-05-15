@@ -1,4 +1,6 @@
-﻿namespace PlaceFinder
+﻿using PlaceFinder.Interface;
+
+namespace PlaceFinder
 {
     partial class PlaceFinderDockableWindow
     {
@@ -78,7 +80,7 @@
             // 
             // geoSearchAddressBindingSource
             // 
-            this.geoSearchAddressBindingSource.DataSource = typeof(PlaceFinder.GeoSearch.GeoSearchAddress);
+            this.geoSearchAddressBindingSource.DataSource = typeof(GeoSearchAddress);
             // 
             // PlaceFinderDockableWindow
             // 

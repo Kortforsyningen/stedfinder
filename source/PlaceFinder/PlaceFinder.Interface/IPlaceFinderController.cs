@@ -1,4 +1,4 @@
-﻿namespace PlaceFinder
+﻿namespace PlaceFinder.Interface
 {
     public interface IPlaceFinderController
     {

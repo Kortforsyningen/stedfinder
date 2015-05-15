@@ -1,4 +1,4 @@
-﻿namespace PlaceFinder.GeoSearch
+﻿namespace PlaceFinder.Interface
 {
     public class GeoSearchAddress
     {

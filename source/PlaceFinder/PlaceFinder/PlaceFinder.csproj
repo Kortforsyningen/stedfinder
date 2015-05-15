@@ -112,11 +112,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Config.esriaddinx</DependentUpon>
     </Compile>
-    <Compile Include="GeoSearch\GeoSearchAddress.cs" />
-    <Compile Include="GeoSearch\GeoSearchAddressData.cs" />
-    <Compile Include="IPlaceFinderController.cs" />
-    <Compile Include="IPlaceFinderDockableWindow.cs" />
-    <Compile Include="IGeosearchService.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="PlaceFinderController.cs" />
     <Compile Include="PlaceFinderException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,6 +173,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlaceFinder.Interface\PlaceFinder.Interface.csproj">
+      <Project>{6b74afa7-4d88-4cde-ad6b-83cf498795d5}</Project>
+      <Name>PlaceFinder.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <ZipFileExtension>esriAddIn</ZipFileExtension>

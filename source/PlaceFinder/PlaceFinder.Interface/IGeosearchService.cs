@@ -1,6 +1,4 @@
-﻿using PlaceFinder.GeoSearch;
-
-namespace PlaceFinder
+﻿namespace PlaceFinder.Interface
 {
     public interface IGeosearchService
     {

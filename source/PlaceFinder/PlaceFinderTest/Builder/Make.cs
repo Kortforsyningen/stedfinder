@@ -1,11 +1,7 @@
-﻿using ESRI.ArcGIS.ArcMapUI;
-using Moq;
-using PlaceFinder;
+﻿using PlaceFinderTest.Builder.Esri;
 
 namespace PlaceFinderTest.Builder
 {
-
-
     public class Make
     {
         public class Esri
@@ -13,6 +9,32 @@ namespace PlaceFinderTest.Builder
             public static MxDocumentBuilder MxDocument
             {
                 get { return new MxDocumentBuilder(); }
+            }
+
+            public static SpatialReferenceFactoryBuilder SpatialReferenceFactory
+            {
+                get { return new SpatialReferenceFactoryBuilder(); }
+            }
+
+            public static SpatialReferenceBuilder SpatialReference
+            {
+                get { return new SpatialReferenceBuilder(); }
+            }
+
+            public static GeometryBuilder Geometry
+            {
+                get { return new GeometryBuilder();}
+            }
+
+            public static EnvelopeBuilder Envelope
+            {
+                get { return new EnvelopeBuilder();}
+
+            }
+
+            public static MapBuilder Map
+            {
+                get { return new MapBuilder(); }
             }
         }
 
@@ -25,29 +47,11 @@ namespace PlaceFinderTest.Builder
         {
             get { return new GeosearchServiceBuilder(); }
         }
-    }
 
-    public class GeosearchServiceBuilder : BaseBuilder<IGeosearchService>
-    {
-    }
-
-
-    public class PlaceFinderDockableWindowBuilder : BaseBuilder<IPlaceFinderDockableWindow>
-    {
-    }
-
-    public class MxDocumentBuilder : BaseBuilder<IMxDocument>
-    {
-    }
-
-    public class BaseBuilder<TBuild> where TBuild : class
-    {
-        public Mock<TBuild> Mock { get; set; }
-        public TBuild Build { get { return Mock.Object; } }
-
-        public BaseBuilder()
+        public static FactoryBuilder Factory
         {
-            Mock = new Mock<TBuild>();
+            get { return new FactoryBuilder(); }
         }
+
     }
 }
