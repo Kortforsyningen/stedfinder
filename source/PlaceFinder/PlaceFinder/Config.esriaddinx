@@ -20,11 +20,13 @@
           <InitialPlacement height="70" width="300" state="unpinned" position="left" />
         </DockableWindow>
       </DockableWindows>
-      <Toolbar id="GST_ArcMapAddin_PlaceFinder_Toolbar" caption="Geodatastyrelsen" showInitially="true">
-        <Items>
-          <Button refID="Geodatastyrelsen_PlaceFinder_PlaceFinderButton" />
-        </Items>
-      </Toolbar>
+      <Toolbars>
+        <Toolbar id="GST_ArcMapAddin_PlaceFinder_Toolbar" caption="Geodatastyrelsen" showInitially="true">
+          <Items>
+            <Button refID="Geodatastyrelsen_PlaceFinder_PlaceFinderButton" />
+          </Items>
+        </Toolbar>
+      </Toolbars>
     </ArcMap>
   </AddIn>
 </ESRI.Configuration>
