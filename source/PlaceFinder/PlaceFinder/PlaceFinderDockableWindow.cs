@@ -88,8 +88,7 @@ namespace PlaceFinder
             //TODO fix handling of dropdown
             switch (e.KeyCode)
             {
-                case Keys.Down:
-                    break;
+        
             }
         }
 

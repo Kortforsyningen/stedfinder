@@ -13,12 +13,7 @@ namespace PlaceFinderTest.Builder
             {
                 var geoSearchAddressData = new GeoSearchAddressData();
                 geoSearchAddressData.data = new List<GeoSearchAddress> { new GeoSearchAddress { presentationString = "SomePlace" }, new GeoSearchAddress { presentationString = "Anotherlace" } };
-                Mock.Setup(m => m.Request(It.IsAny<string>(),
-                                          It.IsAny<string>(),
-                                          It.IsAny<string>(),
-                                          It.IsAny<string>(),
-                                          It.IsAny<string>(),
-                                          It.IsAny<string>())).Returns(geoSearchAddressData);
+                Mock.Setup(m => m.Request(It.IsAny<SearchRequestParams>())).Returns(geoSearchAddressData);
                 return this;
             }
         }

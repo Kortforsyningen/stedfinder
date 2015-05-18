@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Moq;
-using PlaceFinder;
 using PlaceFinder.Interface;
 
 namespace PlaceFinderTest.Validater

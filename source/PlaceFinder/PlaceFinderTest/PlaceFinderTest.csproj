@@ -72,6 +72,7 @@
     <Compile Include="Builder\Make.cs" />
     <Compile Include="Builder\Esri\MxDocumentBuilder.cs" />
     <Compile Include="Builder\PlaceFinderDockableWindowBuilder.cs" />
+    <Compile Include="TestSearchRequestResources.cs" />
     <Compile Include="Validater\BaseValidator.cs" />
     <Compile Include="Validater\PlaceFinderDockableWindowValidator.cs" />
     <Compile Include="Validater\Validator.cs" />

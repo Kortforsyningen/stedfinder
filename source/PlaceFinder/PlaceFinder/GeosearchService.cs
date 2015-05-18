@@ -9,16 +9,14 @@ namespace PlaceFinder
 {
     public class GeosearchService : IGeosearchService
     {
-        public GeoSearchAddressData Request(string inputParamSearch, string inputParamResources,
-                                                                 string inputParamLimit, string inputParamLogin,
-                                                                 string inputParamPassword, string inputParamCRS)
+        public GeoSearchAddressData Request(SearchRequestParams searchRequestParams)
         {
             //TODO move resource to file
             var url =
                 String.Format(
                     "https://kortforsyningen.kms.dk/Geosearch?type=json&search={0}&resources={1}&limit={2}&login={3}&password={4}&crs={5}",
-                    inputParamSearch, inputParamResources, inputParamLimit, inputParamLogin, inputParamPassword,
-                    inputParamCRS);
+                    searchRequestParams.SearchText, searchRequestParams.Resources, searchRequestParams.ReturnLimit, searchRequestParams.LoginName, searchRequestParams.Password,
+                    searchRequestParams.EPSGCode);
 
             var webClient = new WebClient { Encoding = Encoding.UTF8 };
             var jsonContent = webClient.DownloadString(url);

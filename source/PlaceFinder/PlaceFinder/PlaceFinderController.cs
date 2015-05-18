@@ -34,15 +34,8 @@ namespace PlaceFinder
 
             if (!String.IsNullOrEmpty(inputParamSearch))
             {
-                //TODO create configuration for search parameter
-                //var inputParamResources = "Adresser,Veje,Husnumre,Kommuner,Matrikelnumre,Stednavne,Opstillingskredse,Politikredse,Postdistrikter,Regioner,Retskredse";
-                var inputParamResources = "Adresser,Stednavne";
-                var inputParamLimit = "20";
-                var inputParamLogin = "PlaceFinder";
-                var inputParamPassword = "PlaceFinder!1";
-                var inputParamCRS = "epsg:4326";
-
-                var response = _factory.GeosearchService.Request(inputParamSearch, inputParamResources, inputParamLimit, inputParamLogin, inputParamPassword, inputParamCRS);
+                var searchRequestParams = new SearchRequestParams {SearchText = inputParamSearch};
+                var response = _factory.GeosearchService.Request(searchRequestParams);
 
                 if (response != null && response.data != null)
                 {
