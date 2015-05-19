@@ -14,17 +14,16 @@ namespace PlaceFinder
     public partial class PlaceFinderDockableWindow : UserControl, IPlaceFinderDockableWindow
     {
         public IPlaceFinderController PlaceFinderController { get; private set; }
-
-        public PlaceFinderDockableWindow()
-        {
-        }
-
+        private readonly ConfigurationsForm configurationsForm;
+        
         public PlaceFinderDockableWindow(object hook)
         {
             InitializeComponent();
             var factory = new Factory();
             factory.PlaceFinderDockableWindow = this;
             PlaceFinderController = new PlaceFinderController(factory);
+            configurationsForm = new ConfigurationsForm(PlaceFinderController);
+
             this.Hook = hook;
         }
 
@@ -97,7 +96,6 @@ namespace PlaceFinder
 
         private void configButton_Click(object sender, EventArgs e)
         {
-            var configurationsForm = new ConfigurationsForm(PlaceFinderController);
             configurationsForm.Location = configButton.PointToScreen(Point.Empty);
             configurationsForm.ShowDialog();
         }

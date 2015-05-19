@@ -11,6 +11,8 @@ namespace PlaceFinder
         {
             _placeFinderController = placeFinderController;
             InitializeComponent();
+            SearchRequestResourcesCheckedListBox.SetItemCheckState(SearchRequestResourcesCheckedListBox.Items.IndexOf("Adresser"), CheckState.Checked);
+            SearchRequestResourcesCheckedListBox.SetItemCheckState(SearchRequestResourcesCheckedListBox.Items.IndexOf("Stednavne"), CheckState.Checked);
         }
 
         private void ConfigurationsForm_FormClosing(object sender, FormClosingEventArgs e)
