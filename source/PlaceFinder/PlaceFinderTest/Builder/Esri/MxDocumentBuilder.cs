@@ -1,4 +1,5 @@
 ﻿using ESRI.ArcGIS.ArcMapUI;
+using Rhino.Mocks;
 
 namespace PlaceFinderTest.Builder.Esri
 {
@@ -6,7 +7,7 @@ namespace PlaceFinderTest.Builder.Esri
     {
         public MxDocumentBuilder()
         {
-            Mock.Setup(m => m.FocusMap).Returns(Make.Esri.Map.Build);
+            Build.Stub(m => m.FocusMap).Return(Make.Esri.Map.Build);
         }
     }
 }

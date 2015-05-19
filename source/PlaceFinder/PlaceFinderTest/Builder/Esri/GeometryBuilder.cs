@@ -1,4 +1,5 @@
 using ESRI.ArcGIS.Geometry;
+using Rhino.Mocks;
 
 namespace PlaceFinderTest.Builder.Esri
 {
@@ -6,8 +7,8 @@ namespace PlaceFinderTest.Builder.Esri
     {
         public GeometryBuilder()
         {
-            Mock.SetupProperty(m => m.SpatialReference);
-            Mock.Setup(m => m.Envelope).Returns(Make.Esri.Envelope.Build);
+            Build.Stub(m => m.SpatialReference).Return(null);
+            Build.Stub(m => m.Envelope).Return(Make.Esri.Envelope.Build);
         }
     }
 }

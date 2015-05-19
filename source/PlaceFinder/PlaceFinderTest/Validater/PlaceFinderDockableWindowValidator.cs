@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Moq;
+using Rhino.Mocks;
 using PlaceFinder.Interface;
 
 namespace PlaceFinderTest.Validater
@@ -16,10 +16,11 @@ namespace PlaceFinderTest.Validater
         {
             get
             {
-                Mock.Verify(m => m.AddSearchResult(It.Is<List<string>>(l => l.Count > 0)), Times.AtLeastOnce);
+                Mock.AssertWasCalled(
+                    m => m.AddSearchResult(Arg<List<string>>.Matches(l => l.Count > 0)), 
+                    options => options.Repeat.AtLeastOnce());
                 return this;
             }
         }
-
     }
 }

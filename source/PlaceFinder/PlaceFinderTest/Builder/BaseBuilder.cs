@@ -1,15 +1,14 @@
-﻿using Moq;
+﻿using Rhino.Mocks;
 
 namespace PlaceFinderTest.Builder
 {
     public class BaseBuilder<TBuild> where TBuild : class
     {
-        public Mock<TBuild> Mock { get; set; }
-        public TBuild Build { get { return Mock.Object; } }
+        public TBuild Build { get; set; }
 
         public BaseBuilder()
         {
-            Mock = new Mock<TBuild>();
+            Build = MockRepository.GenerateMock<TBuild>();
         }
     }
 }

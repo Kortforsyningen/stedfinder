@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Collections;
+using System.Collections.Generic;
+using NUnit.Framework;
 using PlaceFinder;
 using PlaceFinder.Interface;
 using PlaceFinderTest.Builder;
@@ -39,6 +41,22 @@ namespace PlaceFinderTest
             Validator.PlaceFinderWindow(factory.PlaceFinderDockableWindow).SearchResultAdded.Validate();
         }
 
-    }
+        [Test]
+        public void TestResourceChange()
+        {
+            //Arrange
+            var place = "SomePlace";
+            var resourceList = new List<object> { "Husnumre", "Adresser" };
+            var factory = Make.Factory.Build;
+            var placeFinderController = new PlaceFinderController(factory);
 
+            //Act
+            placeFinderController.SearchResourcesChange(resourceList);
+            placeFinderController.SearchTextChange(place);
+
+            //Assert
+            Validator.PlaceFinderWindow(factory.PlaceFinderDockableWindow).Validate();
+            Validator.GeosearchService(factory.GeosearchService).RequestCallWithSearchResources("Adresser,Husnumre").Validate();
+        }
+    }
 }

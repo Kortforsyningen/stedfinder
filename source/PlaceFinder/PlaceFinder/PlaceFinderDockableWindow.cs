@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using PlaceFinder.Interface;
@@ -13,6 +14,10 @@ namespace PlaceFinder
     public partial class PlaceFinderDockableWindow : UserControl, IPlaceFinderDockableWindow
     {
         public IPlaceFinderController PlaceFinderController { get; private set; }
+
+        public PlaceFinderDockableWindow()
+        {
+        }
 
         public PlaceFinderDockableWindow(object hook)
         {
@@ -83,29 +88,18 @@ namespace PlaceFinder
             PlaceFinderController.SearchTextChange(searchTextBox.Text);
         }
 
-        private void onSearchTextKeyDown(object sender, KeyEventArgs e)
-        {
-            //TODO fix handling of dropdown
-            switch (e.KeyCode)
-            {
-        
-            }
-        }
-
-        private void onSearchTextKeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (Char)Keys.Enter)//(char) 13) //enter
-            {
-                zoomToButton.Focus();
-                e.Handled = true;
-            }
-        }
-
         public void AddSearchResult(List<string> geoSearchAddresses)
         {
             var autoCompleteStringCollection = new AutoCompleteStringCollection();
             autoCompleteStringCollection.AddRange(geoSearchAddresses.ToArray());
             searchTextBox.AutoCompleteCustomSource = autoCompleteStringCollection;
+        }
+
+        private void configButton_Click(object sender, EventArgs e)
+        {
+            var configurationsForm = new ConfigurationsForm(PlaceFinderController);
+            configurationsForm.Location = configButton.PointToScreen(Point.Empty);
+            configurationsForm.ShowDialog();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using PlaceFinder;
-using PlaceFinder.Interface;
-using PlaceFinderTest.Builder;
+﻿using PlaceFinder.Interface;
 
 namespace PlaceFinderTest.Validater
 {
@@ -9,6 +7,11 @@ namespace PlaceFinderTest.Validater
         public static PlaceFinderDockableWindowValidator PlaceFinderWindow(IPlaceFinderDockableWindow placeFinderWindow)
         {
             return new PlaceFinderDockableWindowValidator(placeFinderWindow);
+        }
+
+        public static GeosearchServiceValidator GeosearchService(IGeosearchService geosearchService)
+        {
+            return new GeosearchServiceValidator(geosearchService);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Moq;
+﻿using Rhino.Mocks;
 using PlaceFinder;
 using PlaceFinder.Interface;
 
@@ -8,11 +8,16 @@ namespace PlaceFinderTest.Builder
     {
         public FactoryBuilder()
         {
-            Mock.SetupProperty(factory => factory.GeosearchService, Make.GeosearchService.WithResult.Build);
-            Mock.SetupProperty(factory => factory.MxDocument, Make.Esri.MxDocument.Build);
-            Mock.SetupProperty(factory => factory.PlaceFinderDockableWindow, Make.PlaceFinderDockableWindow.Build);
-            Mock.SetupProperty(factory => factory.SpatialReferenceFactory, Make.Esri.SpatialReferenceFactory.Build);
-            Mock.Setup(factory => factory.ConvertWKTToGeometry(It.IsAny<string>())).Returns(Make.Esri.Geometry.Build);
+            var geosearchService = Make.GeosearchService.WithResult.Build;
+            Build.Stub(factory => factory.GeosearchService).Return(geosearchService);
+            var mxDocument = Make.Esri.MxDocument.Build;
+            Build.Stub(factory => factory.MxDocument).Return(mxDocument);
+            var placeFinderDockableWindow = Make.PlaceFinderDockableWindow.Build;
+            Build.Stub(factory => factory.PlaceFinderDockableWindow).Return(placeFinderDockableWindow);
+            var spatialReferenceFactory3 = Make.Esri.SpatialReferenceFactory.Build;
+            Build.Stub(factory => factory.SpatialReferenceFactory).Return(spatialReferenceFactory3);
+            var geometry = Make.Esri.Geometry.Build;
+            Build.Stub(factory => factory.ConvertWKTToGeometry(Arg<string>.Is.Anything)).Return(geometry);
         }
     }
 }

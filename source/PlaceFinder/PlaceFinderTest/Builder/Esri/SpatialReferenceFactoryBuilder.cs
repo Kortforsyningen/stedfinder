@@ -1,5 +1,5 @@
 using ESRI.ArcGIS.Geometry;
-using Moq;
+using Rhino.Mocks;
 
 namespace PlaceFinderTest.Builder.Esri
 {
@@ -7,7 +7,7 @@ namespace PlaceFinderTest.Builder.Esri
     {
         public SpatialReferenceFactoryBuilder()
         {
-            Mock.Setup(m => m.CreateSpatialReference(It.IsAny<int>())).Returns(Make.Esri.SpatialReference.Build);
+            Build.Stub(m => m.CreateSpatialReference(Arg<int>.Is.Anything)).Return(Make.Esri.SpatialReference.Build);
         }
     }
 }

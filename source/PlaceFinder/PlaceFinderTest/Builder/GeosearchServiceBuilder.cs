@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Moq;
+using Rhino.Mocks;
 using PlaceFinder;
 using PlaceFinder.Interface;
 
@@ -13,7 +13,7 @@ namespace PlaceFinderTest.Builder
             {
                 var geoSearchAddressData = new GeoSearchAddressData();
                 geoSearchAddressData.data = new List<GeoSearchAddress> { new GeoSearchAddress { presentationString = "SomePlace" }, new GeoSearchAddress { presentationString = "Anotherlace" } };
-                Mock.Setup(m => m.Request(It.IsAny<SearchRequestParams>())).Returns(geoSearchAddressData);
+                Build.Stub(m => m.Request(Arg<SearchRequestParams>.Is.Anything)).Return(geoSearchAddressData);
                 return this;
             }
         }

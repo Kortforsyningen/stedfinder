@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ESRI.ArcGIS.Carto;
@@ -13,10 +14,12 @@ namespace PlaceFinder
         private readonly IFactory _factory;
         private List<GeoSearchAddress> currentSearch;
         private List<GeoSearchAddress> lastSearch;
+        private SearchRequestResources searchRequestResources;
 
         public PlaceFinderController(IFactory factory)
         {
             _factory = factory;
+            searchRequestResources = new SearchRequestResources();
         }
 
         public void SearchTextChange(string searchString)
@@ -34,7 +37,11 @@ namespace PlaceFinder
 
             if (!String.IsNullOrEmpty(inputParamSearch))
             {
-                var searchRequestParams = new SearchRequestParams {SearchText = inputParamSearch};
+                var searchRequestParams = new SearchRequestParams
+                    {
+                        SearchText = inputParamSearch,
+                        Resources = searchRequestResources.GetResourceString
+                    };
                 var response = _factory.GeosearchService.Request(searchRequestParams);
 
                 if (response != null && response.data != null)
@@ -66,6 +73,37 @@ namespace PlaceFinder
             extent.Project(activeView.FocusMap.SpatialReference);
             activeView.Extent = extent;
             activeView.Refresh();
+        }
+
+        public void SearchResourcesChange(IEnumerable checkedItemCollection)
+        {
+            searchRequestResources = new SearchRequestResources();
+            foreach (var checkListItem in checkedItemCollection)
+            {
+                var s = checkListItem.ToString();
+                if (!searchRequestResources.Addresses)
+                { searchRequestResources.Addresses = s.Equals("Adresser"); }
+                if (!searchRequestResources.Street)
+                { searchRequestResources.Street = s.Equals("Veje"); }
+                if (!searchRequestResources.HouseNumber)
+                { searchRequestResources.HouseNumber = s.Equals("Husnumre"); }
+                if (!searchRequestResources.Municipalities)
+                {searchRequestResources.Municipalities = s.Equals("Kommuner");}
+                if (!searchRequestResources.CadastralNumber)
+                { searchRequestResources.CadastralNumber = s.Equals("Matrikelnumre"); }
+                if (!searchRequestResources.PlaceNames)
+                { searchRequestResources.PlaceNames = s.Equals("Stednavne"); }
+                if (!searchRequestResources.ElectoralDistrict)
+                { searchRequestResources.ElectoralDistrict = s.Equals("Opstillingskredse"); }
+                if (!searchRequestResources.PoliceDistrict)
+                { searchRequestResources.PoliceDistrict = s.Equals("Politikredse"); }
+                if (!searchRequestResources.PostDistricts)
+                { searchRequestResources.PostDistricts = s.Equals("Postdistrikter"); }
+                if (!searchRequestResources.Regions)
+                { searchRequestResources.Regions = s.Equals("Regioner"); }
+                if (!searchRequestResources.JurisdictionsDistrict)
+                { searchRequestResources.JurisdictionsDistrict = s.Equals("Retskredse"); }
+            }
         }
 
         private IGeometry CreatePolyFromAddress(GeoSearchAddress geoAddress)

@@ -1,4 +1,5 @@
 using ESRI.ArcGIS.Carto;
+using Rhino.Mocks;
 
 namespace PlaceFinderTest.Builder.Esri
 {
@@ -6,10 +7,10 @@ namespace PlaceFinderTest.Builder.Esri
     {
         public MapBuilder()
         {
-            Mock.SetupProperty(m => m.SpatialReference, Make.Esri.SpatialReference.Build);
+            Build.Stub(m => m.SpatialReference).Return(Make.Esri.SpatialReference.Build);
 
-            var tempMock = Mock.As<IActiveView>();
-            tempMock.Setup(m => m.FocusMap).Returns(Build);
+            var tempMock = MockRepository.GenerateMock<IActiveView>();
+            tempMock.Stub(m => m.FocusMap).Return(Build);
 
         }
     }

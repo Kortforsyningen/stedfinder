@@ -30,22 +30,22 @@ namespace PlaceFinder
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.zoomToButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
-            this.geoSearchAddressBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.configButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.geoSearchAddressBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 61F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
             this.tableLayoutPanel1.Controls.Add(this.zoomToButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.searchTextBox, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.configButton, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -57,10 +57,12 @@ namespace PlaceFinder
             // zoomToButton
             // 
             this.zoomToButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.zoomToButton.Location = new System.Drawing.Point(222, 3);
+            this.zoomToButton.Location = new System.Drawing.Point(213, 3);
+            this.zoomToButton.MaximumSize = new System.Drawing.Size(60, 21);
+            this.zoomToButton.MinimumSize = new System.Drawing.Size(60, 21);
             this.zoomToButton.Name = "zoomToButton";
-            this.zoomToButton.Size = new System.Drawing.Size(75, 21);
-            this.zoomToButton.TabIndex = 0;
+            this.zoomToButton.Size = new System.Drawing.Size(60, 21);
+            this.zoomToButton.TabIndex = 1;
             this.zoomToButton.Text = "Zoom til";
             this.zoomToButton.UseVisualStyleBackColor = true;
             this.zoomToButton.Click += new System.EventHandler(this.onZoomTo_Click);
@@ -69,18 +71,23 @@ namespace PlaceFinder
             // 
             this.searchTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.searchTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.searchTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.searchTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchTextBox.Location = new System.Drawing.Point(3, 3);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(213, 20);
-            this.searchTextBox.TabIndex = 1;
+            this.searchTextBox.Size = new System.Drawing.Size(204, 20);
+            this.searchTextBox.TabIndex = 0;
             this.searchTextBox.TextChanged += new System.EventHandler(this.onSearchTextChanged);
-            this.searchTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onSearchTextKeyDown);
-            this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onSearchTextKeyPress);
             // 
-            // geoSearchAddressBindingSource
+            // configButton
             // 
-            this.geoSearchAddressBindingSource.DataSource = typeof(GeoSearchAddress);
+            this.configButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.configButton.Location = new System.Drawing.Point(274, 3);
+            this.configButton.MaximumSize = new System.Drawing.Size(22, 0);
+            this.configButton.MinimumSize = new System.Drawing.Size(22, 0);
+            this.configButton.Name = "configButton";
+            this.configButton.Size = new System.Drawing.Size(22, 21);
+            this.configButton.TabIndex = 2;
+            this.configButton.Click += new System.EventHandler(this.configButton_Click);
             // 
             // PlaceFinderDockableWindow
             // 
@@ -89,7 +96,6 @@ namespace PlaceFinder
             this.Size = new System.Drawing.Size(300, 25);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.geoSearchAddressBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -99,7 +105,7 @@ namespace PlaceFinder
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button zoomToButton;
         private System.Windows.Forms.TextBox searchTextBox;
-        private System.Windows.Forms.BindingSource geoSearchAddressBindingSource;
+        private System.Windows.Forms.Button configButton;
 
     }
 }

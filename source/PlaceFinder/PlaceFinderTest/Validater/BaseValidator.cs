@@ -1,4 +1,4 @@
-using Moq;
+using Rhino.Mocks;
 
 namespace PlaceFinderTest.Validater
 {
@@ -6,10 +6,10 @@ namespace PlaceFinderTest.Validater
     {
         protected BaseValidator(TBuild instance)
         {
-            Mock = Moq.Mock.Get(instance);
+            Mock = instance;
         }
 
-        public Mock<TBuild> Mock { get; set; }
+        public TBuild Mock { get; set; }
         public void Validate()
         {
         }
