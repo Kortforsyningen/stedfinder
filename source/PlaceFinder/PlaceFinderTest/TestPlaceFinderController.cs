@@ -12,7 +12,6 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
     public class TestPlaceFinderController
     {
         [Test]
-        [Ignore("unfinished test - should not have been checked in.")]
         public void TestZoomTo()
         {
             //Arrange
