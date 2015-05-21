@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PlaceFinder.Properties {
+namespace GeodataStyrelsen.ArcMap.PlaceFinder.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace PlaceFinder.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PlaceFinder.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GeodataStyrelsen.ArcMap.PlaceFinder.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,26 @@ namespace PlaceFinder.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PlaceFinderButton {
+            get {
+                object obj = ResourceManager.GetObject("PlaceFinderButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TableShowAllRecords16 {
+            get {
+                object obj = ResourceManager.GetObject("TableShowAllRecords16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

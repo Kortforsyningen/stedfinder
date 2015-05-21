@@ -1,6 +1,6 @@
 ﻿using Rhino.Mocks;
 
-namespace PlaceFinderTest.Builder
+namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder
 {
     public class BaseBuilder<TBuild> where TBuild : class
     {

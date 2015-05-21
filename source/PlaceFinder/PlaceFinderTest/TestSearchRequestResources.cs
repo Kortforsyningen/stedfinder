@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using PlaceFinder.Interface;
+using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
-namespace PlaceFinderTest
+namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 {
     [TestFixture]
     public class TestSearchRequestResources

@@ -1,4 +1,4 @@
-﻿namespace PlaceFinder.Interface
+﻿namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
 {
     public interface IGeosearchService
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using PlaceFinder.Interface;
+using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
-namespace PlaceFinder
+namespace GeodataStyrelsen.ArcMap.PlaceFinder
 {
     /// <summary>
     /// Designer class of the dockable window add-in. It contains user interfaces that
@@ -53,7 +53,7 @@ namespace PlaceFinder
             {
                 if (e.Exception is PlaceFinderException)
                 {
-                    MessageBox.Show("Error: " + e.Exception.Message);
+                    MessageBox.Show("Fejl: " + e.Exception.Message);
                 }
                 else
                 {

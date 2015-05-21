@@ -7,8 +7,8 @@
     <ProjectGuid>{E44AB0E6-5F6F-429C-8864-6E9B92C5434B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PlaceFinderTest</RootNamespace>
-    <AssemblyName>PlaceFinderTest</AssemblyName>
+    <RootNamespace>GeodataStyrelsen.ArcMap.PlaceFinderTest</RootNamespace>
+    <AssemblyName>GeodataStyrelsen.ArcMap.PlaceFinderTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

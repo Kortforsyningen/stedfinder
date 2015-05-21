@@ -1,4 +1,4 @@
-﻿namespace PlaceFinder
+﻿namespace GeodataStyrelsen.ArcMap.PlaceFinder
 {
     partial class ConfigurationsForm
     {

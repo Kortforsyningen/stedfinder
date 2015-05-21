@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Rhino.Mocks;
 using NUnit.Framework;
-using PlaceFinder.Interface;
+using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
-namespace PlaceFinderTest.Validater
+namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater
 {
     public class GeosearchServiceValidator : BaseValidator<IGeosearchService>
     {

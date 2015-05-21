@@ -10,7 +10,7 @@
   <Targets>
     <Target name="Desktop" version="10.3" />
   </Targets>
-  <AddIn language="CLR4.5" library="PlaceFinder.dll" namespace="PlaceFinder">
+  <AddIn language="CLR4.5" library="GeodataStyrelsen.ArcMap.PlaceFinder.dll" namespace="GeodataStyrelsen.ArcMap.PlaceFinder">
     <ArcMap>
       <Commands>
         <Button id="Geodatastyrelsen_PlaceFinder_PlaceFinderButton" onDemand="false" class="PlaceFinderButton" message="Åbner et window der kan bruges til at finde steder" caption="Finde et sted" tip="Brug den til at finde et sted" category="Geodatastyrelsen" image="Images\PlaceFinderButton.png" />

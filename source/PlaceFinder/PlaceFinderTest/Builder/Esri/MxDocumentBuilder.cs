@@ -1,7 +1,7 @@
 ﻿using ESRI.ArcGIS.ArcMapUI;
 using Rhino.Mocks;
 
-namespace PlaceFinderTest.Builder.Esri
+namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder.Esri
 {
     public class MxDocumentBuilder : BaseBuilder<IMxDocument>
     {

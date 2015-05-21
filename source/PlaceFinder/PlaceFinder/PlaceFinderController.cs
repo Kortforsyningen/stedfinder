@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Geometry;
-using NetTopologySuite.IO;
-using PlaceFinder.Interface;
+using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
-namespace PlaceFinder
+namespace GeodataStyrelsen.ArcMap.PlaceFinder
 {
     public class PlaceFinderController : IPlaceFinderController
     {
@@ -20,6 +19,8 @@ namespace PlaceFinder
         {
             _factory = factory;
             searchRequestResources = new SearchRequestResources();
+            searchRequestResources.Addresses = true;
+            searchRequestResources.PlaceNames = true;
         }
 
         public void SearchTextChange(string searchString)

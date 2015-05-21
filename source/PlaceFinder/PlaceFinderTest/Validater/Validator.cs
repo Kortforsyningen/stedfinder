@@ -1,6 +1,6 @@
-﻿using PlaceFinder.Interface;
+﻿using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
-namespace PlaceFinderTest.Validater
+namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater
 {
     public class Validator
     {

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
-using PlaceFinder.Interface;
+using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
-namespace PlaceFinder
+namespace GeodataStyrelsen.ArcMap.PlaceFinder
 {
     public partial class ConfigurationsForm : Form
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using ESRI.ArcGIS.ArcMapUI;
 using ESRI.ArcGIS.Geometry;
+using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 using NetTopologySuite.IO;
-using PlaceFinder.Interface;
 
-namespace PlaceFinder
+namespace GeodataStyrelsen.ArcMap.PlaceFinder
 {
     public class Factory : IFactory
     {

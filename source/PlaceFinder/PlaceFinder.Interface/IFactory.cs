@@ -1,7 +1,7 @@
 ﻿using ESRI.ArcGIS.ArcMapUI;
 using ESRI.ArcGIS.Geometry;
 
-namespace PlaceFinder.Interface
+namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
 {
     public interface IFactory
     {

@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder;
+using GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater;
 using NUnit.Framework;
-using PlaceFinder;
-using PlaceFinder.Interface;
-using PlaceFinderTest.Builder;
-using PlaceFinderTest.Validater;
+using GeodataStyrelsen.ArcMap.PlaceFinder;
+using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
-namespace PlaceFinderTest
+namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 {
     [TestFixture]
     public class TestPlaceFinderController

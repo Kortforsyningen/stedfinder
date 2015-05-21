@@ -1,7 +1,7 @@
 ﻿using ESRI.ArcGIS.esriSystem;
 
 //TODO Change namespace
-namespace PlaceFinder
+namespace GeodataStyrelsen.ArcMap.PlaceFinder
 {
     public class PlaceFinderButton : ESRI.ArcGIS.Desktop.AddIns.Button
     {

@@ -1,6 +1,6 @@
-﻿using PlaceFinderTest.Builder.Esri;
+﻿using GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder.Esri;
 
-namespace PlaceFinderTest.Builder
+namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder
 {
     public class Make
     {

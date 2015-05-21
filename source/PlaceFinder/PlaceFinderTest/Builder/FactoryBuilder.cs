@@ -1,8 +1,8 @@
 ﻿using Rhino.Mocks;
-using PlaceFinder;
-using PlaceFinder.Interface;
+using GeodataStyrelsen.ArcMap.PlaceFinder;
+using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
-namespace PlaceFinderTest.Builder
+namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder
 {
     public class FactoryBuilder : BaseBuilder<IFactory>
     {

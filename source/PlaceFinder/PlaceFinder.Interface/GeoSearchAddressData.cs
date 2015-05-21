@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace PlaceFinder.Interface
+namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
 {
     [DataContract]
     public class GeoSearchAddressData

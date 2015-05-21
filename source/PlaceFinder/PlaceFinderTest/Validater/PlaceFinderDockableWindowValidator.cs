@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Rhino.Mocks;
-using PlaceFinder.Interface;
+using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
-namespace PlaceFinderTest.Validater
+namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater
 {
     public class PlaceFinderDockableWindowValidator : BaseValidator<IPlaceFinderDockableWindow>
     {

@@ -1,6 +1,6 @@
 using Rhino.Mocks;
 
-namespace PlaceFinderTest.Validater
+namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater
 {
     public class BaseValidator<TBuild> where TBuild : class
     {

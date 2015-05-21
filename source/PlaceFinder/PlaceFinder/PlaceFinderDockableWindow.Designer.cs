@@ -1,6 +1,6 @@
-﻿using PlaceFinder.Interface;
+﻿using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
-namespace PlaceFinder
+namespace GeodataStyrelsen.ArcMap.PlaceFinder
 {
     partial class PlaceFinderDockableWindow
     {
@@ -81,6 +81,7 @@ namespace PlaceFinder
             // configButton
             // 
             this.configButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.configButton.Image = global::GeodataStyrelsen.ArcMap.PlaceFinder.Properties.Resources.TableShowAllRecords16;
             this.configButton.Location = new System.Drawing.Point(274, 3);
             this.configButton.MaximumSize = new System.Drawing.Size(22, 0);
             this.configButton.MinimumSize = new System.Drawing.Size(22, 0);
