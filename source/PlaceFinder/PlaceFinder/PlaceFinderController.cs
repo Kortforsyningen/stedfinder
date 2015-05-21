@@ -5,6 +5,7 @@ using System.Linq;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Geometry;
 using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
+using GeodataStyrelsen.ArcMap.PlaceFinder.Properties;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinder
 {
@@ -66,13 +67,25 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 throw new PlaceFinderException("Stedet blev ikke fundet");
             }
             var geometry = CreatePolyFromAddress(geoSearchAddress);
-            var extent = geometry.Envelope;
+            var envelope = geometry.Envelope;
             var activeView = ((IActiveView)_factory.MxDocument.FocusMap);
             if (activeView.FocusMap.SpatialReference == null || activeView.FocusMap.SpatialReference.FactoryCode == 0)
                 //TODO move resource to file
                 throw new PlaceFinderException("Spatial reference of map is not set");
-            extent.Project(activeView.FocusMap.SpatialReference);
-            activeView.Extent = extent;
+
+            var smallestAllowedExtentToZoomTo = Settings.Default.smallestAllowedExtentToZoomTo;
+            if ((envelope.XMax - envelope.XMin < smallestAllowedExtentToZoomTo) || (envelope.YMax - envelope.YMin < smallestAllowedExtentToZoomTo))
+            {
+                var halfOfSmallestExtentToZoomTo = smallestAllowedExtentToZoomTo / 2;
+                envelope.XMax = envelope.XMax + halfOfSmallestExtentToZoomTo;
+                envelope.YMax = envelope.YMax + halfOfSmallestExtentToZoomTo;
+                envelope.XMin = envelope.XMin - halfOfSmallestExtentToZoomTo;
+                envelope.YMin = envelope.YMin - halfOfSmallestExtentToZoomTo;
+            }
+
+            envelope.Project(activeView.FocusMap.SpatialReference);
+            activeView.Extent = envelope;
+
             activeView.Refresh();
         }
 
