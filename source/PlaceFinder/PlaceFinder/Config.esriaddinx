@@ -13,15 +13,15 @@
   <AddIn language="CLR4.5" library="GeodataStyrelsen.ArcMap.PlaceFinder.dll" namespace="GeodataStyrelsen.ArcMap.PlaceFinder">
     <ArcMap>
       <Commands>
-        <Button id="Geodatastyrelsen_PlaceFinder_PlaceFinderButton" onDemand="false" class="PlaceFinderButton" message="Åbner et window der kan bruges til at finde steder" caption="Finde et sted" tip="Brug den til at finde et sted" category="Geodatastyrelsen" image="Images\PlaceFinderButton.png" />
+        <Button id="Geodatastyrelsen_PlaceFinder_PlaceFinderButton" onDemand="false" class="PlaceFinderButton" message="Åbner et søgevindue til søgning efter steder i Danmark" caption="Stedfinder" tip="Åbner stedfinder søgevinduet" category="Geodatastyrelsen" image="Images\PlaceFinderButton.png" />
       </Commands>
       <DockableWindows>
-        <DockableWindow id="Geodatastyrelsen_PlaceFinder_PlaceFinderDockableWindow" class="PlaceFinderDockableWindow+AddinImpl" caption="Sted finder Dockable Window" image="Images\PlaceFinderDockableWindow.png">
+        <DockableWindow id="Geodatastyrelsen_PlaceFinder_PlaceFinderDockableWindow" class="PlaceFinderDockableWindow+AddinImpl" caption="Stedfinder" image="Images\PlaceFinderDockableWindow.png">
           <InitialPlacement height="70" width="300" state="unpinned" position="left" />
         </DockableWindow>
       </DockableWindows>
       <Toolbars>
-        <Toolbar id="GST_ArcMapAddin_PlaceFinder_Toolbar" caption="Geodatastyrelsen" showInitially="true">
+        <Toolbar id="GST_ArcMapAddin_PlaceFinder_Toolbar" caption="Stedfinder" showInitially="true">
           <Items>
             <Button refID="Geodatastyrelsen_PlaceFinder_PlaceFinderButton" />
           </Items>
