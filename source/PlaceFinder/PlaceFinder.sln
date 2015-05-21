@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaceFinderTest", "PlaceFin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaceFinder.Interface", "PlaceFinder.Interface\PlaceFinder.Interface.csproj", "{6B74AFA7-4D88-4CDE-AD6B-83CF498795D5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OutsideSolution", "OutsideSolution", "{895528FA-CAC0-46E9-A7A6-CE5F959B5319}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\CHANGELOG.md = ..\..\CHANGELOG.md
+		..\..\todo.md = ..\..\todo.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
