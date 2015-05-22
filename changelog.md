@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+The zoom to feature is change to have e minimum extent
+### Changed
+tooltips and tool naming is improved
 
 ## [v0.3] (2015-05-19)
 ### Fixed
