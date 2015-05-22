@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using Rhino.Mocks;
+﻿using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 using NUnit.Framework;
-using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
+using Rhino.Mocks;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater
 {

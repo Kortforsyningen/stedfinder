@@ -1,4 +1,5 @@
 ﻿using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
+using GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater.Esri;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater
 {
@@ -12,6 +13,11 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater
         public static GeosearchServiceValidator GeosearchService(IGeosearchService geosearchService)
         {
             return new GeosearchServiceValidator(geosearchService);
+        }
+
+        public static MapValidator Map(ESRI.ArcGIS.Carto.IMap map)
+        {
+            return new MapValidator(map);
         }
     }
 }

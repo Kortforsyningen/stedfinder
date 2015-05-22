@@ -77,6 +77,7 @@
     <Compile Include="TestSearchRequestResources.cs" />
     <Compile Include="Validater\BaseValidator.cs" />
     <Compile Include="Validater\GeosearchServiceValidator.cs" />
+    <Compile Include="Validater\Esri\MapValidator.cs" />
     <Compile Include="Validater\PlaceFinderDockableWindowValidator.cs" />
     <Compile Include="Validater\Validator.cs" />
     <Compile Include="TestPlaceFinderController.cs" />

@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ESRI.ArcGIS.Geometry;
+using GeodataStyrelsen.ArcMap.PlaceFinder;
+using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 using GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder;
 using GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater;
 using NUnit.Framework;
-using GeodataStyrelsen.ArcMap.PlaceFinder;
-using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
+using Rhino.Mocks;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 {
@@ -24,6 +25,81 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             placeFinderController.ZoomTo(place);
 
             //Assert
+            Validator.Map(factory.MxDocument.FocusMap)
+                .NewExtentIsSet()
+                .MapIsRefresh
+                .Validate();
+        }
+
+
+
+        [Test]
+        public void TestBuildStubOrdre()
+        {
+            var mock = MockRepository.GenerateMock<ITestBuildordre>();
+            Assert.That(mock.Foobar(""), Is.Null, "call 0");
+
+            mock.Stub(factory => factory.Foobar(Arg<string>.Is.Anything)).Return("set 1");
+            Assert.That(mock.Foobar(""), Is.EqualTo("set 1"), "call 1");
+
+            mock.BackToRecord(BackToRecordOptions.All);
+            mock.Replay();
+            mock.Stub(factory => factory.Foobar(Arg<string>.Is.Anything)).Return("set 2");
+            Assert.That(mock.Foobar(""), Is.EqualTo("set 2"), "call 2");
+           
+        }
+
+        public interface ITestBuildordre
+        {
+            string Foobar(string s);
+
+        }
+
+
+        [Test]
+        [Ignore("To be finish missing right size of envelope")]
+        public void TestZoomTo_ToSmallFeatureOnX()
+        {
+            //Arrange
+            var place = "SomePlace";
+            var incommingEnvelope = Make.Esri.Envelope.XMax(0.1).Build;
+            var geometry = Make.Esri.Geometry.WithEnvelope(incommingEnvelope).Build;
+            var factory = Make.Factory.ConvertWKTToGeometryReturns(geometry).Build;
+            var placeFinderController = new PlaceFinderController(factory);
+            var expetedEnvelope = Make.Esri.Envelope.XMax(0.001).Build;
+
+            //Act
+            placeFinderController.SearchTextChange(place);
+            placeFinderController.ZoomTo(place);
+
+            //Assert
+            Validator.Map(factory.MxDocument.FocusMap)
+                .NewExtentIsSet(expetedEnvelope)
+                .MapIsRefresh
+                .Validate();
+        }
+
+        [Test]
+        [Ignore("To be finish missing right size of envelope")]
+        public void TestZoomTo_ToSmallFeatureOnY()
+        {
+            //Arrange
+            var place = "SomePlace";
+            var incommingEnvelope = Make.Esri.Envelope.YMax(0.1).Build;
+            var geometry = Make.Esri.Geometry.WithEnvelope(incommingEnvelope).Build;
+            var factory = Make.Factory.ConvertWKTToGeometryReturns(geometry).Build;
+            var placeFinderController = new PlaceFinderController(factory);
+            var expetedEnvelope = Make.Esri.Envelope.YMax(0.001).Build;
+
+            //Act
+            placeFinderController.SearchTextChange(place);
+            placeFinderController.ZoomTo(place);
+
+            //Assert
+            Validator.Map(factory.MxDocument.FocusMap)
+                .NewExtentIsSet(expetedEnvelope)
+                .MapIsRefresh
+                .Validate();
         }
 
         [Test]

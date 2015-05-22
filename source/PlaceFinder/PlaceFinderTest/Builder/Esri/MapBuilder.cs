@@ -11,7 +11,8 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder.Esri
             Build = MockRepository.GenerateMock<IMap, IActiveView>();
             Build.Stub(m => m.SpatialReference).Return(Make.Esri.SpatialReference.Build);
 
-            ((IActiveView) Build).Stub(m => m.FocusMap).Return(Build);
+            ((IActiveView)Build).Stub(m => m.FocusMap).Return(Build);
+            ((IActiveView)Build).Stub(m => m.Extent).PropertyBehavior();
 
         }
     }
