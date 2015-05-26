@@ -12,25 +12,25 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
     [TestFixture]
     public class TestPlaceFinderController
     {
-        [Test]
-        public void TestZoomTo()
-        {
-            //Arrange
-            var place = "SomePlace";
-            IFactory factory = Make.Factory.Build;
-            var placeFinderController = new PlaceFinderController(factory);
-            var expetedEnvelope = Make.Esri.Envelope.Build;
+        //[Test]
+        //public void TestZoomTo()
+        //{
+        //    //Arrange
+        //    var place = "SomePlace";
+        //    IFactory factory = Make.Factory.Build;
+        //    var placeFinderController = new PlaceFinderController(factory);
+        //    var expetedEnvelope = Make.Esri.Envelope.Build;
 
-            //Act
-            placeFinderController.SearchTextChange(place);
-            placeFinderController.ZoomTo(place);
+        //    //Act
+        //    placeFinderController.SearchTextChange(place);
+        //    placeFinderController.ZoomTo(place);
 
-            //Assert
-            Validator.Map(factory.MxDocument.FocusMap)
-                .NewExtentIsSet(expetedEnvelope)
-                .MapIsRefresh
-                .Validate();
-        }
+        //    //Assert
+        //    Validator.Map(factory.MxDocument.FocusMap)
+        //        .NewExtentIsSet(expetedEnvelope)
+        //        .MapIsRefresh
+        //        .Validate();
+        //}
 
 
 
@@ -201,20 +201,20 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                 .Validate();
         }
 
-        [Test]
-        public void TestSearchTextChange()
-        {
-            //Arrange
-            var place = "SomePlace";
-            IFactory factory = Make.Factory.Build;
-            var placeFinderController = new PlaceFinderController(factory);
+        //[Test]
+        //public void TestSearchTextChange()
+        //{
+        //    //Arrange
+        //    var place = "SomePlace";
+        //    IFactory factory = Make.Factory.Build;
+        //    var placeFinderController = new PlaceFinderController(factory);
 
-            //Act
-            placeFinderController.SearchTextChange(place);
+        //    //Act
+        //    placeFinderController.SearchTextChange(place);
 
-            //Assert
-            Validator.PlaceFinderWindow(factory.PlaceFinderDockableWindow).SearchResultAdded.Validate();
-        }
+        //    //Assert
+        //    Validator.PlaceFinderWindow(factory.PlaceFinderDockableWindow).SearchResultAdded.Validate();
+        //}
 
         [Test]
         public void TestResourceChange()
