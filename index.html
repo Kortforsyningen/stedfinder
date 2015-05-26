@@ -1,59 +1,191 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="da">
+<head id="Head1">
+    <meta charset="utf-8" />
+    <title>Geodatastyrelsen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="documentReference" content="65566">
+    <link href="http://gst.dk/Assets/GoBasic/Plugins/Release/h01.gobasic.plugins.min.css?t=15051111" rel="stylesheet">
+    <link href="http://gst.dk/Themes/GST/Release/h03.theme.min.css?t=15051111" rel="stylesheet">
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Stedfinder : ">
+    <!--[if gte IE 9]>
+        <style type="text/css">body{filter: none;}</style>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+</head>
+<body class="">
+    <div class="wrapper">
+        <nav class="top">
+            <div class="container">
+                <!--googleoff: index-->
+                <div class="navbar">
+                    <div class="navar-inner">
+                        <ul class="nav nav-pills pull-right service-menu">
+                            <li class="service-link"><a target="_self" title="Om styrelsen" href="http://gst.dk/om-styrelsen/"><span>Om styrelsen</span></a></li>
+                            <li class="service-link"><a href="./english_index.html"><span>In English</span></a></li>
+                        </ul>
+                        <a class="btn btn-navbar btn-mini" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <div class="container">
+                            <a class="brand" href="http://gst.dk">
+                                <img src="http://gst.dk/media/gst/2059206/mim_geodatastyrelsen_rgb_dk.png" alt="logo-gst-retina-ready">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!--googleon: index-->
+            </div>
+        </nav>
+        <!--<div class="sectionA plh-top">
+            <div class="container">
+                <div class="row">
+                    <div class="module span12 highlight">
+                        <h1>Geodatastyrelsen på Github</h1>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="sectionB plh-main">
+            <div class="container">
+                <div class="row">
+                    <div class="module span12 highlight">
+                        <div class="pagedlist" id="ContentPlaceHolderDefault_mainGrid_ctl03">
+                            <h1>
+                                Geodatastyrelsen Sted finder på Github
+                            </h1>
+                            <p>
+                                Stedfinder er en Esri ArcMap addin til at finde sted, områder og addresse i danmark.
+                            </p>
+                            <ul class="items">
+                                <li>
+                                    <h3>
+                                        Hvordan får jeg fat i den
+                                    </h3>
+                                    <p>klik download </p>
+                                </li>
+                                <li>
+                                    <h3>
+                                        Hvordan bruge jeg den
+                                    </h3>
+                                    <p>
+                                         Nå Addin er tilføjet til ArcMap er det muligt at aktiver toolbaren 'Sted finder'.
+                                        På 'Sted finder' toolbaren er der en knap der aktiver et vindue.
+                                        I 'Sted finder' vindue er det muligt at skrive et navn på et sted eller lokation, klikke på 'zoom til' hvorefter der kortet skifter flyttes hen til den lokation.
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="module span6 highlight">
+                        <div id="ContentPlaceHolderDefault_mainGrid_ctl08" class="grouped-linklist">
+                            <h2>
+                                Links
+                            </h2>
+                            <ul>
+                                <li class="group">
+                                    <div class="icon">
+                                        <img src="http://gst.dk/media/gst/2249262/pin.png" alt="pin" />
+                                    </div>
+                                    <div class="content">
+                                        <h3>
+                                            <a href="./stedfinder"><span>Stedfinder</span></a>
+                                        </h3>
+                                        <ul class="links">
+                                            <li><a href="./stedfinder"><span>Stedfindes project side</span></a></li>
+                                            <li><a href="./stedfinder"><span>Download addin</span></a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="group">
+                                    <div class="icon">
+                                        <img src="http://gst.dk/media/gst/2249247/globe.png" alt="globe" />
+                                    </div>
+                                    <div class="content">
+                                        <h3>
+                                            <a href="./.."><span>Geodatastyrelse på GitHub</span></a>
+                                        </h3>
+                                        <ul class="links">
+                                            <li><a href="./.."><span>Hovedside</span></a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <title>Stedfinder</title>
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/geodatastyrelsen/stedfinder">View on GitHub</a>
-
-          <h1 id="project_title">Stedfinder</h1>
-          <h2 id="project_tagline"></h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/geodatastyrelsen/stedfinder/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/geodatastyrelsen/stedfinder/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+        </div>
     </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
-<a id="stedfinder" class="anchor" href="#stedfinder" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stedfinder</h1>
-
-<p>(An ArcMap addin for searching places and addresses in Denmark.)
-Stedfinder er en Esri ArcMap addin til at finde sted, områder og addresse i danmark.</p>
-
-<ul>
-<li>Nå Addin er tilføjet til ArcMap er det muligt at aktiver toolbaren 'Sted finder'.</li>
-<li>På 'Sted finder' toolbaren er der en knap der aktiver et vindue.</li>
-<li>I 'Sted finder' vindue er det muligt at skrive et navn på et sted eller lokation, klikke på 'zoom til' hvorefter der kortet skifter flyttes hen til den lokation.</li>
-</ul>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Stedfinder maintained by <a href="https://github.com/geodatastyrelsen">geodatastyrelsen</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
+    <!--googleoff: index-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="module span4">
+                    <div style="min-height: 202px;" id="footerGrid_ctl01" class="thumbnail">
+                        <div class="caption">
+                            <h2>Kontakt</h2>
+                            <p>
+                                Geodatastyrelsen<br />
+                                Rentemestervej 8<br />
+                                2400 K&oslash;benhavn NV<br />
+                                Tlf:&nbsp;<span>7254 5000</span><br />
+                                <script type="text/javascript" src="http://gst.dk/Handlers/ReplacementHandler.ashx?id=b066230a-65f8-4a3b-8e61-8a240ac46f63"></script>
+                                <br />
+                                EAN-nummer: 5798000864009<br />
+                                CVR-nummer: 62 96 59 16
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="module span12">
+                    <div id="footerGrid_ctl04" class="thumbnail">
+                        <div class="caption">
+                            <hr>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="module span8">
+                    <div style="min-height: 48px;" id="footerGrid_ctl05" class="thumbnail">
+                        <div class="caption">
+                            <p><strong>Bem&aelig;rk:</strong>&nbsp;Sender du os en e-mail, vil oplysningerne blive registreret i vores centrale, digitale system til videre sagsbehandling.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="module span4">
+                    <div style="min-height: 48px;" id="footerGrid_ctl06" class="thumbnail">
+                        <div class="caption">
+                            <p style="text-align: right;"><span>&nbsp;&copy; 2014 Geodatastyrelsen</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="module span12">
+                    <div id="footerGrid_ctl07" class="thumbnail">
+                        <div class="caption">
+                            <p><a style="display: block;" href="#" class="back-to-top">Til toppen</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--googleon: index-->
+</body>
 </html>
