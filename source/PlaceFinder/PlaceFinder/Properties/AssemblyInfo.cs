@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("PlaceFinder")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Informi GIS A/S")]
+[assembly: AssemblyCompany("Geodatastyrelsen")]
 [assembly: AssemblyProduct("PlaceFinder")]
-[assembly: AssemblyCopyright("Copyright © Informi GIS A/S 2015")]
+[assembly: AssemblyCopyright("Geodatastyrelsen 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
