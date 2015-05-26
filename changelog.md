@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [v1.0.1] (2015-05-26)
+### Changed
+The zoom to feature is change to have e minimum extent of meters
+
 ## [v1.0.0] (2015-05-22)
 ### Added
 The zoom to feature is change to have e minimum extent
