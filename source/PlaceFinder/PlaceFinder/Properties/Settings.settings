@@ -2,8 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GeodataStyrelsen.ArcMap.PlaceFinder.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="smallestAllowedExtentToZoomTo" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.005</Value>
+    <Setting Name="smallestAllowedZoomToInMetersOnX" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">250</Value>
+    </Setting>
+    <Setting Name="smallestAllowedZoomToInMetersOnY" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">150</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -36,6 +36,9 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder
             {
                 get { return new MapBuilder(); }
             }
+
+            public static PointBuilder Point
+            { get{ return  new PointBuilder();}}
         }
 
         public static PlaceFinderDockableWindowBuilder PlaceFinderDockableWindow

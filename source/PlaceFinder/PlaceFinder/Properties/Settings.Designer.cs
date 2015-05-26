@@ -25,13 +25,25 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.005")]
-        public double smallestAllowedExtentToZoomTo {
+        [global::System.Configuration.DefaultSettingValueAttribute("250")]
+        public double smallestAllowedZoomToInMetersOnX {
             get {
-                return ((double)(this["smallestAllowedExtentToZoomTo"]));
+                return ((double)(this["smallestAllowedZoomToInMetersOnX"]));
             }
             set {
-                this["smallestAllowedExtentToZoomTo"] = value;
+                this["smallestAllowedZoomToInMetersOnX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("150")]
+        public double smallestAllowedZoomToInMetersOnY {
+            get {
+                return ((double)(this["smallestAllowedZoomToInMetersOnY"]));
+            }
+            set {
+                this["smallestAllowedZoomToInMetersOnY"] = value;
             }
         }
     }

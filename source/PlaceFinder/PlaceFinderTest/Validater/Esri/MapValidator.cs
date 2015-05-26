@@ -1,3 +1,4 @@
+using System;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Geometry;
 using NUnit.Framework;
@@ -23,10 +24,10 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater.Esri
 
         public MapValidator NewExtentIsSet(IEnvelope envelope)
         {
-            ValidataCordinateValue(((IActiveView)Mock).Extent.XMax, envelope.XMax, "Envelope.XMax");
-            ValidataCordinateValue(((IActiveView)Mock).Extent.XMin, envelope.XMin, "Envelope.XMin");
-            ValidataCordinateValue(((IActiveView)Mock).Extent.YMax, envelope.YMax, "Envelope.YMax");
-            ValidataCordinateValue(((IActiveView)Mock).Extent.YMin, envelope.YMin, "Envelope.YMin");
+            ValidataCordinateValue(Math.Round(((IActiveView)Mock).Extent.XMax,4), Math.Round(envelope.XMax, 4), "Envelope.XMax");
+            ValidataCordinateValue(Math.Round(((IActiveView)Mock).Extent.XMin,4), Math.Round(envelope.XMin,4), "Envelope.XMin");
+            ValidataCordinateValue(Math.Round(((IActiveView)Mock).Extent.YMax,4), Math.Round(envelope.YMax,4), "Envelope.YMax");
+            ValidataCordinateValue(Math.Round(((IActiveView)Mock).Extent.YMin, 4), Math.Round(envelope.YMin, 4), "Envelope.YMin");
 
             return this;
         }

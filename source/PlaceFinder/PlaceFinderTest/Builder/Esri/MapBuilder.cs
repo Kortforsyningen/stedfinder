@@ -1,6 +1,5 @@
 using ESRI.ArcGIS.Carto;
 using Rhino.Mocks;
-using Rhino.Mocks.Interfaces;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder.Esri
 {

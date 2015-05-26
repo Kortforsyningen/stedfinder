@@ -19,6 +19,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             var place = "SomePlace";
             IFactory factory = Make.Factory.Build;
             var placeFinderController = new PlaceFinderController(factory);
+            var expetedEnvelope = Make.Esri.Envelope.Build;
 
             //Act
             placeFinderController.SearchTextChange(place);
@@ -26,7 +27,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 
             //Assert
             Validator.Map(factory.MxDocument.FocusMap)
-                .NewExtentIsSet()
+                .NewExtentIsSet(expetedEnvelope)
                 .MapIsRefresh
                 .Validate();
         }
@@ -57,16 +58,27 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 
 
         [Test]
-        [Ignore("To be finish missing right size of envelope")]
         public void TestZoomTo_ToSmallFeatureOnX()
         {
+            //(y) nord south 150 m is 150/(1000*60*2) = 0,00125
+            //(x) east vest 250 m is 200/(1000*60) = 0,00416
             //Arrange
             var place = "SomePlace";
-            var incommingEnvelope = Make.Esri.Envelope.XMax(0.1).Build;
+            var incommingEnvelope = Make.Esri.Envelope
+                .XMax(42.0021-0.00416)
+                .XMin(41.9979)
+                .YMax(42)
+                .YMin(41)
+                .Build;
             var geometry = Make.Esri.Geometry.WithEnvelope(incommingEnvelope).Build;
             var factory = Make.Factory.ConvertWKTToGeometryReturns(geometry).Build;
             var placeFinderController = new PlaceFinderController(factory);
-            var expetedEnvelope = Make.Esri.Envelope.XMax(0.001).Build;
+            var expetedEnvelope = Make.Esri.Envelope
+                .XMax(42.0021)
+                .XMin(41.9979)
+                .YMax(42.0006)
+                .YMin(41.9994)
+                .Build;
 
             //Act
             placeFinderController.SearchTextChange(place);
@@ -79,17 +91,104 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                 .Validate();
         }
 
+
         [Test]
-        [Ignore("To be finish missing right size of envelope")]
-        public void TestZoomTo_ToSmallFeatureOnY()
+        public void TestZoomTo_ToSmallFeatureOnXNegativX()
         {
+            //(y) nord south 150 m is 150/(1000*60*2) = 0,00125
+            //(x) east vest 250 m is 200/(1000*60) = 0,00416
             //Arrange
             var place = "SomePlace";
-            var incommingEnvelope = Make.Esri.Envelope.YMax(0.1).Build;
+            var centroid = Make.Esri.Point.Coords(-42.0, -42.0).Build;
+            var incommingEnvelope = Make.Esri.Envelope
+                .XMax(-41.9979 - 0.00416)
+                .XMin(-42.0021)
+                .YMax(-41)
+                .YMin(-42)
+                .WithCentroid(centroid)
+                .Build;
             var geometry = Make.Esri.Geometry.WithEnvelope(incommingEnvelope).Build;
             var factory = Make.Factory.ConvertWKTToGeometryReturns(geometry).Build;
             var placeFinderController = new PlaceFinderController(factory);
-            var expetedEnvelope = Make.Esri.Envelope.YMax(0.001).Build;
+            var expetedEnvelope = Make.Esri.Envelope
+                .XMax(-41.9979)
+                .XMin(-42.0021)
+                .YMax(-41.9994)
+                .YMin(-42.0006)
+                .Build;
+
+            //Act
+            placeFinderController.SearchTextChange(place);
+            placeFinderController.ZoomTo(place);
+
+            //Assert
+            Validator.Map(factory.MxDocument.FocusMap)
+                .NewExtentIsSet(expetedEnvelope)
+                .MapIsRefresh
+                .Validate();
+        }
+
+
+        [Test]
+        public void TestZoomTo_ToSmallFeatureOnY()
+        {
+            //(y) nord south 150 m is 150/(1000*60*2) = 0,00125
+            //(x) east vest 250 m is 200/(1000*60) = 0,00416
+            //Arrange
+            var place = "SomePlace";
+            var incommingEnvelope = Make.Esri.Envelope
+                .XMax(42)
+                .XMin(41)
+                .YMax(42.00063-0.00125)
+                .YMin(41.9993)
+                .Build;
+            var geometry = Make.Esri.Geometry.WithEnvelope(incommingEnvelope).Build;
+            var factory = Make.Factory.ConvertWKTToGeometryReturns(geometry).Build;
+            var placeFinderController = new PlaceFinderController(factory);
+            var expetedEnvelope = Make.Esri.Envelope
+                .XMax(42.0021)
+                .XMin(41.9979)
+                .YMax(42.0006)
+                .YMin(41.9994)
+                .Build;
+
+            //Act
+            placeFinderController.SearchTextChange(place);
+            placeFinderController.ZoomTo(place);
+
+            //Assert
+            Validator.Map(factory.MxDocument.FocusMap)
+                .NewExtentIsSet(expetedEnvelope)
+                .MapIsRefresh
+                .Validate();
+        }
+        
+        [Test]
+        public void TestZoomTo_ToSmallFeatureOnYWithNegativY()
+        {
+            //(y) nord south 150 m is 150/(1000*60*2) = 0,00125
+            //(x) east vest 250 m is 200/(1000*60) = 0,00416
+            //Arrange
+            var place = "SomePlace";
+            var centroid = Make.Esri.Point.Coords(-42.0, -42.0).Build;
+            var incommingEnvelope = Make.Esri.Envelope
+                .XMax(-41)
+                .XMin(-42)
+                .YMax(-41.9993 - 0.00125)
+                .YMin(-42.00063)
+                .WithCentroid(centroid)
+                .Build;
+            var geometry = Make.Esri.Geometry
+                .WithEnvelope(incommingEnvelope)
+                .Build;
+            var factory = Make.Factory.ConvertWKTToGeometryReturns(geometry).Build;
+            var placeFinderController = new PlaceFinderController(factory);
+            var expetedEnvelope = Make.Esri.Envelope
+                .XMax(-41.9979)
+                .XMin(-42.0021)
+                .YMax(-41.9994)
+                .YMin(-42.0006)
+                .Build;
 
             //Act
             placeFinderController.SearchTextChange(place);

@@ -58,34 +58,48 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
 
         public void ZoomTo(string selectedAddress)
         {
-            if (string.IsNullOrWhiteSpace(selectedAddress)) 
+            if (string.IsNullOrWhiteSpace(selectedAddress))
+            {
+                //TODO move message to a resource file
                 throw new PlaceFinderException("Der er ikke udfyldt et sted");
+            }
 
+            //get the last search address
             var geoSearchAddress = lastSearch.FirstOrDefault(x => x.presentationString.Equals(selectedAddress));
             if (geoSearchAddress == null)
             {
+                //TODO move message to a resource file
                 throw new PlaceFinderException("Stedet blev ikke fundet");
             }
+            //create a polygon of the address
             var geometry = CreatePolyFromAddress(geoSearchAddress);
             var envelope = geometry.Envelope;
+
             var activeView = ((IActiveView)_factory.MxDocument.FocusMap);
+            //verify that the map has e spatial reference
             if (activeView.FocusMap.SpatialReference == null || activeView.FocusMap.SpatialReference.FactoryCode == 0)
-                //TODO move resource to file
+                //TODO move message to a resource file
                 throw new PlaceFinderException("Spatial reference of map is not set");
 
-            var smallestAllowedExtentToZoomTo = Settings.Default.smallestAllowedExtentToZoomTo;
-            if ((envelope.XMax - envelope.XMin < smallestAllowedExtentToZoomTo) || (envelope.YMax - envelope.YMin < smallestAllowedExtentToZoomTo))
+            //get the smallest allowed zoom ratio and calculate it to degrees
+            var smallestAllowedZoomToInMetersOnX = Settings.Default.smallestAllowedZoomToInMetersOnX / (1000 * 60);
+            var smallestAllowedZoomToInMetersOnY = Settings.Default.smallestAllowedZoomToInMetersOnY / (1000 * 60 * 2);
+            if (Math.Abs(envelope.XMax - envelope.XMin) < smallestAllowedZoomToInMetersOnX || Math.Abs(envelope.YMax - envelope.YMin) < smallestAllowedZoomToInMetersOnY)
             {
-                var halfOfSmallestExtentToZoomTo = smallestAllowedExtentToZoomTo / 2;
-                envelope.XMax = envelope.XMax + halfOfSmallestExtentToZoomTo;
-                envelope.YMax = envelope.YMax + halfOfSmallestExtentToZoomTo;
-                envelope.XMin = envelope.XMin - halfOfSmallestExtentToZoomTo;
-                envelope.YMin = envelope.YMin - halfOfSmallestExtentToZoomTo;
+                //get the center of the current envelope
+                var centroidEx = ((IGeometry5)envelope).CentroidEx;
+                //resize the envelope to the minimum size
+                envelope.XMax = centroidEx.X + smallestAllowedZoomToInMetersOnX / 2;
+                envelope.YMax = centroidEx.Y + smallestAllowedZoomToInMetersOnY / 2;
+                envelope.XMin = centroidEx.X - smallestAllowedZoomToInMetersOnX / 2;
+                envelope.YMin = centroidEx.Y - smallestAllowedZoomToInMetersOnY / 2;
             }
 
+            //project the envelope to the spatial reference of the map
             envelope.Project(activeView.FocusMap.SpatialReference);
+            //add the envelpe as extent on the map
             activeView.Extent = envelope;
-
+            //refres the map to zoom
             activeView.Refresh();
         }
 
@@ -124,12 +138,16 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
         {
             if (geoAddress == null)
                 return null;
+
+            //convert the address WKT geometry to esri geometry
+            var convertWktToGeometry = _factory.ConvertWKTToGeometry(geoAddress.geometryWkt);
+
+            //create the spatial reference of wgs1984 reflection that of the request services
             var coordinateSystem = esriSRGeoCSType.esriSRGeoCS_WGS1984;
             var spatialReferenceFactory = _factory.SpatialReferenceFactory;
             var spatialReference = spatialReferenceFactory.CreateSpatialReference((int)coordinateSystem);
-
-            var convertWktToGeometry = _factory.ConvertWKTToGeometry(geoAddress.geometryWkt);
             convertWktToGeometry.SpatialReference = spatialReference;
+
             return convertWktToGeometry;
         }
 
