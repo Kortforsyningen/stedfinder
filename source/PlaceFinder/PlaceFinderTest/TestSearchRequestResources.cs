@@ -18,7 +18,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             string resourceString = searchRequestResources.GetResourceString;
 
             //Assert
-            Assert.AreEqual("Adresser,Stednavne", resourceString);
+            Assert.AreEqual("Adresser,Stednavne,Stednavne_v2", resourceString);
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             string resourceString = searchRequestResources.GetResourceString;
 
             //Assert
-            Assert.AreEqual("Adresser,Veje,Husnumre,Kommuner,Matrikelnumre,Stednavne,Opstillingskredse,Politikredse,Postdistrikter,Regioner,Retskredse", resourceString);
+            Assert.AreEqual("Adresser,Veje,Husnumre,Kommuner,Matrikelnumre,Stednavne,Stednavne_v2,Opstillingskredse,Politikredse,Postdistrikter,Regioner,Retskredse", resourceString);
         }
     }
 }

@@ -13,11 +13,12 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
         {
             try
             {
+                var searchText = Uri.EscapeDataString(searchRequestParams.SearchText.Replace('/', '_'));                
                 //TODO move resource to file
                 var url =
-                    String.Format(
+                    string.Format(
                         "https://kortforsyningen.kms.dk/Geosearch?type=json&search={0}&resources={1}&limit={2}&login={3}&password={4}&crs={5}",
-                        searchRequestParams.SearchText, searchRequestParams.Resources, searchRequestParams.ReturnLimit, searchRequestParams.LoginName, searchRequestParams.Password,
+                        searchText, searchRequestParams.Resources, searchRequestParams.ReturnLimit, searchRequestParams.LoginName, searchRequestParams.Password,
                         searchRequestParams.EPSGCode);
 
                 var webClient = new WebClient { Encoding = Encoding.UTF8 };
