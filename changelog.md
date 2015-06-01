@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fix
+Problem of searching on text that contain a slash
+
+Problem of searching on place name in the new data model, fix by adding search resource 'stednavne_v2'
 
 ## [v1.0.1] (2015-05-26)
 ### Changed
