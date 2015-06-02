@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v1.0.2] (2015-06-02)
 ### Fix
 Problem of searching on text that contain a slash
 
