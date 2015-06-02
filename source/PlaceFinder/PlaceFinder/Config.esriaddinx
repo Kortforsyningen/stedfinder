@@ -2,7 +2,7 @@
   <Name>PlaceFinder</Name>
   <AddInID>{045288b6-cdb3-48e5-ba1f-995277e215fe}</AddInID>
   <Description>Use it to finde a place</Description>
-  <Version>1.0.2</Version>
+  <Version>1.0.3</Version>
   <Image>Images\PlaceFinder.png</Image>
   <Author>bjpe</Author>
   <Company>Geodatastyrelsen</Company>

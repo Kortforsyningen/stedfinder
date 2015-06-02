@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OutsideSolution", "OutsideSolution", "{895528FA-CAC0-46E9-A7A6-CE5F959B5319}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\CHANGELOG.md = ..\..\CHANGELOG.md
+		HowToRelease.md = HowToRelease.md
 		..\..\README.md = ..\..\README.md
 	EndProjectSection
 EndProject

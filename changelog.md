@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [v1.0.3] (2015-06-02)
+### Fix
+Only the version number is change to se if that fix the problem of deploye a new version 
+
 ## [v1.0.2] (2015-06-02)
 ### Fix
 Problem of searching on text that contain a slash
