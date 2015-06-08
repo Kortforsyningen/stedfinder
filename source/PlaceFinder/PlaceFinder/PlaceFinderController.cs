@@ -58,7 +58,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
 
         public void ZoomTo(string selectedAddress)
         {
-            if (string.IsNullOrWhiteSpace(selectedAddress))
+            if (string.IsNullOrEmpty(selectedAddress))
             {
                 //TODO move message to a resource file
                 throw new PlaceFinderException("Der er ikke udfyldt et sted");
