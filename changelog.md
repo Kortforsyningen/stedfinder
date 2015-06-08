@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+Downgraded to run in .net version 3.5 rather then 4.5
+
 
 ## [v1.0.3] (2015-06-02)
 ### Fix
