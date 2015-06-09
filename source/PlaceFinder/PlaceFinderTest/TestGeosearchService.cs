@@ -35,7 +35,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             //Act
             var escapeString = Uri.EscapeDataString(text);
             //Asset
-            Assert.That(escapeString, Is.EqualTo("K%C3%B8benhavns%20Universitet%20%28Universitet%2FFagh%C3%B8jskole%20-%20K%C3%B8benhavn%29"));
+            Assert.That(escapeString, Is.EqualTo("K%C3%B8benhavns%20Universitet%20(Universitet%2FFagh%C3%B8jskole%20-%20K%C3%B8benhavn)"));
         }
 
         [Test]
