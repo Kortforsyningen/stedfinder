@@ -1,9 +1,11 @@
 ﻿# Stedfinder
 
 **English:**
+
 Stedfinder (Placefinder) is ArcMap addin for searching places and addresses in Denmark.
 
-**Dansk**
+**Dansk:**
+
 Stedfinder er en Esri ArcMap addin der giver mulighed for at søge på steder, områder og addresser i Danmark.
 
 - Når Addin'et er tilføjet til ArcMap er det muligt at aktivere toolbaren 'Stedfinder'.
