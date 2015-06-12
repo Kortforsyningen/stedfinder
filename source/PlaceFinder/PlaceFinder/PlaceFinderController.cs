@@ -13,7 +13,6 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
     {
         private readonly IFactory _factory;
         private List<GeoSearchAddress> currentSearch;
-        private List<GeoSearchAddress> lastSearch;
         private SearchRequestResources searchRequestResources;
 
         public PlaceFinderController(IFactory factory)
@@ -26,11 +25,13 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
 
         public void SearchTextChange(string searchString)
         {
-            var geoSearchAddresses = GetAddressData(searchString);
-            lastSearch = currentSearch ?? geoSearchAddresses;
-            currentSearch = geoSearchAddresses;
-            var list = geoSearchAddresses.Select(geoSearchAddress => geoSearchAddress.presentationString).ToList();
-            _factory.PlaceFinderDockableWindow.AddSearchResult(list);
+            if (searchString.Length > 2)
+            {
+                var geoSearchAddresses = GetAddressData(searchString);
+                currentSearch = geoSearchAddresses;
+                var list = geoSearchAddresses.Select(geoSearchAddress => geoSearchAddress.presentationString).ToList();
+                _factory.PlaceFinderDockableWindow.AddSearchResult(list);
+            }
         }
 
         private List<GeoSearchAddress> GetAddressData(string inputParamSearch)
@@ -65,7 +66,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             }
 
             //get the last search address
-            var geoSearchAddress = lastSearch.FirstOrDefault(x => x.presentationString.Equals(selectedAddress));
+            var geoSearchAddress = currentSearch.FirstOrDefault(x => x.presentationString.Equals(selectedAddress));
             if (geoSearchAddress == null)
             {
                 //TODO move message to a resource file

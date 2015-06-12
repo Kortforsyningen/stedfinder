@@ -20,5 +20,10 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             var checkedItemCollection = SearchRequestResourcesCheckedListBox.CheckedItems;
             _placeFinderController.SearchResourcesChange(checkedItemCollection);
         }
+
+        private void okButton_Click(object sender, System.EventArgs e)
+        {
+            Close();
+        }
     }
 }

@@ -79,25 +79,78 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
 
         private void onZoomTo_Click(object sender, EventArgs e)
         {
-            PlaceFinderController.ZoomTo(searchTextBox.SelectedText);
+            ZoomTo(searchTextBox.SelectedText);
         }
 
         private void onSearchTextChanged(object sender, EventArgs e)
         {
-            PlaceFinderController.SearchTextChange(searchTextBox.Text);
+            if (searchTextBox.Focused)
+            {
+                PlaceFinderController.SearchTextChange(searchTextBox.Text);
+            }
         }
 
         public void AddSearchResult(List<string> geoSearchAddresses)
         {
-            var autoCompleteStringCollection = new AutoCompleteStringCollection();
-            autoCompleteStringCollection.AddRange(geoSearchAddresses.ToArray());
-            searchTextBox.AutoCompleteCustomSource = autoCompleteStringCollection;
+            searchTextBox.BringToFront();
+            searchResultComboBox.DroppedDown = geoSearchAddresses.Count > 0;
+            searchResultComboBox.Items.Clear();
+            if (geoSearchAddresses.Count > 0)
+            {
+                searchResultComboBox.Items.AddRange(geoSearchAddresses.ToArray());
+            }
+            searchTextBox.Focus();
+            searchTextBox.BringToFront();
         }
 
         private void configButton_Click(object sender, EventArgs e)
         {
             configurationsForm.Location = configButton.PointToScreen(Point.Empty);
             configurationsForm.ShowDialog();
+        }
+
+        private void onSearchTextKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Down:
+                    searchResultComboBox.Focus();
+                    break;
+            }
+
+        }
+
+        private void onSearchResultKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    var selected = searchResultComboBox.Text;
+                    ZoomTo(selected);
+                    break;
+                case  Keys.Up:
+                    if (searchResultComboBox.SelectedIndex == 1)
+                    {
+                        searchTextBox.Focus();
+                    }
+                    break;
+            }
+        }
+        
+        private void ZoomTo(string selected)
+        {
+            if (PlaceFinderController != null)
+            {
+                searchResultComboBox.Focus();
+                PlaceFinderController.ZoomTo(selected);
+                searchTextBox.Text = selected;
+            }
+        }
+
+        private void searchResultComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selected = searchResultComboBox.Text;
+            ZoomTo(selected);
         }
     }
 }

@@ -2,7 +2,7 @@
   <Name>PlaceFinder</Name>
   <AddInID>{045288b6-cdb3-48e5-ba1f-995277e215fe}</AddInID>
   <Description>Use it to finde a place</Description>
-  <Version>1.0.4</Version>
+  <Version>1.0.5</Version>
   <Image>Images\PlaceFinder.png</Image>
   <Author>bjpe</Author>
   <Company>Geodatastyrelsen</Company>
@@ -10,20 +10,41 @@
   <Targets>
     <Target name="Desktop" version="10.3" />
   </Targets>
-  <AddIn language="CLR4.5" library="GeodataStyrelsen.ArcMap.PlaceFinder.dll" namespace="GeodataStyrelsen.ArcMap.PlaceFinder">
+  <AddIn language="CLR4.5" 
+         library="GeodataStyrelsen.ArcMap.PlaceFinder.dll" 
+         namespace="GeodataStyrelsen.ArcMap.PlaceFinder">
     <ArcMap>
       <Commands>
-        <Button id="Geodatastyrelsen_PlaceFinder_PlaceFinderButton" onDemand="false" class="PlaceFinderButton" message="Åbner et søgevindue til søgning efter steder i Danmark" caption="Stedfinder" tip="Åbner stedfinder søgevinduet" category="Geodatastyrelsen" image="Images\PlaceFinderButton.png" />
+        <Button id="Geodatastyrelsen_PlaceFinder_PlaceFinderButton" 
+                onDemand="false" 
+                class="PlaceFinderButton" 
+                message="Åbner et søgevindue til søgning efter steder i Danmark" 
+                caption="Stedfinder" 
+                tip="Åbner stedfinder søgevinduet" 
+                category="Geodatastyrelsen" 
+                image="Images\PlaceFinderButton.png" />
+        <Button id="Geodatastyrelsen_PlaceFinder_AboutButton"
+                class="AboutButton"
+                message="Klik her for at se oplysninger, der skal benyttes i forbindelse med fejlmelding."
+                caption="Om danske stednavne sted finder"
+                tip="Om danske stednavne sted finder"
+                category="Geodatastyrelsen"
+                image="Images\PlaceFindeinfo.png"
+                onDemand="true"/>
       </Commands>
       <DockableWindows>
-        <DockableWindow id="Geodatastyrelsen_PlaceFinder_PlaceFinderDockableWindow" class="PlaceFinderDockableWindow+AddinImpl" caption="Stedfinder" image="Images\PlaceFinderDockableWindow.png">
+        <DockableWindow id="Geodatastyrelsen_PlaceFinder_PlaceFinderDockableWindow" 
+                        class="PlaceFinderDockableWindow+AddinImpl" 
+                        caption="Stedfinder" 
+                        image="Images\PlaceFinderDockableWindow.png">
           <InitialPlacement height="70" width="300" state="unpinned" position="left" />
         </DockableWindow>
       </DockableWindows>
       <Toolbars>
-        <Toolbar id="GST_ArcMapAddin_PlaceFinder_Toolbar" caption="Stedfinder" showInitially="true">
+        <Toolbar id="Geodatastyrelsen_ArcMapAddin_PlaceFinder_Toolbar" caption="Stedfinder" showInitially="true">
           <Items>
             <Button refID="Geodatastyrelsen_PlaceFinder_PlaceFinderButton" />
+            <Button refID="Geodatastyrelsen_PlaceFinder_AboutButton" />
           </Items>
         </Toolbar>
       </Toolbars>
