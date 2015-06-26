@@ -3,7 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [v1.0.5] (2015-09-12)
+## [v1.0.6] (2015-06-26)
+### Fix
+- Proble of the mouse is invisiable when search result is view in the dropdown
+
+## [v1.0.5] (2015-06-12)
 ### Added
 - Information button has been added to the toobar
 - It is posible til select with the curser in the dropdown, and the it zoom to that
@@ -16,7 +20,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - The zoom botton is removed
 
-## [v1.0.4] (2015-09-02)
+## [v1.0.4] (2015-06-02)
 ### Changed
 Downgraded to run in .net version 3.5 rather then 4.5
 
