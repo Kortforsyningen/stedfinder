@@ -15,6 +15,7 @@
         public double yMin { get; set; }
         public string municipalityCodes { get; set; }
         public string streetCodes { get; set; }
+        public string id_lokalid { get; set; }
         public string id { get; set; }
         public string name { get; set; }
         public string elavsnavn { get; set; }

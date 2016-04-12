@@ -30,7 +30,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 var geoSearchAddresses = GetAddressData(searchString);
                 currentSearch = geoSearchAddresses;
                 var list = geoSearchAddresses.Select(geoSearchAddress => geoSearchAddress.presentationString).ToList();
-                _factory.PlaceFinderDockableWindow.AddSearchResult(list);
+                _factory.PlaceFinderDockableWindow.AddSearchResult(currentSearch);
             }
         }
 

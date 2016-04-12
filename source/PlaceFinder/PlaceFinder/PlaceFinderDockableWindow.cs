@@ -90,6 +90,21 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             }
         }
 
+        public void AddSearchResult(List<GeoSearchAddress> geoSearchAddresses)
+        {
+            searchTextBox.BringToFront();
+            searchResultComboBox.DroppedDown = geoSearchAddresses.Count > 0;
+            Cursor.Current = Cursors.Default;
+            searchResultComboBox.Items.Clear();
+            searchResultComboBox.DisplayMember = "presentationString";
+            if (geoSearchAddresses.Count > 0)
+            {
+                searchResultComboBox.Items.AddRange(geoSearchAddresses.ToArray());
+            }
+            searchTextBox.Focus();
+            searchTextBox.BringToFront();
+        }
+
         public void AddSearchResult(List<string> geoSearchAddresses)
         {
             searchTextBox.BringToFront();
