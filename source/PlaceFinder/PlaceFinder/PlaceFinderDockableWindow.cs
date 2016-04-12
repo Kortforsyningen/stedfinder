@@ -105,20 +105,6 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             searchTextBox.BringToFront();
         }
 
-        public void AddSearchResult(List<string> geoSearchAddresses)
-        {
-            searchTextBox.BringToFront();
-            searchResultComboBox.DroppedDown = geoSearchAddresses.Count > 0;
-            Cursor.Current = Cursors.Default;
-            searchResultComboBox.Items.Clear();
-            if (geoSearchAddresses.Count > 0)
-            {
-                searchResultComboBox.Items.AddRange(geoSearchAddresses.ToArray());
-            }
-            searchTextBox.Focus();
-            searchTextBox.BringToFront();
-        }
-
         private void configButton_Click(object sender, EventArgs e)
         {
             configurationsForm.Location = configButton.PointToScreen(Point.Empty);
