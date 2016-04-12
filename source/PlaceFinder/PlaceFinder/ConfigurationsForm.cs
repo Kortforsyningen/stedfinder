@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Diagnostics;
+using System.Windows.Forms;
 using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinder
@@ -24,6 +25,18 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
         private void okButton_Click(object sender, System.EventArgs e)
         {
             Close();
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ConfigurationsForm_Load(object sender, System.EventArgs e)
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            label1.Text = "Version " + fvi.FileVersion;
         }
     }
 }

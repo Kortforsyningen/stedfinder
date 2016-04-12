@@ -6,8 +6,8 @@
         public SearchRequestParams()
         {
             SearchText = "";
-            Resources = "Adresser,Stednavne,Stednavne_v2";
-            ReturnLimit = "20";
+            Resources = "Adresser,Stednavne_v2";
+            ReturnLimit = "1000";
             LoginName = "PlaceFinder";
             Password = "PlaceFinder!1";
             EPSGCode = "epsg:4326";
@@ -68,7 +68,7 @@
                 }
                 if (PlaceNames)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Stednavne,Stednavne_v2");
+                    resourcesString = AppendToResource(resourcesString, "Stednavne_v2"); //used to be "Stednavne, Stednavne_v2" for some unknown reason.
                 }
                 if (CadastralNumber)
                 {
