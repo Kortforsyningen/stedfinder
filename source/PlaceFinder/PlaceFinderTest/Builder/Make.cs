@@ -1,4 +1,5 @@
-﻿using GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder.Esri;
+﻿using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
+using GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder.Esri;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder
 {
@@ -51,9 +52,9 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder
             get { return new GeosearchServiceBuilder(); }
         }
 
-        public static FactoryBuilder Factory
+        public static FactoryBuilder Factory(GeoSearchAddress resultAddress)
         {
-            get { return new FactoryBuilder(); }
+            return new FactoryBuilder(resultAddress); 
         }
 
     }

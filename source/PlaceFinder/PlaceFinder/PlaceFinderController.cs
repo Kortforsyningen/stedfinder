@@ -55,17 +55,16 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             return retValue;
         }
 
-
-        public void ZoomTo(string selectedAddress)
+        public void ZoomTo(GeoSearchAddress selectedAddress)
         {
-            if (string.IsNullOrEmpty(selectedAddress))
+            if (string.IsNullOrEmpty(selectedAddress.presentationString))
             {
                 //TODO move message to a resource file
                 throw new PlaceFinderException("Der er ikke udfyldt et sted");
             }
 
             //get the last search address
-            var geoSearchAddress = currentSearch.FirstOrDefault(x => x.presentationString.Equals(selectedAddress));
+            var geoSearchAddress = currentSearch.FirstOrDefault(x => x.Equals(selectedAddress));
             if (geoSearchAddress == null)
             {
                 //TODO move message to a resource file

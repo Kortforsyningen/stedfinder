@@ -77,11 +77,6 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
 
         }
 
-        private void onZoomTo_Click(object sender, EventArgs e)
-        {
-            ZoomTo(searchTextBox.SelectedText);
-        }
-
         private void onSearchTextChanged(object sender, EventArgs e)
         {
             if (searchTextBox.Focused)
@@ -127,7 +122,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             switch (e.KeyCode)
             {
                 case Keys.Enter:
-                    var selected = searchResultComboBox.Text;
+                    var selected = (GeoSearchAddress)searchResultComboBox.SelectedItem;
                     ZoomTo(selected);
                     break;
                 case  Keys.Up:
@@ -139,20 +134,20 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             }
         }
         
-        private void ZoomTo(string selected)
+        private void ZoomTo(GeoSearchAddress selected)
         {
             if (PlaceFinderController != null)
             {
                 searchResultComboBox.Focus();
                 PlaceFinderController.ZoomTo(selected);
-                searchTextBox.Text = selected;
+                searchTextBox.Text = selected.presentationString;
             }
         }
 
         private void searchResultComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selected = searchResultComboBox.Text;
-            ZoomTo(selected);
+            var selected = searchResultComboBox.SelectedItem;
+            ZoomTo((GeoSearchAddress)selected);
         }
     }
 }

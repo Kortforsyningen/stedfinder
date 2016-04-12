@@ -1,5 +1,4 @@
-﻿using System;
-using ESRI.ArcGIS.Geometry;
+﻿using ESRI.ArcGIS.Geometry;
 using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 using Rhino.Mocks;
 
@@ -9,9 +8,9 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder
     {
 
         IGeometry _geometry = Make.Esri.Geometry.Build;
-        public FactoryBuilder()
+        public FactoryBuilder(GeoSearchAddress resultAddress)
         {
-            var geosearchService = Make.GeosearchService.WithResult.Build;
+            var geosearchService = Make.GeosearchService.WithResult(resultAddress).Build;
             Build.Stub(factory => factory.GeosearchService).Return(geosearchService);
             var mxDocument = Make.Esri.MxDocument.Build;
             Build.Stub(factory => factory.MxDocument).Return(mxDocument);

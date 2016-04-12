@@ -1,5 +1,4 @@
-﻿using GeodataStyrelsen.ArcMap.PlaceFinder;
-using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
+﻿using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder
 {
