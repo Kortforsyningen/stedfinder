@@ -17,7 +17,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater
             get
             {
                 Mock.AssertWasCalled(
-                    m => m.AddSearchResult(Arg<List<string>>.Matches(l => l.Count > 0)), 
+                    m => m.AddSearchResult(Arg<List<GeoSearchAddress>>.Matches(l => l.Count > 0)), 
                     options => options.Repeat.AtLeastOnce());
                 return this;
             }
