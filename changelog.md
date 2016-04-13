@@ -1,58 +1,68 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [v?.?.?] (Unreleased)
+
+## [v1.1.0] (2016-04-13)
+
+### Fix
+- Named places can now be selected individually even if they have the same presentation name. 
+
+### Changed
+- The dropdown list with search results can contain 1000 items (in stead of 20).
 
 ## [v1.0.6] (2015-06-26)
 ### Fix
-- Proble of the mouse is invisiable when search result is view in the dropdown
+- Problem with the mouse being invisable when search result is viewed in the dropdown fixed.
 
 ## [v1.0.5] (2015-06-12)
 ### Added
-- Information button has been added to the toobar
-- It is posible til select with the curser in the dropdown, and the it zoom to that
-- It is posible til tapdown with the arroe keys in the result dropdown, while zooming to the selecte in the list
-- Ok button is added to configuration window
+- Information button has been added to the toolbar.
+- It is possible til select with the cursor in the dropdown, and the it zoom to that.
+- It is possible til tapdown with the arrow keys in the result dropdown, while zooming to the selected in the list.
+- `Ok` button is added to configuration window.
 
 ### Fix
 - All result is showen from the seachresult in the dropdown
 
 ### Changed
-- The zoom botton is removed
+- The zoom button is removed.
 
 ## [v1.0.4] (2015-06-02)
 ### Changed
-Downgraded to run in .net version 3.5 rather then 4.5
+- Downgraded to run in .net version 3.5 rather then 4.5.
 
 
 ## [v1.0.3] (2015-06-02)
 ### Fix
-Only the version number is change to se if that fix the problem of deploye a new version 
+- Only the version number is changed to se if that fix the problem of deploying a new version.
 
 ## [v1.0.2] (2015-06-02)
 ### Fix
-Problem of searching on text that contain a slash
+- Problem of searching on text that contain a slash fixed.
 
-Problem of searching on place name in the new data model, fix by adding search resource 'stednavne_v2'
+- Problem of searching on place name in the new data model, fix by adding search resource 'stednavne_v2'.
 
 ## [v1.0.1] (2015-05-26)
 ### Changed
-The zoom to feature is change to have e minimum extent of meters
+- The zoom to feature functionality is changed to have a minimum extent in meters
 
 ## [v1.0.0] (2015-05-22)
 ### Added
-The zoom to feature is change to have e minimum extent
+- The zoom to feature functionality is changed to have a minimum extent.
 
 ### Changed
-tooltips and tool naming is improved
+- tooltips and tool naming is improved.
 
 ## [v0.3] (2015-05-19)
+
 ### Fixed
-Change the name-space to distinguish the dell
+- Change the name-space to distinguish the dll.
 
 ## [v0.2] (2015-05-18)
+
 ### Added
-Added possibility for configuration of witch resources to search on
+- Added possibility for configuration of witch resources to search on.
 
 ## [v0.1] (2015-05-13)
-First version of the PlaceFinde
+- First version of the PlaceFinder.

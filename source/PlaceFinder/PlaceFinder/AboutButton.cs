@@ -10,7 +10,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
         protected override void OnClick()
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("Danske stednavnes sted finder.");
+            stringBuilder.AppendLine("Danske stednavnes stedfinder.");
             stringBuilder.AppendLine();
 
             // Version
@@ -22,16 +22,16 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             stringBuilder.AppendLine();
             
             // kontakt
-            stringBuilder.AppendLine("Udvikling og kontaktpersoner:");
-            stringBuilder.AppendLine("Steen Hulthin Rasmussen, stehr@gst.dk");
-            stringBuilder.AppendLine("Bjørn Petersen, xbeje@gst.dk");
+            stringBuilder.AppendLine("Udvikling og kontaktpersoner (Contact):");
+            stringBuilder.AppendLine("Steen Hulthin Rasmussen, stehr@sdfe.dk");
+            stringBuilder.AppendLine("Bjørn Elo Petersen");
             stringBuilder.AppendLine();
 
             // attribution
             stringBuilder.AppendLine("Anvendte resourcer:");
             stringBuilder.AppendLine("Jack Cai's info_black button"); //http://findicons.com/icon/175921/info_black?id=362845
 
-            MessageBox.Show(stringBuilder.ToString(), "Om danske stednavne sted finder", MessageBoxButtons.OK);
+            MessageBox.Show(stringBuilder.ToString(), "Om danske stednavne stedfinder", MessageBoxButtons.OK);
         }
     }
 }

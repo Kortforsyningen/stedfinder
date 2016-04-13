@@ -1,8 +1,8 @@
 ﻿<ESRI.Configuration xmlns="http://schemas.esri.com/Desktop/AddIns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Name>PlaceFinder</Name>
   <AddInID>{045288b6-cdb3-48e5-ba1f-995277e215fe}</AddInID>
-  <Description>Use it to finde a place</Description>
-  <Version>1.0.6</Version>
+  <Description>Use it to find a place in Denmark</Description>
+  <Version>1.1.0</Version>
   <Image>Images\PlaceFinder.png</Image>
   <Author>bjpe</Author>
   <Company>Geodatastyrelsen</Company>
@@ -26,8 +26,8 @@
         <Button id="Geodatastyrelsen_PlaceFinder_AboutButton"
                 class="AboutButton"
                 message="Klik her for at se oplysninger, der skal benyttes i forbindelse med fejlmelding."
-                caption="Om danske stednavne sted finder"
-                tip="Om danske stednavne sted finder"
+                caption="Om danske stednavne stedfinder"
+                tip="Om danske stednavne stedfinder"
                 category="Geodatastyrelsen"
                 image="Images\PlaceFindeinfo.png"
                 onDemand="true"/>
