@@ -6,7 +6,7 @@
         public SearchRequestParams()
         {
             SearchText = "";
-            Resources = "Adresser,Stednavne_v2";
+            Resources = "Stednavne_v2";
             ReturnLimit = "1000";
             LoginName = "PlaceFinder";
             Password = "PlaceFinder!1";
