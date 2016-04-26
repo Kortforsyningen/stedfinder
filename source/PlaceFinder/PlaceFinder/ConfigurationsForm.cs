@@ -12,7 +12,6 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
         {
             _placeFinderController = placeFinderController;
             InitializeComponent();
-            SearchRequestResourcesCheckedListBox.SetItemCheckState(SearchRequestResourcesCheckedListBox.Items.IndexOf("Adresser"), CheckState.Checked);
             SearchRequestResourcesCheckedListBox.SetItemCheckState(SearchRequestResourcesCheckedListBox.Items.IndexOf("Stednavne"), CheckState.Checked);
         }
 

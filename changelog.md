@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [v?.?.?] (Unreleased)
 
+## [v1.1.2] (2016-04-26)
+
+### Fix
+- Default selected search engines is now changed to `stednavne-v2` only.
+
 ## [v1.1.1] (2016-04-26)
 
 ### Changed
