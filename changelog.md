@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [v?.?.?] (Unreleased)
 
+## [v1.3.0] (2016-06-09)
+
+### Changed 
+- Built with ArcGIS 10.4.1 and .net 4.6.1
+
 ## [v1.1.2] (2016-04-26)
 
 ### Fix
