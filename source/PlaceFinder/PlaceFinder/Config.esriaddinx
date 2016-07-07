@@ -2,7 +2,7 @@
   <Name>PlaceFinder</Name>
   <AddInID>{045288b6-cdb3-48e5-ba1f-995277e215fe}</AddInID>
   <Description>Use it to find a place in Denmark</Description>
-  <Version>1.3.0</Version>
+  <Version>1.4.0</Version>
   <Image>Images\PlaceFinder.png</Image>
   <Author>bjpe, stehr</Author>
   <Company>Geodatastyrelsen</Company>

@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [v?.?.?] (Unreleased)
 
+## [v1.4.0] (2016-07-07)
+
+###  Changed
+- Built with .net 4.5 since this is the framework version that is supported by esri.
+- The size of the search bar is now adjustable.
+
 ## [v1.3.0] (2016-06-09)
 
 ### Changed 
