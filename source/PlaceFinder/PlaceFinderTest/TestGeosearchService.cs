@@ -27,6 +27,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             Assert.That(pattern.Replace("A.", "_"), Is.EqualTo("A."));
             Assert.That(pattern.Replace("A;", "_"), Is.EqualTo("A;"));
         }
+
         [Test]
         public void TestEncoding()
         {
@@ -35,25 +36,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             //Act
             var escapeString = Uri.EscapeDataString(text);
             //Asset
-            Assert.That(escapeString, Is.EqualTo("K%C3%B8benhavns%20Universitet%20(Universitet%2FFagh%C3%B8jskole%20-%20K%C3%B8benhavn)"));
-        }
-
-        [Test]
-        [Ignore("Integration test")]
-        public void TestSpecialCaratersSingel()
-        {
-            //Arange
-            var searchRequestParam = new SearchRequestParams();
-            var text = "D";
-            Console.Write(text);
-            searchRequestParam.SearchText = text;
-            var geosearchService = new GeosearchService();
-            //Act;
-            var geoSearchAddressData = geosearchService.Request(searchRequestParam);
-            //Asset
-            //Assert.That(geoSearchAddressData.message, Is.EqualTo("OK"), "Fail on text: " + text);
-            //Assert.That(geoSearchAddressData.status, Is.EqualTo("OK"), "Fail on text: " + text);
-            Assert.That(geoSearchAddressData.data.Count, Is.EqualTo(0), "Fail on text: " + text);
+            Assert.That(escapeString, Is.EqualTo("K%C3%B8benhavns%20Universitet%20%28Universitet%2FFagh%C3%B8jskole%20-%20K%C3%B8benhavn%29"));
         }
 
         [Test]

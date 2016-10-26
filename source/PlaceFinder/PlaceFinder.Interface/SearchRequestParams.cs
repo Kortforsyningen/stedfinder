@@ -6,7 +6,7 @@
         public SearchRequestParams()
         {
             SearchText = "";
-            Resources = "Stednavne_v2";
+            Resources = "Stednavne_v3";
             ReturnLimit = "1000";
             LoginName = "PlaceFinder";
             Password = "PlaceFinder!1";
@@ -68,7 +68,7 @@
                 }
                 if (PlaceNames)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Stednavne_v2"); //used to be "Stednavne, Stednavne_v2" for some unknown reason.
+                    resourcesString = AppendToResource(resourcesString, "Stednavne_v3"); //used to be "Stednavne, Stednavne_v2" for some unknown reason.
                 }
                 if (CadastralNumber)
                 {

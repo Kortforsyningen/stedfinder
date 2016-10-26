@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [v?.?.?] (Unreleased)
 
+## [v1.5.0] (2016-10-26)
+
+### Changed
+- Now using the stednavne_v3 service instead of stednavne_v2 service.
+
 ## [v1.4.0] (2016-07-07)
 
 ###  Changed
