@@ -13,4 +13,4 @@ Stedfinder er en Esri ArcMap addin der giver mulighed for at søge på steder, a
 - I 'Stedfinder' vinduet er det muligt at skrive et navn på et sted eller lokation. Når indtastning påbegyndes kommer der en liste med forslag. Et forslag kan, der klikkes på, hvorefter der zoomes til forslaget.
 
 
-[Projektsitet for stedfinder](http://geodatastyrelsen.github.io/stedfinder)
+[Projektsitet for stedfinder](http://kortforsyningen.github.io/stedfinder/)
