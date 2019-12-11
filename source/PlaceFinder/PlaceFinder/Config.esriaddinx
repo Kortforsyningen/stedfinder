@@ -2,11 +2,11 @@
   <Name>PlaceFinder</Name>
   <AddInID>{045288b6-cdb3-48e5-ba1f-995277e215fe}</AddInID>
   <Description>Use it to find a place in Denmark</Description>
-  <Version>1.5.0</Version>
+  <Version>1.5.0.4</Version>
   <Image>Images\PlaceFinder.png</Image>
-  <Author>bjpe, stehr</Author>
+  <Author>bjpe, stehr, jbw (x009068)</Author>
   <Company>Geodatastyrelsen</Company>
-  <Date>12-05-2015</Date>
+  <Date>10-12-2019</Date>
   <Targets>
     <Target name="Desktop" version="10.4" />
   </Targets>

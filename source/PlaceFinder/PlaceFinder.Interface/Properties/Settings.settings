@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GeodataStyrelsen.ArcMap.PlaceFinder.Interface.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="EPSGCode" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">25832</Value>
+    </Setting>
+    <Setting Name="Loginname" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PlaceFinder</Value>
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PlaceFinder!1</Value>
+    </Setting>
+    <Setting Name="ReturnLimit" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="Url" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://kortforsyningen.kms.dk/Geosearch?type=json&amp;search={0}&amp;resources={1}&amp;limit={2}&amp;login={3}&amp;password={4}&amp;crs={5}</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,16 +1,20 @@
-﻿namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
+﻿using GeodataStyrelsen.ArcMap.PlaceFinder.Interface.Properties;
+
+namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
 {
     public class SearchRequestParams
     {
-
         public SearchRequestParams()
         {
+            // Set from the GUI
             SearchText = "";
-            Resources = "Stednavne_v3";
-            ReturnLimit = "1000";
-            LoginName = "PlaceFinder";
-            Password = "PlaceFinder!1";
-            EPSGCode = "epsg:4326";
+            // Updated from the ConfigurationFrame close code
+            Resources = "";
+            // Get these settings from the settings file
+            ReturnLimit = Settings.Default.ReturnLimit.ToString();
+            LoginName = Settings.Default.Loginname;
+            Password = Settings.Default.Password;
+            EPSGCode = "epsg:" + Settings.Default.EPSGCode;
         }
 
         public string SearchText { get; set; }
@@ -34,11 +38,14 @@
         public bool Municipalities { get; set; }
         public bool CadastralNumber { get; set; }
         public bool PlaceNames { get; set; }
+        public bool PlaceNames_v2 { get; set; }
+        public bool PlaceNames_v3 { get; set; }
         public bool ElectoralDistrict { get; set; }
         public bool PoliceDistrict { get; set; }
         public bool PostDistricts { get; set; }
         public bool Regions { get; set; }
         public bool JurisdictionsDistrict { get; set; }
+        public bool Sogne { get; set; }
 
         //"Adresser,Veje,Husnumre,Kommuner,Matrikelnumre,Stednavne,Opstillingskredse,Politikredse,Postdistrikter,Regioner,Retskredse";
         public string GetResourceString
@@ -66,9 +73,17 @@
                 {
                     resourcesString = AppendToResource(resourcesString, "Matrikelnumre");
                 }
-                if (PlaceNames)
+                if (PlaceNames) //used to be "Stednavne, Stednavne_v2" for some unknown reason. (x009068 has been expanded to explicit selection)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Stednavne_v3"); //used to be "Stednavne, Stednavne_v2" for some unknown reason.
+                    resourcesString = AppendToResource(resourcesString, "Stednavne"); 
+                }
+                if (PlaceNames_v2)
+                {
+                    resourcesString = AppendToResource(resourcesString, "Stednavne_v2"); 
+                }
+                if (PlaceNames_v3)
+                {
+                    resourcesString = AppendToResource(resourcesString, "Stednavne_v3");
                 }
                 if (CadastralNumber)
                 {
@@ -89,6 +104,10 @@
                 if (JurisdictionsDistrict)
                 {
                     resourcesString = AppendToResource(resourcesString, "Retskredse");
+                }
+                if (Sogne)
+                {
+                    resourcesString = AppendToResource(resourcesString, "Sogne");
                 }
 
                 return resourcesString;

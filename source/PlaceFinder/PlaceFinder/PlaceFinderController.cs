@@ -6,6 +6,7 @@ using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Geometry;
 using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 using GeodataStyrelsen.ArcMap.PlaceFinder.Properties;
+using System.Diagnostics;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinder
 {
@@ -18,6 +19,9 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
         public PlaceFinderController(IFactory factory)
         {
             _factory = factory;
+            // This is initialized for testing purposes only as the application will construct this as part of the 
+            // PlaceFinderDockableWindow that will envokes the SearchResourcesChange to update the internal
+            // searchRequestResources properly
             searchRequestResources = new SearchRequestResources();
             searchRequestResources.Addresses = true;
             searchRequestResources.PlaceNames = true;
@@ -25,6 +29,9 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
 
         public void SearchTextChange(string searchString)
         {
+            //
+            // TODO: Add small extension time if multiple characters are entered in sequence to improve user experience
+            //
             if (searchString.Length > 2)
             {
                 var geoSearchAddresses = GetAddressData(searchString);
@@ -59,30 +66,32 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
         {
             if (string.IsNullOrEmpty(selectedAddress.presentationString))
             {
-                //TODO move message to a resource file
-                throw new PlaceFinderException("Der er ikke udfyldt et sted");
+                throw new PlaceFinderException(Properties.Resources.noPlaceSelected);
             }
 
             //get the last search address
             var geoSearchAddress = currentSearch.FirstOrDefault(x => x.Equals(selectedAddress));
             if (geoSearchAddress == null)
             {
-                //TODO move message to a resource file
-                throw new PlaceFinderException("Stedet blev ikke fundet");
+                throw new PlaceFinderException(Properties.Resources.placeNotRelocatedInList);
             }
             //create a polygon of the address
             var geometry = CreatePolyFromAddress(geoSearchAddress);
             var envelope = geometry.Envelope;
 
+            Debug.WriteLine("Envelope for zoom");
+            Debug.Indent();
+            Debug.WriteLine("Geometry LowerLeft: " + envelope.LowerLeft.X + ", " + envelope.LowerLeft.Y);
+            Debug.WriteLine("Geometry Extent: " + envelope.Width + ", " + envelope.Height);
+
             var activeView = ((IActiveView)_factory.MxDocument.FocusMap);
             //verify that the map has e spatial reference
             if (activeView.FocusMap.SpatialReference == null || activeView.FocusMap.SpatialReference.FactoryCode == 0)
-                //TODO move message to a resource file
-                throw new PlaceFinderException("Spatial reference of map is not set");
+                throw new PlaceFinderException(Properties.Resources.noSpatialReference);
 
             //get the smallest allowed zoom ratio and calculate it to degrees
-            var smallestAllowedZoomToInMetersOnX = Settings.Default.smallestAllowedZoomToInMetersOnX / (1000 * 60);
-            var smallestAllowedZoomToInMetersOnY = Settings.Default.smallestAllowedZoomToInMetersOnY / (1000 * 60 * 2);
+            var smallestAllowedZoomToInMetersOnX = Settings.Default.smallestAllowedZoomToInMetersOnX;
+            var smallestAllowedZoomToInMetersOnY = Settings.Default.smallestAllowedZoomToInMetersOnY;
             if (Math.Abs(envelope.XMax - envelope.XMin) < smallestAllowedZoomToInMetersOnX || Math.Abs(envelope.YMax - envelope.YMin) < smallestAllowedZoomToInMetersOnY)
             {
                 //get the center of the current envelope
@@ -93,6 +102,10 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 envelope.XMin = centroidEx.X - smallestAllowedZoomToInMetersOnX / 2;
                 envelope.YMin = centroidEx.Y - smallestAllowedZoomToInMetersOnY / 2;
             }
+
+            Debug.WriteLine("Adapted LowerLeft: " + envelope.LowerLeft.X + ", " + envelope.LowerLeft.Y);
+            Debug.WriteLine("Adapted Extent: " + envelope.Width + ", " + envelope.Height);
+            Debug.Unindent();
 
             //project the envelope to the spatial reference of the map
             envelope.Project(activeView.FocusMap.SpatialReference);
@@ -108,6 +121,8 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             foreach (var checkListItem in checkedItemCollection)
             {
                 var s = checkListItem.ToString();
+
+                /// Check each setting individually against the configured text lines
                 if (!searchRequestResources.Addresses)
                 { searchRequestResources.Addresses = s.Equals("Adresser"); }
                 if (!searchRequestResources.Street)
@@ -120,6 +135,10 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 { searchRequestResources.CadastralNumber = s.Equals("Matrikelnumre"); }
                 if (!searchRequestResources.PlaceNames)
                 { searchRequestResources.PlaceNames = s.Equals("Stednavne"); }
+                if (!searchRequestResources.PlaceNames_v2)
+                { searchRequestResources.PlaceNames_v2 = s.Equals("Stednavne v2"); }
+                if (!searchRequestResources.PlaceNames_v3)
+                { searchRequestResources.PlaceNames_v3 = s.Equals("Stednavne v3"); }
                 if (!searchRequestResources.ElectoralDistrict)
                 { searchRequestResources.ElectoralDistrict = s.Equals("Opstillingskredse"); }
                 if (!searchRequestResources.PoliceDistrict)
@@ -130,6 +149,8 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 { searchRequestResources.Regions = s.Equals("Regioner"); }
                 if (!searchRequestResources.JurisdictionsDistrict)
                 { searchRequestResources.JurisdictionsDistrict = s.Equals("Retskredse"); }
+                if (!searchRequestResources.Sogne)
+                { searchRequestResources.Sogne = s.Equals("Sogne"); }
             }
         }
 
@@ -141,10 +162,11 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             //convert the address WKT geometry to esri geometry
             var convertWktToGeometry = _factory.ConvertWKTToGeometry(geoAddress.geometryWkt);
 
-            //create the spatial reference of wgs1984 reflection that of the request services
-            var coordinateSystem = esriSRGeoCSType.esriSRGeoCS_WGS1984;
+            //create the spatial reference of etrs89 (the default of the service)
+            int epsgId = Interface.Properties.Settings.Default.EPSGCode;
+
             var spatialReferenceFactory = _factory.SpatialReferenceFactory;
-            var spatialReference = spatialReferenceFactory.CreateSpatialReference((int)coordinateSystem);
+            var spatialReference = spatialReferenceFactory.CreateSpatialReference(epsgId);
             convertWktToGeometry.SpatialReference = spatialReference;
 
             return convertWktToGeometry;

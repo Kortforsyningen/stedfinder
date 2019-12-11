@@ -18,7 +18,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             var place = new GeoSearchAddress() {presentationString = "SomePlace"};
             IFactory factory = Make.Factory(place).Build;
             var placeFinderController = new PlaceFinderController(factory);
-            var expetedEnvelope = Make.Esri.Envelope.Build;
+            var expectedEnvelope = Make.Esri.Envelope.Build;
 
             //Act
             placeFinderController.SearchTextChange(place.presentationString);
@@ -26,7 +26,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 
             //Assert
             Validator.Map(factory.MxDocument.FocusMap)
-                .NewExtentIsSet(expetedEnvelope)
+                .NewExtentIsSet(expectedEnvelope)
                 .MapIsRefresh
                 .Validate();
         }
@@ -182,7 +182,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                 .Build;
             var factory = Make.Factory(place).ConvertWKTToGeometryReturns(geometry).Build;
             var placeFinderController = new PlaceFinderController(factory);
-            var expetedEnvelope = Make.Esri.Envelope
+            var expectedEnvelope = Make.Esri.Envelope
                 .XMax(-41.9979)
                 .XMin(-42.0021)
                 .YMax(-41.9994)
@@ -195,7 +195,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 
             //Assert
             Validator.Map(factory.MxDocument.FocusMap)
-                .NewExtentIsSet(expetedEnvelope)
+                .NewExtentIsSet(expectedEnvelope)
                 .MapIsRefresh
                 .Validate();
         }

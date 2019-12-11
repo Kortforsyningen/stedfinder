@@ -46,15 +46,19 @@
             "Kommuner",
             "Matrikelnumre",
             "Stednavne",
+            "Stednavne v2",
+            "Stednavne v3",
             "Opstillingskredse",
             "Politikredse",
             "Postdistrikter",
             "Regioner",
-            "Retskredse"});
+            "Retskredse",
+            "Sogne"});
             this.SearchRequestResourcesCheckedListBox.Location = new System.Drawing.Point(3, 26);
             this.SearchRequestResourcesCheckedListBox.Name = "SearchRequestResourcesCheckedListBox";
-            this.SearchRequestResourcesCheckedListBox.Size = new System.Drawing.Size(108, 169);
+            this.SearchRequestResourcesCheckedListBox.Size = new System.Drawing.Size(108, 214);
             this.SearchRequestResourcesCheckedListBox.TabIndex = 0;
+            this.SearchRequestResourcesCheckedListBox.SelectedIndexChanged += new System.EventHandler(this.SearchRequestResourcesCheckedListBox_SelectedIndexChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -68,18 +72,18 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 178F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 103F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(114, 233);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 220F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 111F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(114, 278);
             this.tableLayoutPanel1.TabIndex = 1;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // okButton
             // 
             this.okButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.okButton.Location = new System.Drawing.Point(3, 204);
+            this.okButton.Location = new System.Drawing.Point(3, 246);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(108, 26);
+            this.okButton.Size = new System.Drawing.Size(108, 29);
             this.okButton.TabIndex = 1;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
@@ -97,7 +101,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(114, 233);
+            this.ClientSize = new System.Drawing.Size(114, 278);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "ConfigurationsForm";

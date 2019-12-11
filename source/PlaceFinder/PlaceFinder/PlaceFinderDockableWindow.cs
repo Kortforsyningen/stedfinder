@@ -22,7 +22,13 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             var factory = new Factory();
             factory.PlaceFinderDockableWindow = this;
             PlaceFinderController = new PlaceFinderController(factory);
-            configurationsForm = new ConfigurationsForm(PlaceFinderController);
+
+            // This string array defines the default search areas. The strings must match the elements in the 
+            // Configurations form exactly
+            string[] defaultConfig = new string[] { "Stednavne v3" };
+
+            // Create the configurations form
+            configurationsForm = new ConfigurationsForm(PlaceFinderController, defaultConfig);
 
             this.Hook = hook;
         }
