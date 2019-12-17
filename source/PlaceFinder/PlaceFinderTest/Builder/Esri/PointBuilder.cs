@@ -10,7 +10,8 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder.Esri
 
         public PointBuilder()
         {
-            Coords(42, 42);
+            // Somewhere in Gladsaxe in EPSG:25832 - ETRS89 UTM32N
+            Coords(718826, 6183122);
         }
 
         public PointBuilder Coords(double x, double y)

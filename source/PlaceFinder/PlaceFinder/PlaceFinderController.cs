@@ -79,10 +79,15 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             var geometry = CreatePolyFromAddress(geoSearchAddress);
             var envelope = geometry.Envelope;
 
-            Debug.WriteLine("Envelope for zoom");
-            Debug.Indent();
-            Debug.WriteLine("Geometry LowerLeft: " + envelope.LowerLeft.X + ", " + envelope.LowerLeft.Y);
-            Debug.WriteLine("Geometry Extent: " + envelope.Width + ", " + envelope.Height);
+            // This check is performed to avoid nullpointer exception when testing with Rhino mocks
+            // (Envelope for the geometry is not available at this point)
+            if (envelope != null && envelope.LowerLeft != null)
+            {
+                Debug.WriteLine("Envelope for zoom");
+                Debug.Indent();
+                Debug.WriteLine("Geometry LowerLeft: " + envelope.LowerLeft.X + ", " + envelope.LowerLeft.Y);
+                Debug.WriteLine("Geometry Extent: " + envelope.Width + ", " + envelope.Height);
+            }
 
             var activeView = ((IActiveView)_factory.MxDocument.FocusMap);
             //verify that the map has e spatial reference
@@ -103,9 +108,14 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 envelope.YMin = centroidEx.Y - smallestAllowedZoomToInMetersOnY / 2;
             }
 
-            Debug.WriteLine("Adapted LowerLeft: " + envelope.LowerLeft.X + ", " + envelope.LowerLeft.Y);
-            Debug.WriteLine("Adapted Extent: " + envelope.Width + ", " + envelope.Height);
-            Debug.Unindent();
+            // This check is performed to avoid nullpointer exception when testing with Rhino mocks
+            // (Envelope for the geometry is not available at this point)
+            if (envelope != null && envelope.LowerLeft != null)
+            {
+                Debug.WriteLine("Adapted LowerLeft: " + envelope.LowerLeft.X + ", " + envelope.LowerLeft.Y);
+                Debug.WriteLine("Adapted Extent: " + envelope.Width + ", " + envelope.Height);
+                Debug.Unindent();
+            }
 
             //project the envelope to the spatial reference of the map
             envelope.Project(activeView.FocusMap.SpatialReference);

@@ -18,7 +18,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             string resourceString = searchRequestResources.GetResourceString;
 
             //Assert
-            Assert.AreEqual("Adresser,Stednavne_v2", resourceString);
+            Assert.AreEqual("Adresser,Stednavne", resourceString);
         }
 
         [Test]
@@ -33,16 +33,19 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             searchRequestResources.JurisdictionsDistrict = true;
             searchRequestResources.Municipalities = true;
             searchRequestResources.PlaceNames = true;
+            searchRequestResources.PlaceNames_v2 = true;
+            searchRequestResources.PlaceNames_v3 = true;
             searchRequestResources.PoliceDistrict = true;
             searchRequestResources.PostDistricts = true;
             searchRequestResources.Regions = true;
+            searchRequestResources.Sogne = true;
             searchRequestResources.Street = true;
 
             //Act
             string resourceString = searchRequestResources.GetResourceString;
 
             //Assert
-            Assert.AreEqual("Adresser,Veje,Husnumre,Kommuner,Matrikelnumre,Stednavne_v2,Opstillingskredse,Politikredse,Postdistrikter,Regioner,Retskredse", resourceString);
+            Assert.AreEqual("Adresser,Veje,Husnumre,Kommuner,Matrikelnumre,Stednavne,Stednavne_v2,Stednavne_v3,Opstillingskredse,Politikredse,Postdistrikter,Regioner,Retskredse,Sogne", resourceString);
         }
     }
 }

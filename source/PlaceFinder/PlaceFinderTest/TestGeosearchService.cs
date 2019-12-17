@@ -41,7 +41,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 
         [Test]
         [Ignore("Integration test")]
-        public void TestSpecialCaratersArrayWithAndAInfront()
+        public void TestSpecialCharactersArrayWithAndAInfront()
         {
             //Arange
             var searchRequestParam = new SearchRequestParams();
@@ -71,7 +71,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 
         [Test]
         [Ignore("Integration test")]
-        public void TestSpecialCaratersArrayJustOne()
+        public void TestSpecialCharactersArrayJustOne()
         {
             //Arange
             var searchRequestParam = new SearchRequestParams();

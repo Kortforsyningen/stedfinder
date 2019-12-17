@@ -5,6 +5,7 @@ using GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder;
 using GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater;
 using NUnit.Framework;
 using Rhino.Mocks;
+using ESRI.ArcGIS.Geometry;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 {
@@ -59,25 +60,23 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         [Test]
         public void TestZoomTo_ToSmallFeatureOnX()
         {
-            //(y) nord south 150 m is 150/(1000*60*2) = 0,00125
-            //(x) east vest 250 m is 200/(1000*60) = 0,00416
             //Arrange
             var place = new GeoSearchAddress() { presentationString = "SomePlace" };
+            IPoint point = Make.Esri.Point.Build;
             var incommingEnvelope = Make.Esri.Envelope
-                .XMax(42.0021-0.00416)
-                .XMin(41.9979)
-                .YMax(42)
-                .YMin(41)
+                .XMax(point.X + 1)
+                .XMin(point.X - 1)
+                .YMax(point.Y + 150)
+                .YMin(point.Y - 150)
                 .Build;
             var geometry = Make.Esri.Geometry.WithEnvelope(incommingEnvelope).Build;
             var factory = Make.Factory(place).ConvertWKTToGeometryReturns(geometry).Build;
             var placeFinderController = new PlaceFinderController(factory);
-            var expetedEnvelope = Make.Esri.Envelope
-                .XMax(42.0021)
-                .XMin(41.9979)
-                .YMax(42.0006)
-                .YMin(41.9994)
-                .Build;
+            var expectedEnvelope = Make.Esri.Envelope
+                .XMax(point.X + 125)
+                .XMin(point.X - 125)
+                .YMax(point.Y + 75)
+                .YMin(point.Y - 75).Build;
 
             //Act
             placeFinderController.SearchTextChange(place.presentationString);
@@ -85,35 +84,33 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 
             //Assert
             Validator.Map(factory.MxDocument.FocusMap)
-                .NewExtentIsSet(expetedEnvelope)
+                .NewExtentIsSet(expectedEnvelope)
                 .MapIsRefresh
                 .Validate();
         }
 
 
         [Test]
-        public void TestZoomTo_ToSmallFeatureOnXNegativX()
+        public void TestZoomTo_ToSmallFeatureOnXNegativeX()
         {
-            //(y) nord south 150 m is 150/(1000*60*2) = 0,00125
-            //(x) east vest 250 m is 200/(1000*60) = 0,00416
             //Arrange
             var place = new GeoSearchAddress() { presentationString = "SomePlace" };
-            var centroid = Make.Esri.Point.Coords(-42.0, -42.0).Build;
+            var centroid = Make.Esri.Point.Coords(-250.0, -150.0).Build;
             var incommingEnvelope = Make.Esri.Envelope
-                .XMax(-41.9979 - 0.00416)
-                .XMin(-42.0021)
-                .YMax(-41)
-                .YMin(-42)
+                .XMax(centroid.X + 1)
+                .XMin(centroid.X - 1)
+                .YMax(centroid.Y + 150)
+                .YMin(centroid.Y - 150)
                 .WithCentroid(centroid)
                 .Build;
             var geometry = Make.Esri.Geometry.WithEnvelope(incommingEnvelope).Build;
             var factory = Make.Factory(place).ConvertWKTToGeometryReturns(geometry).Build;
             var placeFinderController = new PlaceFinderController(factory);
-            var expetedEnvelope = Make.Esri.Envelope
-                .XMax(-41.9979)
-                .XMin(-42.0021)
-                .YMax(-41.9994)
-                .YMin(-42.0006)
+            var expectedEnvelope = Make.Esri.Envelope
+                .XMax(centroid.X + 125)
+                .XMin(centroid.X - 125)
+                .YMax(centroid.Y + 75)
+                .YMin(centroid.Y - 75)
                 .Build;
 
             //Act
@@ -122,7 +119,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 
             //Assert
             Validator.Map(factory.MxDocument.FocusMap)
-                .NewExtentIsSet(expetedEnvelope)
+                .NewExtentIsSet(expectedEnvelope)
                 .MapIsRefresh
                 .Validate();
         }
@@ -131,25 +128,23 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         [Test]
         public void TestZoomTo_ToSmallFeatureOnY()
         {
-            //(y) nord south 150 m is 150/(1000*60*2) = 0,00125
-            //(x) east vest 250 m is 200/(1000*60) = 0,00416
             //Arrange
             var place = new GeoSearchAddress() { presentationString = "SomePlace" };
+            IPoint point = Make.Esri.Point.Build;
             var incommingEnvelope = Make.Esri.Envelope
-                .XMax(42)
-                .XMin(41)
-                .YMax(42.00063-0.00125)
-                .YMin(41.9993)
+                .XMax(point.X + 150)
+                .XMin(point.X - 150)
+                .YMax(point.Y + 1)
+                .YMin(point.Y - 1)
                 .Build;
             var geometry = Make.Esri.Geometry.WithEnvelope(incommingEnvelope).Build;
             var factory = Make.Factory(place).ConvertWKTToGeometryReturns(geometry).Build;
             var placeFinderController = new PlaceFinderController(factory);
             var expetedEnvelope = Make.Esri.Envelope
-                .XMax(42.0021)
-                .XMin(41.9979)
-                .YMax(42.0006)
-                .YMin(41.9994)
-                .Build;
+                .XMax(point.X + 125)
+                .XMin(point.X - 125)
+                .YMax(point.Y + 75)
+                .YMin(point.Y - 75).Build;
 
             //Act
             placeFinderController.SearchTextChange(place.presentationString);
@@ -163,30 +158,26 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         }
         
         [Test]
-        public void TestZoomTo_ToSmallFeatureOnYWithNegativY()
+        public void TestZoomTo_ToSmallFeatureOnYWithNegativeY()
         {
-            //(y) nord south 150 m is 150/(1000*60*2) = 0,00125
-            //(x) east vest 250 m is 200/(1000*60) = 0,00416
             //Arrange
             var place = new GeoSearchAddress() { presentationString = "SomePlace" };
-            var centroid = Make.Esri.Point.Coords(-42.0, -42.0).Build;
+            var centroid = Make.Esri.Point.Coords(-250.0, -150.0).Build;
             var incommingEnvelope = Make.Esri.Envelope
-                .XMax(-41)
-                .XMin(-42)
-                .YMax(-41.9993 - 0.00125)
-                .YMin(-42.00063)
+                .XMax(centroid.X + 150)
+                .XMin(centroid.X - 150)
+                .YMax(centroid.Y + 1)
+                .YMin(centroid.Y - 1)
                 .WithCentroid(centroid)
                 .Build;
-            var geometry = Make.Esri.Geometry
-                .WithEnvelope(incommingEnvelope)
-                .Build;
+            var geometry = Make.Esri.Geometry.WithEnvelope(incommingEnvelope).Build;
             var factory = Make.Factory(place).ConvertWKTToGeometryReturns(geometry).Build;
             var placeFinderController = new PlaceFinderController(factory);
             var expectedEnvelope = Make.Esri.Envelope
-                .XMax(-41.9979)
-                .XMin(-42.0021)
-                .YMax(-41.9994)
-                .YMin(-42.0006)
+                .XMax(centroid.X + 125)
+                .XMin(centroid.X - 125)
+                .YMax(centroid.Y + 75)
+                .YMin(centroid.Y - 75)
                 .Build;
 
             //Act
