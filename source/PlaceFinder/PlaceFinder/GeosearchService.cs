@@ -20,12 +20,15 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 //TODO move resource to file
                 var url =
                     string.Format(
-                        "https://kortforsyningen.kms.dk/Geosearch?type=json&search={0}&resources={1}&limit={2}&login={3}&password={4}&crs={5}",
+                        Interface.Properties.Settings.Default.Url,
                         searchText, searchRequestParams.Resources, searchRequestParams.ReturnLimit,
                         searchRequestParams.LoginName, searchRequestParams.Password,
                         searchRequestParams.EPSGCode);
 
                 var webClient = new WebClient {Encoding = Encoding.UTF8};
+
+                System.Diagnostics.Debug.WriteLine("Url: " + url);
+
                 var jsonContent = webClient.DownloadString(url);
                 if (jsonContent.Equals("No workhorse available\r\nAll workhorses, including quarantined, are exhausted.\r\n"))
                 {

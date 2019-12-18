@@ -8,6 +8,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder
     {
 
         IGeometry _geometry = Make.Esri.Geometry.Build;
+
         public FactoryBuilder(GeoSearchAddress resultAddress)
         {
             var geosearchService = Make.GeosearchService.WithResult(resultAddress).Build;

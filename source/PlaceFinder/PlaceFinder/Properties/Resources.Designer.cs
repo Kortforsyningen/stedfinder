@@ -61,12 +61,39 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Der er ikke udfyldt et sted.
+        /// </summary>
+        internal static string noPlaceSelected {
+            get {
+                return ResourceManager.GetString("noPlaceSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spatial reference of map is not set.
+        /// </summary>
+        internal static string noSpatialReference {
+            get {
+                return ResourceManager.GetString("noSpatialReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap PlaceFinderButton {
             get {
                 object obj = ResourceManager.GetObject("PlaceFinderButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stedet blev ikke fundet.
+        /// </summary>
+        internal static string placeNotRelocatedInList {
+            get {
+                return ResourceManager.GetString("placeNotRelocatedInList", resourceCulture);
             }
         }
         
