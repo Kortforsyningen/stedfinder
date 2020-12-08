@@ -32,6 +32,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             searchRequestResources.HouseNumber = true;
             searchRequestResources.JurisdictionsDistrict = true;
             searchRequestResources.Municipalities = true;
+            searchRequestResources.Parish = true;
             searchRequestResources.PlaceNames = true;
             searchRequestResources.PlaceNames_v2 = true;
             searchRequestResources.PlaceNames_v3 = true;

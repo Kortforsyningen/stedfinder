@@ -174,10 +174,10 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             var factory = Make.Factory(place).ConvertWKTToGeometryReturns(geometry).Build;
             var placeFinderController = new PlaceFinderController(factory);
             var expectedEnvelope = Make.Esri.Envelope
-                .XMax(centroid.X + 125)
-                .XMin(centroid.X - 125)
-                .YMax(centroid.Y + 75)
-                .YMin(centroid.Y - 75)
+                .XMax(-41.9979)
+                .XMin(-42.0021)
+                .YMax(-41.9994)
+                .YMin(-42.0006)
                 .Build;
 
             //Act

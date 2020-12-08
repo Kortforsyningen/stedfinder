@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -129,7 +130,9 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             {
                 case Keys.Enter:
                     var selected = (GeoSearchAddress)searchResultComboBox.SelectedItem;
-                    ZoomTo(selected);
+                    if (selected != null) ZoomTo(selected);
+                    else
+                        Debug.WriteLine("Zoom to null ignored. No selected item");
                     break;
                 case  Keys.Up:
                     if (searchResultComboBox.SelectedIndex == 1)
