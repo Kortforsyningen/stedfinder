@@ -64,7 +64,8 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
 
         public void ZoomTo(GeoSearchAddress selectedAddress)
         {
-            if (string.IsNullOrEmpty(selectedAddress.presentationString))
+            Debug.WriteLine("ZoomTo entry: " + selectedAddress);
+            if (selectedAddress == null || string.IsNullOrEmpty(selectedAddress.presentationString))
             {
                 throw new PlaceFinderException(Properties.Resources.noPlaceSelected);
             }
@@ -153,6 +154,8 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 { searchRequestResources.ElectoralDistrict = s.Equals("Opstillingskredse"); }
                 if (!searchRequestResources.PoliceDistrict)
                 { searchRequestResources.PoliceDistrict = s.Equals("Politikredse"); }
+                if (!searchRequestResources.Parish)
+                { searchRequestResources.Parish = s.Equals("Sogne"); }
                 if (!searchRequestResources.PostDistricts)
                 { searchRequestResources.PostDistricts = s.Equals("Postdistrikter"); }
                 if (!searchRequestResources.Regions)

@@ -41,6 +41,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
         public bool PlaceNames_v2 { get; set; }
         public bool PlaceNames_v3 { get; set; }
         public bool ElectoralDistrict { get; set; }
+        public bool Parish { get; set; }
         public bool PoliceDistrict { get; set; }
         public bool PostDistricts { get; set; }
         public bool Regions { get; set; }
@@ -85,9 +86,13 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
                 {
                     resourcesString = AppendToResource(resourcesString, "Stednavne_v3");
                 }
-                if (CadastralNumber)
+                if (ElectoralDistrict)
                 {
                     resourcesString = AppendToResource(resourcesString, "Opstillingskredse");
+                }
+                if (Parish)
+                {
+                    resourcesString = AppendToResource(resourcesString, "Sogne");
                 }
                 if (PoliceDistrict)
                 {

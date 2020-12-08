@@ -25,14 +25,9 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             _placeFinderController.SearchResourcesChange(checkedItemCollection);
         }
 
-        private void okButton_Click(object sender, System.EventArgs e)
+        private void OkButton_Click(object sender, System.EventArgs e)
         {
             Close();
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void ConfigurationsForm_Load(object sender, System.EventArgs e)
