@@ -20,11 +20,16 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             stringBuilder.AppendLine("Version:");
             stringBuilder.AppendLine(fileVersionInfo.FileVersion);
             stringBuilder.AppendLine();
-            
-            // kontakt
-            stringBuilder.AppendLine("Udvikling og kontaktpersoner (Contact):");
-            stringBuilder.AppendLine("Steen Hulthin Rasmussen, stehr@sdfe.dk");
+
+            stringBuilder.AppendLine("Tidligere udvikling:");
+            stringBuilder.AppendLine("Steen Hulthin Rasmussen");
             stringBuilder.AppendLine("Bjørn Elo Petersen");
+            stringBuilder.AppendLine();
+            // kontakt
+            stringBuilder.AppendLine("Udvikling og kontaktperson (Contact):");
+            stringBuilder.AppendLine("Jørgen Wanscher, x009068@sdfe.dk");
+            stringBuilder.AppendLine("(eller jbw@hermestraffic.com)");
+
             stringBuilder.AppendLine();
 
             // attribution
