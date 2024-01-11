@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [v?.?.?] (Unreleased)
 
+## [v1.6.0] (2024-01-?) --Unreleased--
+
+### Changed
+- Using the new gsearch service from dataforsyningen.dk at https://api.dataforsyningen.dk/rest/gsearch/v1.0
+
 ## [v1.5.0] (2016-10-26)
 
 ### Changed
