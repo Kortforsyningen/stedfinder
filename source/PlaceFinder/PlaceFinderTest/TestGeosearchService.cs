@@ -40,6 +40,8 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         }
 
         [Test]
+        [Category("Integration")]
+        [Explicit]
         [Ignore("Integration test")]
         public void TestSpecialCharactersArrayWithAndAInfront()
         {
@@ -71,7 +73,10 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         }
 
         [Test]
-        [Ignore("Long Integration test (>1 min)")]
+        [Category("Long")]
+        [Category("Integration")]
+        [Explicit]
+        [Ignore("Integration test (>1 min)")]
         public void TestSpecialCharactersArrayJustOne()
         {
             //Arange
@@ -98,6 +103,45 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                 {
                     Console.WriteLine(string.Format("\"{0}\"={1}", (char)i, e.Message));
                 }
+            }
+        }
+
+        // Designed test method to check the availability of specific results from specific search resources
+        // Implemented to validate the transition to the gsearch api
+        [Test]
+        [Category("Integration")]
+        [Explicit]
+        [Ignore("Integration test")]
+        public void TestSearchResults([Values(
+            "A@B>C", 
+            "D@E>F")
+            ] string t)
+        {
+            //Arrange
+            var searchRequestParam = new SearchRequestParams();
+            char[] splitChars = new char[] { '@', '>' };
+            string[] parts = t.Split(splitChars);
+            searchRequestParam.SearchText = parts[0];
+            searchRequestParam.Resources = parts[1];
+            string needle = parts[2];
+
+            Console.WriteLine(string.Format("\"{0}\" @ {1} = {2}", searchRequestParam.SearchText, searchRequestParam.Resources, needle));
+
+            var geosearchService = new GeosearchService();
+            try
+            {
+                //Act;
+                var geoSearchAddressData = geosearchService.Request(searchRequestParam);
+                //Asset
+                var message = geoSearchAddressData.message;
+                if (message != "OK")
+                {
+                    Console.WriteLine(string.Format("\"{0}\"={1}", searchRequestParam.SearchText, message));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(string.Format("\"{0}\"={1}", searchRequestParam.SearchText, e.Message));
             }
         }
     }
