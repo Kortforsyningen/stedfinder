@@ -45,6 +45,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         {
             //Arange
             var searchRequestParam = new SearchRequestParams();
+            searchRequestParam.Resources = "Adresser";
             //for (int i = 32; i <= 165; i++)
             for (int i = 1; i <= 255; i++)
             {
@@ -70,11 +71,12 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         }
 
         [Test]
-        [Ignore("Integration test")]
+        [Ignore("Long Integration test (>1 min)")]
         public void TestSpecialCharactersArrayJustOne()
         {
             //Arange
             var searchRequestParam = new SearchRequestParams();
+            searchRequestParam.Resources = "Adresser";
             //for (int i = 32; i <= 165; i++)
             for (int i = 1; i <= 255; i++)
             {
