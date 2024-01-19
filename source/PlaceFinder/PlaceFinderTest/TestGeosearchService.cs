@@ -116,9 +116,10 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         [Explicit]
         [Ignore("Integration test")]
         public void TestSearchResults([Values(
-            "chokoladek@Stednavne_v3>Chokoladekrydset",
-            "fredericiastadion@Stednavne_v3>Fredericia Stadion (Monjasa Park)",
-            "tøjhusmuseet@Stednavne_v3>Tøjhusmuseet (Krigsmuseet)"
+            "chokoladek@stednavn>Chokoladekrydset",
+            "fredericia stadion@stednavn>Monjasa Park",
+            "tøjhusmuseet@stednavn>Krigsmuseet (Museum i København K)"
+
             )] string t)
         {
             //Arrange
@@ -144,7 +145,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                 bool foundTheNeedle = false;
                 foreach (GeoSearchAddress hit in hits)
                 {
-                    if (hit.presentationString.Contains(needle)) { foundTheNeedle = true; break; }    
+                    if (hit.visningstekst.Contains(needle)) { foundTheNeedle = true; break; }    
                 }
                 Assert.That(foundTheNeedle, Is.True,
                     "Did not find " + needle + " when searching for " + searchRequestParam.SearchText +
@@ -168,7 +169,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             //Arrange
             var searchRequestParam = new SearchRequestParams();
             searchRequestParam.SearchText = "chokoladek";
-            searchRequestParam.Resources = "Stednavne_v3";
+            searchRequestParam.Resources = "stednavn";
             string needle = "Chokoladekrydset";
 
             var geosearchService = new GeosearchService();
@@ -187,7 +188,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                 GeoSearchAddress testAddress = null;
                 foreach (GeoSearchAddress hit in hits)
                 {
-                    if (hit.presentationString.Contains(needle)) { 
+                    if (hit.visningstekst.Contains(needle)) { 
                         testAddress = hit;
                         foundTheNeedle = true; 
                         break; 
@@ -218,7 +219,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                     .YMin(6183042).Build;
 
                 //Act
-                placeFinderController.SearchTextChange(testAddress.presentationString);
+                placeFinderController.SearchTextChange(testAddress.visningstekst);
                 placeFinderController.ZoomTo(testAddress);
 
                 //Assert

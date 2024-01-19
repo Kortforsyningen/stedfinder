@@ -2,20 +2,17 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GeodataStyrelsen.ArcMap.PlaceFinder.Interface.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="EPSGCode" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">25832</Value>
-    </Setting>
-    <Setting Name="Loginname" Type="System.String" Scope="User">
-      <Value Profile="(Default)">PlaceFinder</Value>
-    </Setting>
-    <Setting Name="Password" Type="System.String" Scope="User">
-      <Value Profile="(Default)">PlaceFinder!1</Value>
+    <Setting Name="Token" Type="System.String" Scope="User">
+      <Value Profile="(Default)">8d2f8b4d64e60902a6c50926d37c9ceb</Value>
     </Setting>
     <Setting Name="ReturnLimit" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1000</Value>
+      <Value Profile="(Default)">100</Value>
     </Setting>
     <Setting Name="Url" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://kortforsyningen.kms.dk/Geosearch?type=json&amp;search={0}&amp;resources={1}&amp;limit={2}&amp;login={3}&amp;password={4}&amp;crs={5}</Value>
+      <Value Profile="(Default)">https://api.dataforsyningen.dk/rest/gsearch/v1.0/{0}?token={1}&amp;q={2}&amp;limit={3}</Value>
+    </Setting>
+    <Setting Name="ESPGCode" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">25832</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -12,9 +12,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
             Resources = "";
             // Get these settings from the settings file
             ReturnLimit = Settings.Default.ReturnLimit.ToString();
-            LoginName = Settings.Default.Loginname;
-            Password = Settings.Default.Password;
-            EPSGCode = "epsg:" + Settings.Default.EPSGCode;
+            Token = Settings.Default.Token;
         }
 
         public string SearchText { get; set; }
@@ -23,11 +21,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
 
         public string ReturnLimit { get; set; }
 
-        public string LoginName { get; set; }
-
-        public string Password { get; set; }
-
-        public string EPSGCode { get; set; }
+        public string Token { get; set; }
     }
 
     public class SearchRequestResources

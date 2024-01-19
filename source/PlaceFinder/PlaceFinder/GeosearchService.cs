@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.RegularExpressions;
+using ESRI.ArcGIS.Geometry;
 using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinder
@@ -21,9 +23,8 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 var url =
                     string.Format(
                         Interface.Properties.Settings.Default.Url,
-                        searchText, searchRequestParams.Resources, searchRequestParams.ReturnLimit,
-                        searchRequestParams.LoginName, searchRequestParams.Password,
-                        searchRequestParams.EPSGCode);
+                        searchRequestParams.Resources, searchRequestParams.Token, searchText, searchRequestParams.ReturnLimit
+                        );
 
                 var webClient = new WebClient {Encoding = Encoding.UTF8};
 
@@ -34,12 +35,15 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 {
                     throw new PlaceFinderException("Kan ikke søge på: '" + searchRequestParams.SearchText + "'");
                 }
-                var serializer = new DataContractJsonSerializer(typeof (GeoSearchAddressData));
+                var serializer = new DataContractJsonSerializer(typeof (List<GeoSearchAddress>));
 
-                GeoSearchAddressData response;
+                GeoSearchAddressData response = new GeoSearchAddressData();
                 using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonContent)))
                 {
-                    response = (GeoSearchAddressData) serializer.ReadObject(ms);
+                    List<GeoSearchAddress> hits = (List<GeoSearchAddress>) serializer.ReadObject(ms);
+                    response.message = "OK";
+                    response.status = "OK";
+                    response.data = hits;
                 }
                 return response;
             }

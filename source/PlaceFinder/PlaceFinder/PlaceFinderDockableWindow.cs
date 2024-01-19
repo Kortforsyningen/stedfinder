@@ -149,7 +149,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             {
                 searchResultComboBox.Focus();
                 PlaceFinderController.ZoomTo(selected);
-                searchTextBox.Text = selected.presentationString;
+                searchTextBox.Text = selected.visningstekst;
             }
         }
 
