@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using ESRI.ArcGIS.Geometry;
 using GeodataStyrelsen.ArcMap.PlaceFinder;
 using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
+using GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder;
+using GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater;
 using NUnit.Framework;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
@@ -113,9 +116,10 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         [Explicit]
         [Ignore("Integration test")]
         public void TestSearchResults([Values(
-            "A@B>C", 
-            "D@E>F")
-            ] string t)
+            "chokoladek@Stednavne_v3>Chokoladekrydset",
+            "fredericiastadion@Stednavne_v3>Fredericia Stadion (Monjasa Park)",
+            "tøjhusmuseet@Stednavne_v3>Tøjhusmuseet (Krigsmuseet)"
+            )] string t)
         {
             //Arrange
             var searchRequestParam = new SearchRequestParams();
@@ -124,8 +128,6 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             searchRequestParam.SearchText = parts[0];
             searchRequestParam.Resources = parts[1];
             string needle = parts[2];
-
-            Console.WriteLine(string.Format("\"{0}\" @ {1} = {2}", searchRequestParam.SearchText, searchRequestParam.Resources, needle));
 
             var geosearchService = new GeosearchService();
             try
@@ -138,10 +140,97 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                 {
                     Console.WriteLine(string.Format("\"{0}\"={1}", searchRequestParam.SearchText, message));
                 }
+                System.Collections.Generic.List<GeoSearchAddress> hits = geoSearchAddressData.data;
+                bool foundTheNeedle = false;
+                foreach (GeoSearchAddress hit in hits)
+                {
+                    if (hit.presentationString.Contains(needle)) { foundTheNeedle = true; break; }    
+                }
+                Assert.That(foundTheNeedle, Is.True,
+                    "Did not find " + needle + " when searching for " + searchRequestParam.SearchText +
+                    " in " + searchRequestParam.Resources);
             }
             catch (Exception e)
             {
-                Console.WriteLine(string.Format("\"{0}\"={1}", searchRequestParam.SearchText, e.Message));
+                Console.WriteLine(string.Format("Exception when querying \"{0}\"={1}", searchRequestParam.SearchText, e.Message));
+                Assert.Fail("Exception: " + e.Message);
+            }
+        }
+
+        // Designed test method to check the coordinate reference frame for search result
+        // Implemented to validate the transition to the gsearch api
+        [Test]
+        [Category("Integration")]
+        [Explicit]
+        [Ignore("Integration test")]
+        public void TestResultLocation()
+        {
+            //Arrange
+            var searchRequestParam = new SearchRequestParams();
+            searchRequestParam.SearchText = "chokoladek";
+            searchRequestParam.Resources = "Stednavne_v3";
+            string needle = "Chokoladekrydset";
+
+            var geosearchService = new GeosearchService();
+            try
+            {
+                //Act;
+                var geoSearchAddressData = geosearchService.Request(searchRequestParam);
+                //Asset
+                var message = geoSearchAddressData.message;
+                if (message != "OK")
+                {
+                    Console.WriteLine(string.Format("\"{0}\"={1}", searchRequestParam.SearchText, message));
+                }
+                System.Collections.Generic.List<GeoSearchAddress> hits = geoSearchAddressData.data;
+                bool foundTheNeedle = false;
+                GeoSearchAddress testAddress = null;
+                foreach (GeoSearchAddress hit in hits)
+                {
+                    if (hit.presentationString.Contains(needle)) { 
+                        testAddress = hit;
+                        foundTheNeedle = true; 
+                        break; 
+                    }
+                }
+                Assert.That(foundTheNeedle, Is.True,
+                    "Did not find " + needle + " when searching for " + searchRequestParam.SearchText +
+                    " in " + searchRequestParam.Resources);
+
+                // Regular expression to extract the first coordinate of the test address
+                Regex regex = new Regex("\\((?<x>[^\\.]+)\\S+\\s+(?<y>[0-9]+)");
+                Match match = regex.Matches(testAddress.geometryWkt)[0];
+                double x = Double.Parse(match.Groups["x"].Value);
+                double y = Double.Parse(match.Groups["y"].Value);
+
+                // Check the raw answer location (with some number precision slack due to regex reduction and potential coordinate rounding MULTIPOINT(711872.0496 6181397.1604)
+                Assert.That(x, Is.InRange(711850, 711900), "x coordinate in range");
+                Assert.That(y, Is.InRange(6181350, 6181450), "y coordinate in range");
+
+                // Check the view port location update
+                var geometry = Make.Esri.Geometry.WithCentroid(Make.Esri.Point.Coords(x, y).Build).Build;
+                var factory = Make.Factory(testAddress).ConvertWKTToGeometryReturns(geometry).Build;
+                var placeFinderController = new PlaceFinderController(factory);
+                var expectedEnvelope = Make.Esri.Envelope
+                    .XMax(718956)
+                    .XMin(718696)
+                    .YMax(6183202)
+                    .YMin(6183042).Build;
+
+                //Act
+                placeFinderController.SearchTextChange(testAddress.presentationString);
+                placeFinderController.ZoomTo(testAddress);
+
+                //Assert
+                Validator.Map(factory.MxDocument.FocusMap)
+                    .NewExtentIsSet(expectedEnvelope)
+                    .MapIsRefresh
+                    .Validate();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(string.Format("Exception when querying \"{0}\"={1}", searchRequestParam.SearchText, e.Message));
+                Assert.Fail("Exception: " + e.Message);
             }
         }
     }
