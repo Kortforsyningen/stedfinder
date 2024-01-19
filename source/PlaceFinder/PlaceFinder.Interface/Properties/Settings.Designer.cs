@@ -25,7 +25,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8d2f8b4d64e60902a6c50926d37c9ceb")]
+        [global::System.Configuration.DefaultSettingValueAttribute("f563925e76daf2f18f77f58ccef4180a")]
         public string Token {
             get {
                 return ((string)(this["Token"]));

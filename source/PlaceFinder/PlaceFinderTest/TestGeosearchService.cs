@@ -131,31 +131,25 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             string needle = parts[2];
 
             var geosearchService = new GeosearchService();
-            try
+            GeoSearchAddressData geoSearchAddressData = null;
+            //Act;
+            geoSearchAddressData = geosearchService.Request(searchRequestParam);
+
+            //Assess
+            var message = geoSearchAddressData.message;
+            if (message != "OK")
             {
-                //Act;
-                var geoSearchAddressData = geosearchService.Request(searchRequestParam);
-                //Asset
-                var message = geoSearchAddressData.message;
-                if (message != "OK")
-                {
-                    Console.WriteLine(string.Format("\"{0}\"={1}", searchRequestParam.SearchText, message));
-                }
-                System.Collections.Generic.List<GeoSearchAddress> hits = geoSearchAddressData.data;
-                bool foundTheNeedle = false;
-                foreach (GeoSearchAddress hit in hits)
-                {
-                    if (hit.visningstekst.Contains(needle)) { foundTheNeedle = true; break; }    
-                }
-                Assert.That(foundTheNeedle, Is.True,
-                    "Did not find " + needle + " when searching for " + searchRequestParam.SearchText +
-                    " in " + searchRequestParam.Resources);
+                Console.WriteLine(string.Format("\"{0}\"={1}", searchRequestParam.SearchText, message));
             }
-            catch (Exception e)
+            System.Collections.Generic.List<GeoSearchAddress> hits = geoSearchAddressData.data;
+            bool foundTheNeedle = false;
+            foreach (GeoSearchAddress hit in hits)
             {
-                Console.WriteLine(string.Format("Exception when querying \"{0}\"={1}", searchRequestParam.SearchText, e.Message));
-                Assert.Fail("Exception: " + e.Message);
+                if (hit.Visningstekst.Contains(needle)) { foundTheNeedle = true; break; }
             }
+            Assert.That(foundTheNeedle, Is.True,
+                "Did not find " + needle + " when searching for " + searchRequestParam.SearchText +
+                " in " + searchRequestParam.Resources);
         }
 
         // Designed test method to check the coordinate reference frame for search result
@@ -188,7 +182,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                 GeoSearchAddress testAddress = null;
                 foreach (GeoSearchAddress hit in hits)
                 {
-                    if (hit.visningstekst.Contains(needle)) { 
+                    if (hit.Visningstekst.Contains(needle)) { 
                         testAddress = hit;
                         foundTheNeedle = true; 
                         break; 
@@ -200,7 +194,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 
                 // Regular expression to extract the first coordinate of the test address
                 Regex regex = new Regex("\\((?<x>[^\\.]+)\\S+\\s+(?<y>[0-9]+)");
-                Match match = regex.Matches(testAddress.geometryWkt)[0];
+                Match match = regex.Matches(testAddress.GeometryWkt)[0];
                 double x = Double.Parse(match.Groups["x"].Value);
                 double y = Double.Parse(match.Groups["y"].Value);
 
@@ -219,7 +213,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                     .YMin(6183042).Build;
 
                 //Act
-                placeFinderController.SearchTextChange(testAddress.visningstekst);
+                placeFinderController.SearchTextChange(testAddress.Visningstekst);
                 placeFinderController.ZoomTo(testAddress);
 
                 //Assert

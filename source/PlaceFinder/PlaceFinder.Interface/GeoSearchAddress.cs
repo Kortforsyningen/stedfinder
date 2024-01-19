@@ -1,18 +1,33 @@
-﻿namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
+﻿using GeoJSON.Net.Converters;
+using Newtonsoft.Json;
+
+namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
 {
     public class GeoSearchAddress
     {
         // Primary display text for a hit (is available for all search results)
-        public string visningstekst { get; set; }
+        [JsonProperty("visningstekst")]
+        public string Visningstekst { get; set; }
         // Unique id available for all search results
-        public string id { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; set; }
         // Generate WKT built from other properties to ensure single access to geometry of hit (for zooming) 
-        public string geometryWkt { get { return "Test"; } }
+        public string GeometryWkt { get { return "Test"; } }
         // Geometric properties for the geometryWkt method
-        public GeoSearchGeometry geometri {  get; set; }
-        public GeoSearchGeometry vejpunkt_geometri { get; set; }
-        // Generic properties that may be available for different result sets
+        [JsonProperty("geometri")]
+        [JsonConverter(typeof(GeometryConverter))]
+        public object Geometri {  get; set; }
+        [JsonProperty("vejpunkt_geometri")]
+        [JsonConverter(typeof(GeometryConverter))]
+        public GeoJSON.Net.GeoJSONObject Vejpunkt_geometri { get; set; }
+        [JsonProperty("adgangspunkt_geometri")]
+        [JsonConverter(typeof(GeometryConverter))]
+        public GeoJSON.Net.GeoJSONObject Adgangspunkt_geometri { get; set; }
+        [JsonProperty("bbox")]
+        [JsonConverter(typeof(GeometryConverter))]
+        public GeoJSON.Net.GeoJSONObject BBox {  get; set; }
 
+        // Generic properties that may be available for different result sets
         public string type { get; set; }
         public string streetName { get; set; }
         public string postCodeIdentifier { get; set; }

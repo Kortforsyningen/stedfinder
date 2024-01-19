@@ -65,7 +65,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
         public void ZoomTo(GeoSearchAddress selectedAddress)
         {
             Debug.WriteLine("ZoomTo entry: " + selectedAddress);
-            if (selectedAddress == null || string.IsNullOrEmpty(selectedAddress.visningstekst))
+            if (selectedAddress == null || string.IsNullOrEmpty(selectedAddress.Visningstekst))
             {
                 throw new PlaceFinderException(Properties.Resources.noPlaceSelected);
             }
@@ -173,7 +173,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 return null;
 
             //convert the address WKT geometry to esri geometry
-            var convertWktToGeometry = _factory.ConvertWKTToGeometry(geoAddress.geometryWkt);
+            var convertWktToGeometry = _factory.ConvertWKTToGeometry(geoAddress.GeometryWkt);
 
             //create the spatial reference of etrs89 (the default of the service)
             int epsgId = Interface.Properties.Settings.Default.ESPGCode;

@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using ESRI.ArcGIS.Geometry;
 using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
+using NetTopologySuite.Features;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinder
 {
@@ -35,16 +36,19 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 {
                     throw new PlaceFinderException("Kan ikke søge på: '" + searchRequestParams.SearchText + "'");
                 }
-                var serializer = new DataContractJsonSerializer(typeof (List<GeoSearchAddress>));
+                dynamic d = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonContent);
+
+                List<GeoSearchAddress> hits = Newtonsoft.Json.JsonConvert.DeserializeObject<List<GeoSearchAddress>>(jsonContent);
+                //var serializer = new DataContractJsonSerializer(typeof (List<GeoSearchAddress>));
 
                 GeoSearchAddressData response = new GeoSearchAddressData();
-                using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonContent)))
-                {
-                    List<GeoSearchAddress> hits = (List<GeoSearchAddress>) serializer.ReadObject(ms);
+                //using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonContent)))
+                //{
+                    //List<GeoSearchAddress> hits = (List<GeoSearchAddress>) serializer.ReadObject(ms);
                     response.message = "OK";
                     response.status = "OK";
                     response.data = hits;
-                }
+                //}
                 return response;
             }
             catch (WebException e)

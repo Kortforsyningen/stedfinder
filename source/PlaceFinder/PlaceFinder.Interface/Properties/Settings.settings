@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Token" Type="System.String" Scope="User">
-      <Value Profile="(Default)">8d2f8b4d64e60902a6c50926d37c9ceb</Value>
+      <Value Profile="(Default)">f563925e76daf2f18f77f58ccef4180a</Value>
     </Setting>
     <Setting Name="ReturnLimit" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
