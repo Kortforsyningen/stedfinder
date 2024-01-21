@@ -148,7 +148,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         [Category("Long")]
         [Category("Integration")]
         [Explicit]
-        [Ignore("Integration test (>1 min)")]
+        [Ignore("Integration test")]
         public void TestSpecialCharactersArrayJustOne()
         {
             //Arange
@@ -183,7 +183,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         [Test]
         [Category("Integration")]
         [Explicit]
-        //[Ignore("Integration test")]
+        [Ignore("Integration test")]
         public void TestSearchResults([Values(
             "chokoladek@stednavn>Chokoladekrydset",
             "fredericia stadion@stednavn>Monjasa Park",
@@ -226,7 +226,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         [Test]
         [Category("Integration")]
         [Explicit]
-        //[Ignore("Integration test")]
+        [Ignore("Integration test")]
         public void TestResultLocation()
         {
             //Arrange
