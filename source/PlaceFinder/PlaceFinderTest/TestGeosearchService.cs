@@ -185,9 +185,9 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         [Explicit]
         [Ignore("Integration test")]
         public void TestSearchResults([Values(
-            "chokoladek@stednavn>Chokoladekrydset",
-            "fredericia stadion@stednavn>Monjasa Park",
-            "tøjhusmuseet@stednavn>Krigsmuseet (Museum i København K)"
+            "chokoladek@stednavn,adresse>Chokoladekrydset",
+            "fredericia stadion@stednavn,husnummer>Monjasa Park",
+            "tøjhusmuseet@retskreds,stednavn>Krigsmuseet (Museum i København K)"
 
             )] string t)
         {

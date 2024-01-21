@@ -18,16 +18,16 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             try
             {
                 Regex pattern = new Regex("([\\\\#/])|(^[/&/./;])");
-                var searchText = searchRequestParams.SearchText; 
-                    //Uri.EscapeDataString(searchRequestParams.SearchText.Replace('/', '_').Replace('\\', '_').Replace('\0', '_').Replace('.', '_').Replace(';', '_'));
+                var searchText = searchRequestParams.SearchText;
+                //Uri.EscapeDataString(searchRequestParams.SearchText.Replace('/', '_').Replace('\\', '_').Replace('\0', '_').Replace('.', '_').Replace(';', '_'));
                 searchText = pattern.Replace(searchText, "_");
-                
+
                 // Split the resources into individual resources and search each of them
                 string[] resources = searchRequestParams.Resources.Split(new char[] { ',' });
 
-                GeoSearchAddressData response = new GeoSearchAddressData();
+                ConcurrentBag<GeoSearchAddress> hitsCollection = new ConcurrentBag<GeoSearchAddress>();
 
-                foreach (string resource in resources)
+                System.Threading.Tasks.Parallel.ForEach(resources, resource =>
                 {
                     var url =
                         string.Format(
@@ -47,13 +47,22 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                     dynamic d = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonContent);
 
                     List<GeoSearchAddress> hits = Newtonsoft.Json.JsonConvert.DeserializeObject<List<GeoSearchAddress>>(jsonContent);
-                    response.message = "OK";
-                    response.status = "OK";
-                    if (response.data == null)
-                        response.data = hits;
-                    else 
-                        response.data.AddRange(hits);
-                    }
+
+                    // Add the hits (if any) to the concurrent collection
+                    hits?.ForEach(x => hitsCollection.Add(x));
+                });
+
+                // Convert concurrent collection to list (for type conformance)
+                List<GeoSearchAddress> hitList = new List<GeoSearchAddress>();
+                hitList.AddRange(hitsCollection);
+
+                GeoSearchAddressData response = new GeoSearchAddressData
+                {
+                    message = "OK",
+                    status = "OK",
+                    data = hitList
+                };
+
                 return response;
             }
             catch (WebException e)
