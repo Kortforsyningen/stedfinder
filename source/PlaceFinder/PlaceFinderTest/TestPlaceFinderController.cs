@@ -6,6 +6,7 @@ using GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater;
 using NUnit.Framework;
 using Rhino.Mocks;
 using ESRI.ArcGIS.Geometry;
+using System;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 {
@@ -211,17 +212,40 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         {
             //Arrange
             var place = "SomePlace";
-            var resourceList = new List<object> { "Husnumre", "Adresser" };
             var factory = Make.Factory(new GeoSearchAddress() { Visningstekst = "SomePlace" }).Build;
             var placeFinderController = new PlaceFinderController(factory);
 
+            var resourceList = new List<object> { "Husnummer", "Adresse", "Sogn" };
             //Act
             placeFinderController.SearchResourcesChange(resourceList);
             placeFinderController.SearchTextChange(place);
 
             //Assert
             Validator.PlaceFinderWindow(factory.PlaceFinderDockableWindow).Validate();
-            Validator.GeosearchService(factory.GeosearchService).RequestCallWithSearchResources("Adresser,Husnumre").Validate();
+            Validator.GeosearchService(factory.GeosearchService).RequestCallWithSearchResources("adresse,husnummer,sogn").Validate();
+        }
+
+        [Test]
+        [Sequential]
+        public void TestLabels(
+            [Values("Adresse","Husnummer","Kommune")]//,"Matrikel","Matrikel udgået","matrikel_udgaaet","Navngiven vej",
+                //"Opstillingskreds","Politikreds","Postnummer","Region","Retskreds","Sogn","Stednavn")] 
+        string label, 
+            [Values("adresse", "husnummer", "kommune")]//, "matrikel", "matikel_udgaaet", "navngivenvej",
+                //"opstillingskreds", "politikreds", "postnummer", "region", "retskreds", "sogn", "stednavn")] 
+        string resource)
+        {
+            var place = "SomePlace";
+            //Arrange
+            var factory = Make.Factory(new GeoSearchAddress() { Visningstekst = "SomePlace" }).Build;
+            var resourceList = new List<object> { label };
+            var placeFinderController = new PlaceFinderController(factory);
+            //Act
+            placeFinderController.SearchResourcesChange(resourceList);
+            placeFinderController.SearchTextChange(place);
+            //Assert
+            Validator.PlaceFinderWindow(factory.PlaceFinderDockableWindow).Validate();
+            Validator.GeosearchService(factory.GeosearchService).RequestCallWithSearchResources(resource).Validate();
         }
     }
 }

@@ -30,19 +30,16 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
         public bool Street { get; set; }
         public bool HouseNumber { get; set; }
         public bool Municipalities { get; set; }
-        public bool CadastralNumber { get; set; }
+        public bool Cadastre { get; set; }
+        public bool CadastreDeprecated { get; set; }
         public bool PlaceNames { get; set; }
-        public bool PlaceNames_v2 { get; set; }
-        public bool PlaceNames_v3 { get; set; }
         public bool ElectoralDistrict { get; set; }
         public bool Parish { get; set; }
         public bool PoliceDistrict { get; set; }
         public bool PostDistricts { get; set; }
         public bool Regions { get; set; }
         public bool JurisdictionsDistrict { get; set; }
-        public bool Sogne { get; set; }
 
-        //"Adresser,Veje,Husnumre,Kommuner,Matrikelnumre,Stednavne,Opstillingskredse,Politikredse,Postdistrikter,Regioner,Retskredse";
         public string GetResourceString
         {
             get
@@ -50,63 +47,55 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
                 string resourcesString = "";
                 if (Addresses)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Adresser");
-                }
-                if (Street)
-                {
-                    resourcesString = AppendToResource(resourcesString, "Veje");
+                    resourcesString = AppendToResource(resourcesString, "adresse");
                 }
                 if (HouseNumber)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Husnumre");
+                    resourcesString = AppendToResource(resourcesString, "husnummer");
                 }
                 if (Municipalities)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Kommuner");
+                    resourcesString = AppendToResource(resourcesString, "kommune");
                 }
-                if (CadastralNumber)
+                if (Cadastre)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Matrikelnumre");
+                    resourcesString = AppendToResource(resourcesString, "matrikel");
                 }
-                if (PlaceNames) //used to be "Stednavne, Stednavne_v2" for some unknown reason. (x009068 has been expanded to explicit selection)
+                if (CadastreDeprecated)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Stednavne"); 
+                    resourcesString = AppendToResource(resourcesString, "matrikel_udgaaet");
                 }
-                if (PlaceNames_v2)
+                if (Street)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Stednavne_v2"); 
-                }
-                if (PlaceNames_v3)
-                {
-                    resourcesString = AppendToResource(resourcesString, "Stednavne_v3");
+                    resourcesString = AppendToResource(resourcesString, "navngivenvej");
                 }
                 if (ElectoralDistrict)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Opstillingskredse");
-                }
-                if (Parish)
-                {
-                    resourcesString = AppendToResource(resourcesString, "Sogne");
+                    resourcesString = AppendToResource(resourcesString, "opstillingskreds");
                 }
                 if (PoliceDistrict)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Politikredse");
+                    resourcesString = AppendToResource(resourcesString, "politikreds");
                 }
                 if (PostDistricts)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Postdistrikter");
+                    resourcesString = AppendToResource(resourcesString, "postnummer");
                 }
                 if (Regions)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Regioner");
+                    resourcesString = AppendToResource(resourcesString, "region");
                 }
                 if (JurisdictionsDistrict)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Retskredse");
+                    resourcesString = AppendToResource(resourcesString, "retskreds");
                 }
-                if (Sogne)
+                if (Parish)
                 {
-                    resourcesString = AppendToResource(resourcesString, "Sogne");
+                    resourcesString = AppendToResource(resourcesString, "sogn");
+                }
+                if (PlaceNames)
+                {
+                    resourcesString = AppendToResource(resourcesString, "stednavn");
                 }
 
                 return resourcesString;
