@@ -1,11 +1,7 @@
-﻿using ESRI.ArcGIS.ArcMapUI;
-using GeoJSON.Net;
+﻿using GeoJSON.Net;
 using GeoJSON.Net.Converters;
-using GeoJSON.Net.Geometry;
 using Newtonsoft.Json;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
 {
