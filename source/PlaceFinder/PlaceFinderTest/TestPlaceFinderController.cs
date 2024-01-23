@@ -228,11 +228,11 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         [Test]
         [Sequential]
         public void TestLabels(
-            [Values("Adresse","Husnummer","Kommune")]//,"Matrikel","Matrikel udgået","matrikel_udgaaet","Navngiven vej",
-                //"Opstillingskreds","Politikreds","Postnummer","Region","Retskreds","Sogn","Stednavn")] 
+            [Values("Adresse","Husnummer","Kommune","Matrikel","Matrikel udgået","Navngiven vej",
+                "Opstillingskreds","Politikreds","Postnummer","Region","Retskreds","Sogn","Stednavn")] 
         string label, 
-            [Values("adresse", "husnummer", "kommune")]//, "matrikel", "matikel_udgaaet", "navngivenvej",
-                //"opstillingskreds", "politikreds", "postnummer", "region", "retskreds", "sogn", "stednavn")] 
+            [Values("adresse", "husnummer", "kommune", "matrikel", "matrikel_udgaaet", "navngivenvej",
+                "opstillingskreds", "politikreds", "postnummer", "region", "retskreds", "sogn", "stednavn")] 
         string resource)
         {
             var place = "SomePlace";

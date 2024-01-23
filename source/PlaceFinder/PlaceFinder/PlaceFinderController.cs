@@ -145,7 +145,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 if (!searchRequestResources.Cadastre)
                 { searchRequestResources.Cadastre = s.Equals("Matrikel"); }
                 if (!searchRequestResources.CadastreDeprecated)
-                { searchRequestResources.Cadastre = s.Equals("Matrikel udgået"); }
+                { searchRequestResources.CadastreDeprecated = s.Equals("Matrikel udgået"); }
                 if (!searchRequestResources.PlaceNames)
                 { searchRequestResources.PlaceNames = s.Equals("Stednavn"); }
                 if (!searchRequestResources.ElectoralDistrict)
