@@ -26,7 +26,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
 
             // This string array defines the default search areas. The strings must match the elements in the 
             // Configurations form exactly
-            string[] defaultConfig = new string[] { "Stednavne v3" };
+            string[] defaultConfig = new string[] { "Stednavn" };
 
             // Create the configurations form
             configurationsForm = new ConfigurationsForm(PlaceFinderController, defaultConfig);
