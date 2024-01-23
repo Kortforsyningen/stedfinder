@@ -12,7 +12,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -49,7 +49,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://api.dataforsyningen.dk/rest/gsearch/v1.0/{0}?token={1}&q={2}&limit={3}")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.dataforsyningen.dk/rest/gsearch/v2.0/{0}?token={1}&q={2}&limit={3}")]
         public string Url {
             get {
                 return ((string)(this["Url"]));
