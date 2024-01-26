@@ -1,13 +1,9 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
-using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.RegularExpressions;
-using ESRI.ArcGIS.Geometry;
 using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
-using NetTopologySuite.Features;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinder
 {
@@ -17,6 +13,10 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
         {
             try
             {
+                // Regex for visningstekst
+                Regex rgxVisningstekst = new Regex("\"visningstekst\":\"(?<visningstekst>[^\"]+)\"");
+                Regex rgxId = new Regex("\"id\":\"(?<id>[^\"]+)\"");
+
                 Regex pattern = new Regex("([\\\\#/])|(^[/&/./;])");
                 var searchText = searchRequestParams.SearchText;
                 //Uri.EscapeDataString(searchRequestParams.SearchText.Replace('/', '_').Replace('\\', '_').Replace('\0', '_').Replace('.', '_').Replace(';', '_'));
@@ -44,9 +44,36 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                     {
                         throw new PlaceFinderException("Kan ikke søge på: '" + searchRequestParams.SearchText + "'");
                     }
-                    dynamic d = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonContent);
 
-                    List<GeoSearchAddress> hits = Newtonsoft.Json.JsonConvert.DeserializeObject<List<GeoSearchAddress>>(jsonContent);
+                    string[] hitStrings = jsonContent.Split(new[] { "},{" }, System.StringSplitOptions.None);
+
+                    List<GeoSearchAddress> hits = new List<GeoSearchAddress>(hitStrings.Length);
+                   
+                    foreach(string str in hitStrings)
+                    {
+                        // Skip empty (no hit entries
+                        if (string.IsNullOrEmpty(str)) continue;
+                        str.Trim();
+                        if (string.IsNullOrEmpty(str)) continue;
+                        // Parse the rest
+                        string visningstekst = null;
+                        Match matchVisningstekst = rgxVisningstekst.Match(str);
+                        if (matchVisningstekst.Success) visningstekst = matchVisningstekst.Groups["visningstekst"].Value;
+                        string idtekst = null;
+                        Match matchId = rgxId.Match(str);
+                        if (matchId.Success) idtekst = matchVisningstekst.Groups["id"].Value;
+                        if (visningstekst != null)
+                        {
+                            GeoSearchAddress geoAddress = new GeoSearchAddress()
+                            {
+                                Visningstekst = visningstekst,
+                                Id = idtekst,
+                                Ressource = resource,
+                                Blob = str
+                            };
+                            hits.Add(geoAddress);
+                        }
+                    }
 
                     // Add the hits (if any) to the concurrent collection
                     hits?.ForEach(x => hitsCollection.Add(x));

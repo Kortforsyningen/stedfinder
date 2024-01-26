@@ -1,7 +1,5 @@
-﻿using GeoJSON.Net;
-using GeoJSON.Net.Converters;
-using Newtonsoft.Json;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
 {
@@ -10,12 +8,10 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
         /// <summary>
         /// Primary display text for a hit (is available for all search results)
         /// </summary>
-        [JsonProperty("visningstekst")]
         public string Visningstekst { get; set; }
         /// <summary>
         /// Unique id available for all search results
         /// </summary>
-        [JsonProperty("id")]
         public string Id { get; set; }
         /// <summary>
         /// WKT built from other properties to ensure single access to geometry of hit (for zooming)  
@@ -25,40 +21,76 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
         {
             get
             {
-                // Prioritized access order
-                if (Geometry != null) return ConvertToWKT(Geometry);
-                if (Vejpunkt_geometri != null) return ConvertToWKT(Vejpunkt_geometri);
-                if (Adgangspunkt_geometri != null) return ConvertToWKT(Adgangspunkt_geometri);
-                if (BBox != null) return ConvertToWKT(BBox);
-                return null;
+                string wkt = null;
+                Regex rgxGeometry = new Regex("\"(?<attribute>\\w+)\":{\"type\":\"(?<type>\\w+)\",\"coordinates\":(?<coordinates>[^}]+)}");
+                if (Blob != null)
+                {
+                    MatchCollection matches = rgxGeometry.Matches(Blob);
+                    if (matches.Count > 0)
+                    {
+                        // Some geometries where found
+                        Dictionary<string, Match> map = new Dictionary<string, Match>();
+                        foreach (Match m in matches)
+                        {
+                            map.Add(m.Groups["attribute"].Value, m);
+                        }
+                        // Attribute preference ordering
+                        foreach (string attribute in new string[] { "geometri", "vejpunkt_geometri", "adgangspunkt_geometri", "bbox" })
+                            if (map.ContainsKey(attribute))
+                            {
+                                Match m = map[attribute];
+                                string type = m.Groups["type"].Value.ToUpper();
+                                wkt = type;
+                                if (type.CompareTo("POINT") == 0) wkt += "(";
+                                wkt += convertCoordinates(m.Groups["coordinates"].Value);
+                                if (type.CompareTo("POINT") == 0) wkt += ")";
+                            }
+                    }
+                }
+                return wkt;
             }
         }
-        /// <summary>
-        /// Main geometric instance
-        /// </summary>
-        [JsonProperty("geometri")]
-        [JsonConverter(typeof(GeometryConverter))]
-        public GeoJSON.Net.GeoJSONObject Geometry { get; set; }
-        /// <summary>
-        /// Support geometric instance for some ressources
-        /// </summary>
-        [JsonProperty("vejpunkt_geometri")]
-        [JsonConverter(typeof(GeometryConverter))]
-        /// <summary>
-        /// Support geometric instance for some ressources
-        /// </summary>
-        public GeoJSON.Net.GeoJSONObject Vejpunkt_geometri { get; set; }
-        [JsonProperty("adgangspunkt_geometri")]
-        [JsonConverter(typeof(GeometryConverter))]
-        /// <summary>
-        /// Support geometric instance for some ressources
-        /// </summary>
-        public GeoJSON.Net.GeoJSONObject Adgangspunkt_geometri { get; set; }
-        [JsonProperty("bbox")]
-        [JsonConverter(typeof(GeometryConverter))]
-        public GeoJSON.Net.GeoJSONObject BBox { get; set; }
 
+        private string convertCoordinates(string coordinates)
+        {
+            Regex rgxCoordinate = new Regex("\\[(?<x>[\\d.]+),(?<y>[\\d.]+)\\]");
+            // [[[[535779.785,6178781.992],[535779.36,6178773.577],[535778.518,6178747.57]]]]
+            string firstPass = rgxCoordinate.Replace(coordinates, m => m.Groups["x"].Value + " " + m.Groups["y"]);
+            // [[[535779.785 6178781.992,535779.36 6178773.577,535778.518 6178747.57]]]
+            string secondPass = firstPass.Replace('[', '(');
+            // (((535779.785 6178781.992,535779.36 6178773.577,535778.518 6178747.57]]]
+            string thirdPass = secondPass.Replace(']', ')');
+            // (((535779.785 6178781.992,535779.36 6178773.577,535778.518 6178747.57)))
+            return thirdPass;
+        }
+
+        /*// <summary>
+/// Main geometric instance
+/// </summary>
+[JsonPropertyName("geometri")]
+[JsonConverter(typeof(GeometryConverter))]
+public GeoJSON.Net.GeoJSONObject geometri { get; set; }
+/// <summary>
+/// Support geometric instance for some ressources
+/// </summary>
+[JsonProperty("vejpunkt_geometri")]
+[JsonConverter(typeof(GeometryConverter))]
+/// <summary>
+/// Support geometric instance for some ressources
+/// </summary>
+public GeoJSON.Net.GeoJSONObject Vejpunkt_geometri { get; set; }
+[JsonProperty("adgangspunkt_geometri")]
+[JsonConverter(typeof(GeometryConverter))]
+/// <summary>
+/// Support geometric instance for some ressources
+/// </summary>
+public GeoJSON.Net.GeoJSONObject Adgangspunkt_geometri { get; set; }
+[JsonProperty("bbox")]
+[JsonConverter(typeof(GeometryConverter))]
+public GeoJSON.Net.GeoJSONObject BBox { get; set; }
+*/
         public string Ressource { get; set; }
+        public string Blob { get; set; }
 
         // Generic properties that may be available for different result sets
         /* Deprecated as of version 2.0 (if reintroduced use https://docs.dataforsyningen.dk/#gsearch-schemas)
@@ -91,7 +123,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
          * Supportive methods for efficiently generating the WKT for the GeoSearchAddress
          */
 
-        ///<summary>Method for conversion of GeoJSONObjects to <c>WKT</c></summary>
+        /*/<summary>Method for conversion of GeoJSONObjects to <c>WKT</c></summary>
         ///<param name="geojsonobject">The GeoJSONObject to represent by <c>WKT</c></param>
         ///<returns>The object as <c>WKT</c></returns>
         ///<remarks>author: jbw@hermestraffic.com</remarks>
@@ -169,6 +201,6 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface
         /// <remarks>author: jbw@hermestraffic.com</remarks>
         private string StringifyPolygons(System.Collections.Generic.IEnumerable<GeoJSON.Net.Geometry.Polygon> polygons) {
             return "(" + string.Join(", ", polygons.Select(poly => StringifyLinestrings(poly.Coordinates))) + ")";
-        }
+        }*/
     }
 }

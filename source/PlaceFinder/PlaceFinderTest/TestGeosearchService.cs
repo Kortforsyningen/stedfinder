@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using ESRI.ArcGIS.Geometry;
 using GeodataStyrelsen.ArcMap.PlaceFinder;
 using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 using GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder;
 using GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater;
 using NUnit.Framework;
-using GeoJSON.Net;
-using GeoJSON.Net.Geometry;
+// Disabled because json is parsed by regex and split operations
+// using GeoJSON.Net;
+// using GeoJSON.Net.Geometry;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 {
@@ -33,8 +33,8 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             Assert.That(pattern.Replace("A;", "_"), Is.EqualTo("A;"));
         }
 
-        /// <summary>
-        /// Parametrized test to allow individual type tests
+        /*// <summary>
+        /// Parametrized test to allow individual type tests for GeoJSON types (disabled as the types are not used)
         /// </summary>
         /// <param name="type">The type to test</param>
         [Test]
@@ -95,10 +95,11 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             Assert.That(g, Is.Not.Null, "Geometric object for testing available");
             GeoSearchAddress geoSearchAddress = new GeoSearchAddress
             {
-                Geometry = g
+                //Geometry = g
             };
             Assert.That(geoSearchAddress.GeometryWkt, Is.EqualTo(expected), "Correct WKT transformation for " + type);
         }
+        */
 
         [Test]
         public void TestEncoding()

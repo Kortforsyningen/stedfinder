@@ -98,7 +98,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             searchResultComboBox.DroppedDown = geoSearchAddresses.Count > 0;
             Cursor.Current = Cursors.Default;
             searchResultComboBox.Items.Clear();
-            searchResultComboBox.DisplayMember = "presentationString";
+            searchResultComboBox.DisplayMember = "visningstekst";
             if (geoSearchAddresses.Count > 0)
             {
                 searchResultComboBox.Items.AddRange(geoSearchAddresses.ToArray());
