@@ -3,10 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [v?.?.?] (Unreleased)
 
-## [v2.0.0] (2024-01-?) --Unreleased--
+## [v2.0.0] (2024-01-30)
 
 ### Changed
-- Using the new gsearch service from dataforsyningen.dk at https://api.dataforsyningen.dk/rest/gsearch/v1.0
+- Using the new gsearch service from dataforsyningen.dk at https://api.dataforsyningen.dk/rest/gsearch/v2.0
+- Response parsing using regex operations to avoid challenge with loading libraries under ArcMap 10.8.1
 
 ## [v1.5.0] (2016-10-26)
 
