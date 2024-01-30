@@ -5,7 +5,7 @@ using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 using GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder;
 using GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater;
 using NUnit.Framework;
-// Disabled because json is parsed by regex and split operations
+// Disabled because json is parsed by regex and split operations (see comments in GeosearchService source)
 // using GeoJSON.Net;
 // using GeoJSON.Net.Geometry;
 
