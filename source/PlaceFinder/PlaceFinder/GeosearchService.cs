@@ -7,16 +7,27 @@ using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinder
 {
+    /// <summary>
+    /// This specific implementation uses regular expressions to parse the JSON even though a NewtonSoft/GeoJSON.net
+    /// solution was also implemented. That is available in the version history as checkin
+    /// c5e74fb gsearch: Default search resource bug fixed
+    /// The ms serialization branch following this tried using System.Text.Json for the parsing, but due to dll loading
+    /// challenges both the implementations did not work under ArcMap 10.8.1 and were abandoned for this solution
+    /// 
+    /// Jørgen Wanscher (x009068sdfi.dk/jbw@hermestraffic.com)
+    /// </summary>
     public class GeosearchService : IGeosearchService
     {
+        // Regex for visningstekst
+        private Regex rgxVisningstekst = new Regex("\"visningstekst\":\"(?<visningstekst>[^\"]+)\"");
+        private Regex rgxId = new Regex("\"id\":\"(?<id>[^\"]+)\"");
+        private Regex rgxOfficiel = new Regex("\"skrivemaade_officiel\":\"(?<officiel>[^\"]+)\"");
+        private Regex rgxUOfficiel = new Regex("\"skrivemaade_uofficiel\":\"(?<uofficiel>[^\"]+)\"");
+
         public GeoSearchAddressData Request(SearchRequestParams searchRequestParams)
         {
             try
             {
-                // Regex for visningstekst
-                Regex rgxVisningstekst = new Regex("\"visningstekst\":\"(?<visningstekst>[^\"]+)\"");
-                Regex rgxId = new Regex("\"id\":\"(?<id>[^\"]+)\"");
-
                 Regex pattern = new Regex("([\\\\#/])|(^[/&/./;])");
                 var searchText = searchRequestParams.SearchText;
                 //Uri.EscapeDataString(searchRequestParams.SearchText.Replace('/', '_').Replace('\\', '_').Replace('\0', '_').Replace('.', '_').Replace(';', '_'));
@@ -64,6 +75,34 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                         if (matchId.Success) idtekst = matchVisningstekst.Groups["id"].Value;
                         if (visningstekst != null)
                         {
+                            // Specific workaround to add skrivemaade_uofficiel og skrivemaade_officiel if needed to hits from the stednavn resource
+                            if (resource.CompareTo("stednavn") == 0)
+                            {
+                                // Check for the official naming
+                                string officiel = null;
+                                Match matchOfficiel = rgxOfficiel.Match(str);
+                                if (matchOfficiel.Success) officiel = matchOfficiel.Groups["officiel"].Value;
+                                // Reset this if visningstekst already contains "officiel" name
+                                if (officiel != null && visningstekst.Contains(officiel)) officiel = null;
+
+                                // Check for the unofficial naming
+                                Match matchUofficiel = rgxUOfficiel.Match(str);
+                                string uofficiel = null;
+                                if (matchUofficiel.Success) uofficiel = matchUofficiel.Groups["uofficiel"].Value;
+                                // Reset this if visningstekst already contains "officiel" name
+                                if (uofficiel != null && visningstekst.Contains(uofficiel)) uofficiel = null;
+
+                                string append = null;
+                                if (officiel != null && uofficiel != null) append = " [" + officiel + "/" + uofficiel + "]";
+                                else
+                                {
+                                    if (officiel != null) append = " [" + officiel + "]";
+                                    if (uofficiel != null) append = " [" + uofficiel + "]";
+                                }
+                                // Append the values to visningstekst
+                                if (append != null) visningstekst += append;
+                            }
+
                             GeoSearchAddress geoAddress = new GeoSearchAddress()
                             {
                                 Visningstekst = visningstekst,
@@ -82,6 +121,8 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 // Convert concurrent collection to list (for type conformance)
                 List<GeoSearchAddress> hitList = new List<GeoSearchAddress>();
                 hitList.AddRange(hitsCollection);
+
+                hitList.Sort((a, b) => a.Ressource.CompareTo(b.Ressource));
 
                 GeoSearchAddressData response = new GeoSearchAddressData
                 {
