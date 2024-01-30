@@ -50,7 +50,7 @@
             "Stednavn",
             "Opstillingskreds",
             "Politikreds",
-            "Postdistrikt",
+            "Postnummer",
             "Region",
             "Retskreds"});
             this.SearchRequestResourcesCheckedListBox.Location = new System.Drawing.Point(4, 32);
