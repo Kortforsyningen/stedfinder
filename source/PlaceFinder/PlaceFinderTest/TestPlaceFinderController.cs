@@ -6,6 +6,7 @@ using GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater;
 using NUnit.Framework;
 using Rhino.Mocks;
 using ESRI.ArcGIS.Geometry;
+using System;
 
 namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
 {
@@ -16,13 +17,13 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         public void TestZoomTo()
         {
             //Arrange
-            var place = new GeoSearchAddress() {presentationString = "SomePlace"};
+            var place = new GeoSearchAddress() {Visningstekst = "SomePlace"};
             IFactory factory = Make.Factory(place).Build;
             var placeFinderController = new PlaceFinderController(factory);
             var expectedEnvelope = Make.Esri.Envelope.Build;
 
             //Act
-            placeFinderController.SearchTextChange(place.presentationString);
+            placeFinderController.SearchTextChange(place.Visningstekst);
             placeFinderController.ZoomTo(place);
 
             //Assert
@@ -61,7 +62,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         public void TestZoomTo_ToSmallFeatureOnX()
         {
             //Arrange
-            var place = new GeoSearchAddress() { presentationString = "SomePlace" };
+            var place = new GeoSearchAddress() { Visningstekst = "SomePlace" };
             IPoint point = Make.Esri.Point.Build;
             var incommingEnvelope = Make.Esri.Envelope
                 .XMax(point.X + 1)
@@ -79,7 +80,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                 .YMin(point.Y - 75).Build;
 
             //Act
-            placeFinderController.SearchTextChange(place.presentationString);
+            placeFinderController.SearchTextChange(place.Visningstekst);
             placeFinderController.ZoomTo(place);
 
             //Assert
@@ -94,7 +95,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         public void TestZoomTo_ToSmallFeatureOnXNegativeX()
         {
             //Arrange
-            var place = new GeoSearchAddress() { presentationString = "SomePlace" };
+            var place = new GeoSearchAddress() { Visningstekst = "SomePlace" };
             var centroid = Make.Esri.Point.Coords(-250.0, -150.0).Build;
             var incommingEnvelope = Make.Esri.Envelope
                 .XMax(centroid.X + 1)
@@ -114,7 +115,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                 .Build;
 
             //Act
-            placeFinderController.SearchTextChange(place.presentationString);
+            placeFinderController.SearchTextChange(place.Visningstekst);
             placeFinderController.ZoomTo(place);
 
             //Assert
@@ -129,7 +130,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         public void TestZoomTo_ToSmallFeatureOnY()
         {
             //Arrange
-            var place = new GeoSearchAddress() { presentationString = "SomePlace" };
+            var place = new GeoSearchAddress() { Visningstekst = "SomePlace" };
             IPoint point = Make.Esri.Point.Build;
             var incommingEnvelope = Make.Esri.Envelope
                 .XMax(point.X + 150)
@@ -147,7 +148,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                 .YMin(point.Y - 75).Build;
 
             //Act
-            placeFinderController.SearchTextChange(place.presentationString);
+            placeFinderController.SearchTextChange(place.Visningstekst);
             placeFinderController.ZoomTo(place);
 
             //Assert
@@ -161,7 +162,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         public void TestZoomTo_ToSmallFeatureOnYWithNegativeY()
         {
             //Arrange
-            var place = new GeoSearchAddress() { presentationString = "SomePlace" };
+            var place = new GeoSearchAddress() { Visningstekst = "SomePlace" };
             var centroid = Make.Esri.Point.Coords(-250.0, -150.0).Build;
             var incommingEnvelope = Make.Esri.Envelope
                 .XMax(centroid.X + 150)
@@ -174,14 +175,14 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
             var factory = Make.Factory(place).ConvertWKTToGeometryReturns(geometry).Build;
             var placeFinderController = new PlaceFinderController(factory);
             var expectedEnvelope = Make.Esri.Envelope
-                .XMax(-41.9979)
-                .XMin(-42.0021)
-                .YMax(-41.9994)
-                .YMin(-42.0006)
+                .XMax(centroid.X + 125)
+                .XMin(centroid.X - 125)
+                .YMax(centroid.Y + 75)
+                .YMin(centroid.Y - 75)
                 .Build;
 
             //Act
-            placeFinderController.SearchTextChange(place.presentationString);
+            placeFinderController.SearchTextChange(place.Visningstekst);
             placeFinderController.ZoomTo(place);
 
             //Assert
@@ -196,7 +197,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         {
             //Arrange
             var place = "SomePlace";
-            IFactory factory = Make.Factory(new GeoSearchAddress() { presentationString = "SomePlace" }).Build;
+            IFactory factory = Make.Factory(new GeoSearchAddress() { Visningstekst = "SomePlace" }).Build;
             var placeFinderController = new PlaceFinderController(factory);
 
             //Act
@@ -211,17 +212,40 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
         {
             //Arrange
             var place = "SomePlace";
-            var resourceList = new List<object> { "Husnumre", "Adresser" };
-            var factory = Make.Factory(new GeoSearchAddress() { presentationString = "SomePlace" }).Build;
+            var factory = Make.Factory(new GeoSearchAddress() { Visningstekst = "SomePlace" }).Build;
             var placeFinderController = new PlaceFinderController(factory);
 
+            var resourceList = new List<object> { "Husnummer", "Adresse", "Sogn" };
             //Act
             placeFinderController.SearchResourcesChange(resourceList);
             placeFinderController.SearchTextChange(place);
 
             //Assert
             Validator.PlaceFinderWindow(factory.PlaceFinderDockableWindow).Validate();
-            Validator.GeosearchService(factory.GeosearchService).RequestCallWithSearchResources("Adresser,Husnumre").Validate();
+            Validator.GeosearchService(factory.GeosearchService).RequestCallWithSearchResources("adresse,husnummer,sogn").Validate();
+        }
+
+        [Test]
+        [Sequential]
+        public void TestLabels(
+            [Values("Adresse","Husnummer","Kommune","Matrikel","Matrikel udgået","Navngiven vej",
+                "Opstillingskreds","Politikreds","Postnummer","Region","Retskreds","Sogn","Stednavn")] 
+        string label, 
+            [Values("adresse", "husnummer", "kommune", "matrikel", "matrikel_udgaaet", "navngivenvej",
+                "opstillingskreds", "politikreds", "postnummer", "region", "retskreds", "sogn", "stednavn")] 
+        string resource)
+        {
+            var place = "SomePlace";
+            //Arrange
+            var factory = Make.Factory(new GeoSearchAddress() { Visningstekst = "SomePlace" }).Build;
+            var resourceList = new List<object> { label };
+            var placeFinderController = new PlaceFinderController(factory);
+            //Act
+            placeFinderController.SearchResourcesChange(resourceList);
+            placeFinderController.SearchTextChange(place);
+            //Assert
+            Validator.PlaceFinderWindow(factory.PlaceFinderDockableWindow).Validate();
+            Validator.GeosearchService(factory.GeosearchService).RequestCallWithSearchResources(resource).Validate();
         }
     }
 }

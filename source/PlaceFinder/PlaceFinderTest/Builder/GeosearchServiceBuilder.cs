@@ -9,7 +9,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder
         public GeosearchServiceBuilder WithResult(GeoSearchAddress resultAddress)
         {
                 var geoSearchAddressData = new GeoSearchAddressData();
-                geoSearchAddressData.data = new List<GeoSearchAddress> { resultAddress, new GeoSearchAddress { presentationString = "AnotherPlace" } };
+                geoSearchAddressData.data = new List<GeoSearchAddress> { resultAddress, new GeoSearchAddress { Visningstekst = "AnotherPlace" } };
                 Build.Stub(m => m.Request(Arg<SearchRequestParams>.Is.Anything)).Return(geoSearchAddressData);
                 return this;
         }

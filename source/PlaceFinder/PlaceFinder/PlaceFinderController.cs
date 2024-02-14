@@ -65,7 +65,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
         public void ZoomTo(GeoSearchAddress selectedAddress)
         {
             Debug.WriteLine("ZoomTo entry: " + selectedAddress);
-            if (selectedAddress == null || string.IsNullOrEmpty(selectedAddress.presentationString))
+            if (selectedAddress == null || string.IsNullOrEmpty(selectedAddress.Visningstekst))
             {
                 throw new PlaceFinderException(Properties.Resources.noPlaceSelected);
             }
@@ -135,35 +135,31 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
 
                 /// Check each setting individually against the configured text lines
                 if (!searchRequestResources.Addresses)
-                { searchRequestResources.Addresses = s.Equals("Adresser"); }
+                { searchRequestResources.Addresses = s.Equals("Adresse"); }
                 if (!searchRequestResources.Street)
-                { searchRequestResources.Street = s.Equals("Veje"); }
+                { searchRequestResources.Street = s.Equals("Navngiven vej"); }
                 if (!searchRequestResources.HouseNumber)
-                { searchRequestResources.HouseNumber = s.Equals("Husnumre"); }
+                { searchRequestResources.HouseNumber = s.Equals("Husnummer"); }
                 if (!searchRequestResources.Municipalities)
-                {searchRequestResources.Municipalities = s.Equals("Kommuner");}
-                if (!searchRequestResources.CadastralNumber)
-                { searchRequestResources.CadastralNumber = s.Equals("Matrikelnumre"); }
+                {searchRequestResources.Municipalities = s.Equals("Kommune");}
+                if (!searchRequestResources.Cadastre)
+                { searchRequestResources.Cadastre = s.Equals("Matrikel"); }
+                if (!searchRequestResources.CadastreDeprecated)
+                { searchRequestResources.CadastreDeprecated = s.Equals("Matrikel udgået"); }
                 if (!searchRequestResources.PlaceNames)
-                { searchRequestResources.PlaceNames = s.Equals("Stednavne"); }
-                if (!searchRequestResources.PlaceNames_v2)
-                { searchRequestResources.PlaceNames_v2 = s.Equals("Stednavne v2"); }
-                if (!searchRequestResources.PlaceNames_v3)
-                { searchRequestResources.PlaceNames_v3 = s.Equals("Stednavne v3"); }
+                { searchRequestResources.PlaceNames = s.Equals("Stednavn"); }
                 if (!searchRequestResources.ElectoralDistrict)
-                { searchRequestResources.ElectoralDistrict = s.Equals("Opstillingskredse"); }
+                { searchRequestResources.ElectoralDistrict = s.Equals("Opstillingskreds"); }
                 if (!searchRequestResources.PoliceDistrict)
-                { searchRequestResources.PoliceDistrict = s.Equals("Politikredse"); }
+                { searchRequestResources.PoliceDistrict = s.Equals("Politikreds"); }
                 if (!searchRequestResources.Parish)
-                { searchRequestResources.Parish = s.Equals("Sogne"); }
+                { searchRequestResources.Parish = s.Equals("Sogn"); }
                 if (!searchRequestResources.PostDistricts)
-                { searchRequestResources.PostDistricts = s.Equals("Postdistrikter"); }
+                { searchRequestResources.PostDistricts = s.Equals("Postnummer"); }
                 if (!searchRequestResources.Regions)
-                { searchRequestResources.Regions = s.Equals("Regioner"); }
+                { searchRequestResources.Regions = s.Equals("Region"); }
                 if (!searchRequestResources.JurisdictionsDistrict)
-                { searchRequestResources.JurisdictionsDistrict = s.Equals("Retskredse"); }
-                if (!searchRequestResources.Sogne)
-                { searchRequestResources.Sogne = s.Equals("Sogne"); }
+                { searchRequestResources.JurisdictionsDistrict = s.Equals("Retskreds"); }
             }
         }
 
@@ -173,10 +169,10 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 return null;
 
             //convert the address WKT geometry to esri geometry
-            var convertWktToGeometry = _factory.ConvertWKTToGeometry(geoAddress.geometryWkt);
+            var convertWktToGeometry = _factory.ConvertWKTToGeometry(geoAddress.GeometryWkt);
 
             //create the spatial reference of etrs89 (the default of the service)
-            int epsgId = Interface.Properties.Settings.Default.EPSGCode;
+            int epsgId = Interface.Properties.Settings.Default.ESPGCode;
 
             var spatialReferenceFactory = _factory.SpatialReferenceFactory;
             var spatialReference = spatialReferenceFactory.CreateSpatialReference(epsgId);

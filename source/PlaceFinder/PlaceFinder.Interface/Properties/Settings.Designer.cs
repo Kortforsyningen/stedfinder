@@ -12,7 +12,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,43 +25,19 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("25832")]
-        public int EPSGCode {
+        [global::System.Configuration.DefaultSettingValueAttribute("f563925e76daf2f18f77f58ccef4180a")]
+        public string Token {
             get {
-                return ((int)(this["EPSGCode"]));
+                return ((string)(this["Token"]));
             }
             set {
-                this["EPSGCode"] = value;
+                this["Token"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("PlaceFinder")]
-        public string Loginname {
-            get {
-                return ((string)(this["Loginname"]));
-            }
-            set {
-                this["Loginname"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("PlaceFinder!1")]
-        public string Password {
-            get {
-                return ((string)(this["Password"]));
-            }
-            set {
-                this["Password"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
         public int ReturnLimit {
             get {
                 return ((int)(this["ReturnLimit"]));
@@ -73,14 +49,25 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder.Interface.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://kortforsyningen.kms.dk/Geosearch?type=json&search={0}&resources={1}&limit" +
-            "={2}&login={3}&password={4}&crs={5}")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.dataforsyningen.dk/rest/gsearch/v2.0/{0}?token={1}&q={2}&limit={3}")]
         public string Url {
             get {
                 return ((string)(this["Url"]));
             }
             set {
                 this["Url"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25832")]
+        public int ESPGCode {
+            get {
+                return ((int)(this["ESPGCode"]));
+            }
+            set {
+                this["ESPGCode"] = value;
             }
         }
     }

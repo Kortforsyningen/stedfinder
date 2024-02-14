@@ -40,24 +40,23 @@
             this.SearchRequestResourcesCheckedListBox.CheckOnClick = true;
             this.SearchRequestResourcesCheckedListBox.FormattingEnabled = true;
             this.SearchRequestResourcesCheckedListBox.Items.AddRange(new object[] {
-            "Adresser",
-            "Veje",
-            "Husnumre",
-            "Kommuner",
-            "Matrikelnumre",
-            "Sogne",
-            "Stednavne",
-            "Stednavne v2",
-            "Stednavne v3",
-            "Opstillingskredse",
-            "Politikredse",
-            "Postdistrikter",
-            "Regioner",
-            "Retskredse",
-            "Sogne"});
-            this.SearchRequestResourcesCheckedListBox.Location = new System.Drawing.Point(3, 26);
+            "Adresse",
+            "Navngiven vej",
+            "Husnummer",
+            "Kommune",
+            "Matrikel",
+            "Matrikel udgået",
+            "Sogn",
+            "Stednavn",
+            "Opstillingskreds",
+            "Politikreds",
+            "Postnummer",
+            "Region",
+            "Retskreds"});
+            this.SearchRequestResourcesCheckedListBox.Location = new System.Drawing.Point(4, 32);
+            this.SearchRequestResourcesCheckedListBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.SearchRequestResourcesCheckedListBox.Name = "SearchRequestResourcesCheckedListBox";
-            this.SearchRequestResourcesCheckedListBox.Size = new System.Drawing.Size(108, 214);
+            this.SearchRequestResourcesCheckedListBox.Size = new System.Drawing.Size(142, 225);
             this.SearchRequestResourcesCheckedListBox.TabIndex = 0;
             this.SearchRequestResourcesCheckedListBox.SelectedIndexChanged += new System.EventHandler(this.SearchRequestResourcesCheckedListBox_SelectedIndexChanged);
             // 
@@ -70,20 +69,22 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 220F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 133F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(114, 276);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 235F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(150, 305);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // okButton
             // 
             this.okButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.okButton.Location = new System.Drawing.Point(3, 246);
+            this.okButton.Location = new System.Drawing.Point(4, 267);
+            this.okButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(108, 29);
+            this.okButton.Size = new System.Drawing.Size(142, 36);
             this.okButton.TabIndex = 1;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
@@ -91,19 +92,21 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Location = new System.Drawing.Point(4, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 23);
+            this.label1.Size = new System.Drawing.Size(142, 28);
             this.label1.TabIndex = 2;
             this.label1.Text = "Versionsinfo";
             // 
             // ConfigurationsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(114, 276);
+            this.ClientSize = new System.Drawing.Size(150, 305);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ConfigurationsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Søgeregistre";

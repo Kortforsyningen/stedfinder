@@ -26,7 +26,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
 
             // This string array defines the default search areas. The strings must match the elements in the 
             // Configurations form exactly
-            string[] defaultConfig = new string[] { "Stednavne v3" };
+            string[] defaultConfig = new string[] { "Stednavn" };
 
             // Create the configurations form
             configurationsForm = new ConfigurationsForm(PlaceFinderController, defaultConfig);
@@ -98,7 +98,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             searchResultComboBox.DroppedDown = geoSearchAddresses.Count > 0;
             Cursor.Current = Cursors.Default;
             searchResultComboBox.Items.Clear();
-            searchResultComboBox.DisplayMember = "presentationString";
+            searchResultComboBox.DisplayMember = "visningstekst";
             if (geoSearchAddresses.Count > 0)
             {
                 searchResultComboBox.Items.AddRange(geoSearchAddresses.ToArray());
@@ -149,7 +149,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
             {
                 searchResultComboBox.Focus();
                 PlaceFinderController.ZoomTo(selected);
-                searchTextBox.Text = selected.presentationString;
+                searchTextBox.Text = selected.Visningstekst;
             }
         }
 
