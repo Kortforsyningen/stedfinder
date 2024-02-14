@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [v?.?.?] (Unreleased)
 
+## [v2.0.0.1] (2024-02-14)
+
+### Changed
+- Hits resource sorting and concurrentbag data structure reordered results issue fixed
+
 ## [v2.0.0] (2024-01-30)
 
 ### Changed

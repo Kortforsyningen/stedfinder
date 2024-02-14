@@ -5,6 +5,7 @@ using GeodataStyrelsen.ArcMap.PlaceFinder.Interface;
 using GeodataStyrelsen.ArcMap.PlaceFinderTest.Builder;
 using GeodataStyrelsen.ArcMap.PlaceFinderTest.Validater;
 using NUnit.Framework;
+using System.Linq;
 // Disabled because json is parsed by regex and split operations (see comments in GeosearchService source)
 // using GeoJSON.Net;
 // using GeoJSON.Net.Geometry;
@@ -290,6 +291,36 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinderTest
                 .NewExtentIsSet(expectedEnvelope)
                 .MapIsRefresh
                 .Validate();
+        }
+
+        // Designed test method to check the coordinate reference frame for search result
+        // Implemented to validate the transition to the gsearch api
+        [Test]
+        [Category("Integration")]
+        [Explicit]
+        [Ignore("Integration test")]
+        public void TestResultOrdering()
+        {
+            //Arrange
+            var searchRequestParam = new SearchRequestParams();
+            searchRequestParam.SearchText = "lind";
+            searchRequestParam.Resources = "stednavn";
+            // Checks the first hits in the list (strict order)
+            // This list is built from a direct search on (https://api.dataforsyningen.dk/rest/gsearch/v2.0/stednavn?token=f563925e76daf2f18f77f58ccef4180a&q=lind&limit=100)
+            string[] order = new string[] { "Lind (Bydel i Herning)", "Lindø (Ø i Lindelse Nor)", "Lindø (Ø i Maribo)" };
+
+            var geosearchService = new GeosearchService();
+            //Act;
+            var geoSearchAddressData = geosearchService.Request(searchRequestParam);
+            //Asset
+            var message = geoSearchAddressData.message;
+            if (message != "OK")
+            {
+                Console.WriteLine(string.Format("\"{0}\"={1}", searchRequestParam.SearchText, message));
+            }
+            // Extract the same number of hits as mentioned in the order variable 
+            System.Collections.Generic.List<string> hits = geoSearchAddressData.data.Select(ga => ga.Visningstekst).ToList().GetRange(0, order.Length);
+            CollectionAssert.AreEqual(order, hits, "Hit ordering correct");
         }
     }
 }

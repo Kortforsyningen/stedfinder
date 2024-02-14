@@ -36,7 +36,7 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                 // Split the resources into individual resources and search each of them
                 string[] resources = searchRequestParams.Resources.Split(new char[] { ',' });
 
-                ConcurrentBag<GeoSearchAddress> hitsCollection = new ConcurrentBag<GeoSearchAddress>();
+                ConcurrentBag<List<GeoSearchAddress>> hitsCollection = new ConcurrentBag<List<GeoSearchAddress>>();
 
                 System.Threading.Tasks.Parallel.ForEach(resources, resource =>
                 {
@@ -115,14 +115,15 @@ namespace GeodataStyrelsen.ArcMap.PlaceFinder
                     }
 
                     // Add the hits (if any) to the concurrent collection
-                    hits?.ForEach(x => hitsCollection.Add(x));
+                    if (hits != null && hits.Count > 0)
+                        hitsCollection.Add(hits);
                 });
 
                 // Convert concurrent collection to list (for type conformance)
                 List<GeoSearchAddress> hitList = new List<GeoSearchAddress>();
-                hitList.AddRange(hitsCollection);
+                foreach (List<GeoSearchAddress> l in hitsCollection) hitList.AddRange(l);
 
-                hitList.Sort((a, b) => a.Ressource.CompareTo(b.Ressource));
+                //hitList.Sort((a, b) => a.Ressource.CompareTo(b.Ressource));
 
                 GeoSearchAddressData response = new GeoSearchAddressData
                 {
